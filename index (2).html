@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حِبر — مساعد المحتوى الذكي للأعمال العربية</title>
+<meta name="description" content="منصة ذكاء اصطناعي تكتب لك محتوى سوشيال ميديا، إعلانات، وأوصاف منتجات احترافية بالعربي — يومياً وبدون عناء.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #F4EEE3;
+    --cream-light: #FAF6EE;
+    --cream-dark: #E8DFCE;
+    --ink: #1A1612;
+    --ink-soft: #3B342C;
+    --ink-muted: #6B6258;
+    --saffron: #C2410C;
+    --saffron-light: #EA580C;
+    --saffron-bright: #F97316;
+    --emerald: #064E3B;
+    --line: #D4C9B4;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Rubik', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    line-height: 1.7;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'El Messiri', serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+
+  /* Subtle noise texture */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 1;
+    opacity: 0.4;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .container {
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(20px);
+    background: rgba(244, 238, 227, 0.75);
+    border-bottom: 1px solid rgba(212, 201, 180, 0.4);
+    z-index: 100;
+    padding: 1.1rem 0;
+  }
+  .nav-wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    font-family: 'El Messiri', serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--saffron);
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .nav-links a {
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--saffron); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.75rem;
+    border-radius: 100px;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    border: none;
+  }
+  .btn-primary {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .btn-primary:hover {
+    background: var(--saffron);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 28px -8px rgba(194, 65, 12, 0.35);
+  }
+  .btn-ghost {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .btn-ghost:hover {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+  }
+  .btn-large {
+    padding: 1.1rem 2.25rem;
+    font-size: 1.05rem;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 6rem 0 5rem;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    top: 10%;
+    left: -10%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.4rem 1rem;
+    background: var(--cream-dark);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin-bottom: 1.75rem;
+    font-weight: 500;
+  }
+  .pulse {
+    width: 7px;
+    height: 7px;
+    background: var(--saffron-light);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .hero h1 {
+    font-size: clamp(2.5rem, 5.5vw, 4.4rem);
+    margin-bottom: 1.5rem;
+    color: var(--ink);
+  }
+  .hero h1 .accent {
+    color: var(--saffron);
+    font-style: italic;
+    position: relative;
+    display: inline-block;
+  }
+  .hero h1 .accent::after {
+    content: '';
+    position: absolute;
+    bottom: 0.1em;
+    right: 0;
+    left: 0;
+    height: 0.3em;
+    background: rgba(234, 88, 12, 0.18);
+    z-index: -1;
+  }
+  .hero p.lead {
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    margin-bottom: 2.5rem;
+    max-width: 540px;
+    line-height: 1.7;
+  }
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    flex-wrap: wrap;
+  }
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .check {
+    color: var(--saffron-light);
+    font-weight: bold;
+  }
+
+  /* HERO VISUAL — Editorial mock card */
+  .hero-visual {
+    position: relative;
+  }
+  .mock-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 2rem;
+    box-shadow: 0 30px 60px -20px rgba(26, 22, 18, 0.15),
+                0 0 0 1px rgba(212, 201, 180, 0.3);
+    transform: rotate(-1.5deg);
+    transition: transform 0.4s ease;
+  }
+  .mock-card:hover { transform: rotate(0deg) translateY(-5px); }
+  .mock-header {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px dashed var(--line);
+  }
+  .mock-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--emerald));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'El Messiri', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+  .mock-name {
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .mock-time {
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+  }
+  .mock-content {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--ink-soft);
+  }
+  .mock-content strong { color: var(--saffron); }
+  .mock-tags {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .mock-tag {
+    font-size: 0.78rem;
+    padding: 0.25rem 0.7rem;
+    background: var(--cream-dark);
+    border-radius: 100px;
+    color: var(--ink-soft);
+  }
+  .mock-badge {
+    position: absolute;
+    top: -15px;
+    left: -20px;
+    background: var(--ink);
+    color: var(--cream);
+    padding: 0.6rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transform: rotate(-8deg);
+    box-shadow: 0 8px 20px -5px rgba(26, 22, 18, 0.4);
+  }
+  .mock-badge .pulse {
+    margin-left: 0.4rem;
+  }
+
+  /* Social proof bar */
+  .social-bar {
+    margin-top: 5rem;
+    padding-top: 3rem;
+    border-top: 1px solid var(--line);
+    text-align: center;
+  }
+  .social-bar p {
+    color: var(--ink-muted);
+    font-size: 0.85rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.05em;
+  }
+  .logos-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3.5rem;
+    flex-wrap: wrap;
+    opacity: 0.5;
+    font-family: 'El Messiri', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+  }
+  .logos-row span { transition: opacity 0.3s; }
+  .logos-row span:hover { opacity: 1; color: var(--ink); }
+
+  /* SECTIONS */
+  section.section {
+    padding: 7rem 0;
+    position: relative;
+  }
+  .section-eyebrow {
+    color: var(--saffron);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    margin-bottom: 1.25rem;
+    max-width: 760px;
+  }
+  .section-subtitle {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    max-width: 640px;
+    line-height: 1.7;
+    margin-bottom: 4rem;
+  }
+
+  /* PROBLEM */
+  .problem {
+    background: var(--ink);
+    color: var(--cream);
+  }
+  .problem .section-title { color: var(--cream); }
+  .problem .section-subtitle { color: var(--cream-dark); }
+  .problem .section-eyebrow { color: var(--saffron-bright); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .problem-card {
+    padding: 2.5rem 2rem;
+    background: rgba(244, 238, 227, 0.04);
+    border: 1px solid rgba(244, 238, 227, 0.1);
+    border-radius: 20px;
+    transition: all 0.3s;
+  }
+  .problem-card:hover {
+    background: rgba(244, 238, 227, 0.07);
+    transform: translateY(-4px);
+  }
+  .problem-num {
+    font-family: 'El Messiri', serif;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--saffron-bright);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .problem-card h3 {
+    color: var(--cream);
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+  }
+  .problem-card p {
+    color: var(--cream-dark);
+    font-size: 0.98rem;
+  }
+
+  /* FEATURES */
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .feature {
+    padding: 2.5rem;
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px -15px rgba(26, 22, 18, 0.15);
+    border-color: var(--saffron-light);
+  }
+  .feature:nth-child(1) { grid-column: span 2; }
+  .feature-icon {
+    width: 56px;
+    height: 56px;
+    background: var(--ink);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--saffron-bright);
+    font-size: 1.6rem;
+    margin-bottom: 1.5rem;
+    font-family: 'El Messiri', serif;
+    font-weight: 700;
+  }
+  .feature:hover .feature-icon {
+    background: var(--saffron);
+    color: var(--cream);
+    transition: background 0.3s;
+  }
+  .feature h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .feature p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+  }
+
+  /* HOW IT WORKS */
+  .how-section { background: var(--cream-light); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+  }
+  .step {
+    text-align: center;
+    position: relative;
+  }
+  .step-number {
+    font-family: 'El Messiri', serif;
+    font-size: 4.5rem;
+    font-weight: 700;
+    color: var(--saffron);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+    opacity: 0.85;
+  }
+  .step h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.75rem;
+  }
+  .step p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  /* PRICING */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .price-card {
+    background: var(--cream-light);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .price-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 50px -15px rgba(26, 22, 18, 0.15);
+  }
+  .price-card.featured {
+    background: var(--ink);
+    color: var(--cream);
+    border-color: var(--ink);
+    transform: scale(1.04);
+  }
+  .price-card.featured:hover {
+    transform: scale(1.04) translateY(-6px);
+  }
+  .price-badge {
+    position: absolute;
+    top: -14px;
+    right: 50%;
+    transform: translateX(50%);
+    background: var(--saffron);
+    color: var(--cream);
+    padding: 0.4rem 1.1rem;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+  }
+  .price-name {
+    font-family: 'El Messiri', serif;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .price-desc {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.75rem;
+    min-height: 2.5rem;
+  }
+  .price-card.featured .price-desc { color: var(--cream-dark); }
+  .price-amount {
+    font-family: 'El Messiri', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+  .price-amount .currency {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--ink-muted);
+    margin-right: 0.25rem;
+  }
+  .price-card.featured .price-amount .currency { color: var(--cream-dark); }
+  .price-period {
+    color: var(--ink-muted);
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .price-card.featured .price-period { color: var(--cream-dark); }
+  .price-features {
+    list-style: none;
+    margin-bottom: 2rem;
+  }
+  .price-features li {
+    padding: 0.55rem 0;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .price-features li::before {
+    content: '✓';
+    color: var(--saffron);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .price-card.featured .price-features li::before { color: var(--saffron-bright); }
+  .price-cta {
+    width: 100%;
+    justify-content: center;
+  }
+  .price-card.featured .btn-ghost {
+    background: var(--cream);
+    color: var(--ink);
+    border-color: var(--cream);
+  }
+  .price-card.featured .btn-ghost:hover {
+    background: var(--saffron);
+    color: var(--cream);
+    border-color: var(--saffron);
+  }
+
+  /* TESTIMONIALS */
+  .testimonials { background: var(--cream-light); }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+  .test-card {
+    padding: 2rem;
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    position: relative;
+  }
+  .test-quote {
+    font-family: 'El Messiri', serif;
+    font-size: 3rem;
+    color: var(--saffron);
+    line-height: 0.5;
+    margin-bottom: 0.5rem;
+    opacity: 0.5;
+  }
+  .test-text {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .test-author {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--line);
+  }
+  .test-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), var(--emerald));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'El Messiri', serif;
+    font-weight: 700;
+  }
+  .test-name { font-weight: 600; font-size: 0.95rem; }
+  .test-role { color: var(--ink-muted); font-size: 0.85rem; }
+
+  /* FAQ */
+  .faq-list {
+    max-width: 820px;
+    margin: 3rem auto 0;
+  }
+  .faq-item {
+    border-bottom: 1px solid var(--line);
+    padding: 1.5rem 0;
+    cursor: pointer;
+  }
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'El Messiri', serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--ink);
+  }
+  .faq-toggle {
+    width: 32px;
+    height: 32px;
+    background: var(--cream-dark);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+  }
+  .faq-item.open .faq-toggle {
+    background: var(--saffron);
+    color: var(--cream);
+    transform: rotate(45deg);
+  }
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    color: var(--ink-soft);
+    transition: max-height 0.4s ease, padding-top 0.4s ease;
+  }
+  .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding-top: 1rem;
+  }
+
+  /* FINAL CTA */
+  .final-cta {
+    background: var(--ink);
+    color: var(--cream);
+    text-align: center;
+    padding: 6rem 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-cta::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(234, 88, 12, 0.18) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .final-cta h2 {
+    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
+    color: var(--cream);
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+  .final-cta p {
+    font-size: 1.2rem;
+    color: var(--cream-dark);
+    max-width: 600px;
+    margin: 0 auto 2.5rem;
+    position: relative;
+  }
+  .final-cta .btn-primary {
+    background: var(--saffron);
+    color: var(--cream);
+    position: relative;
+  }
+  .final-cta .btn-primary:hover {
+    background: var(--saffron-light);
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: var(--cream-dark);
+    padding: 3rem 0 2rem;
+    border-top: 1px solid rgba(244, 238, 227, 0.1);
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  footer .logo {
+    color: var(--cream);
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+  .footer-links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    color: var(--cream-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-links a:hover { color: var(--saffron-bright); }
+  .copyright { opacity: 0.5; font-size: 0.85rem; }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .container { padding: 0 1.25rem; }
+    .nav-links { display: none; }
+    .nav-links.mobile-show { display: flex; }
+    .hero { padding: 3rem 0; }
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+    .problem-grid, .features-grid, .steps, .pricing-grid, .test-grid {
+      grid-template-columns: 1fr;
+    }
+    .feature:nth-child(1) { grid-column: span 1; }
+    .price-card.featured { transform: none; }
+    .price-card.featured:hover { transform: translateY(-6px); }
+    section.section { padding: 4rem 0; }
+    .hero h1 { font-size: 2.5rem; }
+    .logos-row { gap: 1.5rem; font-size: 1.1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container nav-wrap">
+    <a href="#" class="logo">حِبر<span class="logo-dot"></span></a>
+    <div class="nav-links">
+      <a href="#features">المميزات</a>
+      <a href="#how">كيف يشتغل</a>
+      <a href="#pricing">الباقات</a>
+      <a href="#faq">الأسئلة</a>
+      <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أعرف%20أكثر%20عن%20حِبر" target="_blank" class="btn btn-primary">ابدأ مجاناً</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <div class="hero-eyebrow">
+          <span class="pulse"></span>
+          مدعوم بأحدث تقنيات الذكاء الاصطناعي
+        </div>
+        <h1>
+          محتوى عربي <span class="accent">احترافي</span><br>
+          لمحلّك، يومياً، بضغطة زر.
+        </h1>
+        <p class="lead">
+          حِبر يكتب لك منشورات السوشيال ميديا، الإعلانات، وأوصاف المنتجات بلهجة تناسب عملاءك السعوديين والخليجيين — توفّر وقتك وتركّز على شغلك الحقيقي.
+        </p>
+        <div class="hero-cta">
+          <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أجرّب%20حِبر%20٧%20أيام%20مجاناً" target="_blank" class="btn btn-primary btn-large">جرّب ٧ أيام مجاناً</a>
+          <a href="#how" class="btn btn-ghost btn-large">شوف كيف يشتغل ←</a>
+        </div>
+        <div class="hero-meta">
+          <span><span class="check">✓</span> بدون بطاقة ائتمان</span>
+          <span><span class="check">✓</span> إلغاء في أي وقت</span>
+          <span><span class="check">✓</span> دعم بالعربي ٢٤/٧</span>
+        </div>
+      </div>
+      <div class="hero-visual reveal">
+        <div class="mock-badge">
+          مولّد الآن<span class="pulse"></span>
+        </div>
+        <div class="mock-card">
+          <div class="mock-header">
+            <div class="mock-avatar">م</div>
+            <div>
+              <div class="mock-name">مطعم البيت الدمشقي</div>
+              <div class="mock-time">منشور إنستقرام · قبل ثانية</div>
+            </div>
+          </div>
+          <div class="mock-content">
+            <strong>طعم الشام يوصل لبيتك 🌿</strong><br>
+            جرّب أشهى أطباقنا الدمشقية اليوم — من الكبّة المقلية إلى المنسف الأصيل، كل لقمة قصة. اطلب الحين وخصم ١٥٪ لأول طلب 🍽️
+            <div class="mock-tags">
+              <span class="mock-tag">#مطاعم_الدمام</span>
+              <span class="mock-tag">#أكل_شامي</span>
+              <span class="mock-tag">#توصيل</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="social-bar reveal">
+      <p>موثوق من قبل أصحاب الأعمال في</p>
+      <div class="logos-row">
+        <span>الرياض</span>
+        <span>·</span>
+        <span>جدة</span>
+        <span>·</span>
+        <span>الدمام</span>
+        <span>·</span>
+        <span>دبي</span>
+        <span>·</span>
+        <span>الكويت</span>
+        <span>·</span>
+        <span>الدوحة</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="section problem">
+  <div class="container">
+    <span class="section-eyebrow reveal">المشكلة</span>
+    <h2 class="section-title reveal">صاحب المحل ما عنده وقت يكتب محتوى كل يوم</h2>
+    <p class="section-subtitle reveal">
+      أنت مشغول بإدارة محلك، عمالك، عملاءك. وفي نفس الوقت السوشيال ميديا تتطلّب محتوى يومي. النتيجة؟ حسابات نائمة، عملاء يبتعدون، ومنافسون يكبرون.
+    </p>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-num">٨٠٪</div>
+        <h3>من المحلات الصغيرة</h3>
+        <p>تنشر أقل من مرتين أسبوعياً في السوشيال ميديا، رغم أن الجمهور يتوقّع محتوى يومي.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-num">٣٢h</div>
+        <h3>ساعة شهرياً</h3>
+        <p>تضيع في كتابة المحتوى — وقت كان ممكن تستثمره في تطوير منتجك وخدمة عملاءك.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-num">٢٠٠٠+</div>
+        <h3>ريال شهرياً</h3>
+        <p>تدفعها للمسوّقين والوكالات، بدون ضمان نتائج أو محتوى يعكس صوت علامتك الحقيقي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section" id="features">
+  <div class="container">
+    <span class="section-eyebrow reveal">الحل</span>
+    <h2 class="section-title reveal">كل ما تحتاجه لتسويق محلّك — في مكان واحد</h2>
+    <p class="section-subtitle reveal">
+      حِبر مش مجرد مولّد نصوص. هو مساعد متكامل مصمّم خصيصاً للأعمال السعودية والخليجية.
+    </p>
+    <div class="features-grid">
+      <div class="feature reveal">
+        <div class="feature-icon">١</div>
+        <h3>منشورات سوشيال ميديا يومية</h3>
+        <p>احصل على ٧ منشورات أسبوعية جاهزة للإنستقرام، تويتر، وسناب شات — مخصصة لنوع نشاطك وجمهورك المستهدف، مع هاشتاقات وإيموجي مدروسة.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">٢</div>
+        <h3>إعلانات احترافية</h3>
+        <p>عناوين ونصوص إعلانية جاهزة لحملات قوقل وميتا — تجذب الانتباه وتزيد التحويلات.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">٣</div>
+        <h3>وصف منتجات</h3>
+        <p>لمتاجر سلة وزد. أوصاف تبيع، لا تكتفي بالشرح.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">٤</div>
+        <h3>ردود واتساب جاهزة</h3>
+        <p>قوالب احترافية للرد على استفسارات عملاءك، الشكاوى، والطلبات — وفّر وقت موظفينك.</p>
+      </div>
+      <div class="feature reveal">
+        <div class="feature-icon">٥</div>
+        <h3>جدولة وتذكيرات</h3>
+        <p>احفظ محتواك ونحن نذكّرك بأفضل أوقات النشر حسب جمهورك السعودي.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="section how-section" id="how">
+  <div class="container">
+    <span class="section-eyebrow reveal">كيف يشتغل</span>
+    <h2 class="section-title reveal">ثلاث خطوات بسيطة، نتيجة فورية</h2>
+    <p class="section-subtitle reveal">
+      ما تحتاج خبرة في التسويق. ما تحتاج تتعلّم برامج معقدة. فقط ثلاث خطوات.
+    </p>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-number">١</div>
+        <h3>عرّفنا بمحلّك</h3>
+        <p>اختر نوع نشاطك (مطعم، عيادة، صالون، متجر) واكتب اسم محلّك ووصف بسيط.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">٢</div>
+        <h3>اضغط "ولّد محتوى"</h3>
+        <p>حِبر يفكّر مثل مسوّق محترف ويكتب لك المحتوى بلهجة تناسب عملاءك.</p>
+      </div>
+      <div class="step reveal">
+        <div class="step-number">٣</div>
+        <h3>انشر واستمتع</h3>
+        <p>انسخ المحتوى أو احفظه للنشر لاحقاً. المحتوى جاهز ١٠٠٪، بدون تعديل.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="section" id="pricing">
+  <div class="container">
+    <span class="section-eyebrow reveal">الباقات</span>
+    <h2 class="section-title reveal">اختر الباقة المناسبة لحجم أعمالك</h2>
+    <p class="section-subtitle reveal">
+      كل الباقات تشمل ٧ أيام تجربة مجانية. بدون بطاقة ائتمان. ألغِ متى تبي.
+    </p>
+    <div class="pricing-grid">
+      <div class="price-card reveal">
+        <div class="price-name">المبتدئ</div>
+        <div class="price-desc">مناسبة للمحلات الصغيرة والمشاريع الجديدة</div>
+        <div class="price-amount"><span class="currency">ر.س</span>٩٩</div>
+        <div class="price-period">شهرياً</div>
+        <ul class="price-features">
+          <li>٣٠ منشور سوشيال ميديا شهرياً</li>
+          <li>١٠ إعلانات قوقل وميتا</li>
+          <li>٥ أوصاف منتجات</li>
+          <li>دعم بالواتساب</li>
+        </ul>
+        <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20المبتدئ%20(٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
+      </div>
+
+      <div class="price-card featured reveal">
+        <div class="price-badge">الأكثر طلباً</div>
+        <div class="price-name">الاحترافي</div>
+        <div class="price-desc">للأعمال النامية اللي تبي تطلع للقمة</div>
+        <div class="price-amount"><span class="currency">ر.س</span>١٩٩</div>
+        <div class="price-period">شهرياً</div>
+        <ul class="price-features">
+          <li>٩٠ منشور سوشيال ميديا شهرياً</li>
+          <li>٣٠ إعلان قوقل وميتا</li>
+          <li>وصف منتجات غير محدود</li>
+          <li>ردود واتساب جاهزة</li>
+          <li>جدولة محتوى ذكية</li>
+          <li>دعم بالأولوية</li>
+        </ul>
+        <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20الاحترافي%20(١٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
+      </div>
+
+      <div class="price-card reveal">
+        <div class="price-name">الأعمال</div>
+        <div class="price-desc">للعلامات الكبيرة والوكالات الإعلانية</div>
+        <div class="price-amount"><span class="currency">ر.س</span>٣٩٩</div>
+        <div class="price-period">شهرياً</div>
+        <ul class="price-features">
+          <li>محتوى غير محدود</li>
+          <li>إدارة عدة علامات تجارية</li>
+          <li>تخصيص لهجة العلامة</li>
+          <li>مدير حساب مخصص</li>
+          <li>دعم فوري ٢٤/٧</li>
+          <li>تقارير أداء شهرية</li>
+        </ul>
+        <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20الأعمال%20(٣٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials">
+  <div class="container">
+    <span class="section-eyebrow reveal">آراء عملائنا</span>
+    <h2 class="section-title reveal">أكثر من ٥٠٠ صاحب عمل غيّروا طريقة تسويقهم</h2>
+    <div class="test-grid">
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <p class="test-text">صرت أنشر يومياً بدون ما أفكر! حسابي زاد ٣٠٠٪ في الشهرين الأخيرين، والعملاء يجوني من السوشيال ميديا مباشرة.</p>
+        <div class="test-author">
+          <div class="test-avatar">س</div>
+          <div>
+            <div class="test-name">سارة المطيري</div>
+            <div class="test-role">صالون تجميل، الرياض</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <p class="test-text">كنت أدفع ٢٥٠٠ ريال للمسوّق. اليوم أدفع ١٩٩ وأحصل على محتوى أفضل وأسرع. حِبر غيّر معادلة التسويق عندي.</p>
+        <div class="test-author">
+          <div class="test-avatar">أ</div>
+          <div>
+            <div class="test-name">أحمد العتيبي</div>
+            <div class="test-role">مطعم، جدة</div>
+          </div>
+        </div>
+      </div>
+      <div class="test-card reveal">
+        <div class="test-quote">"</div>
+        <p class="test-text">المحتوى يطلع باللهجة الخليجية الصحيحة، بدون أخطاء، وبأسلوب يلامس عميلي السعودي. أحسن استثمار سوّيته هالسنة.</p>
+        <div class="test-author">
+          <div class="test-avatar">ف</div>
+          <div>
+            <div class="test-name">فهد القحطاني</div>
+            <div class="test-role">متجر إلكتروني، الدمام</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section" id="faq">
+  <div class="container">
+    <span class="section-eyebrow reveal">الأسئلة الشائعة</span>
+    <h2 class="section-title reveal">كل اللي تبي تعرفه</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-question">
+          هل المحتوى مكتوب بالعربية الفصحى أو باللهجة؟
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          أنت تختار. حِبر يقدر يكتب بالفصحى المبسّطة، اللهجة السعودية، أو الخليجية حسب جمهورك المستهدف. كمان يقدر يخلط بينها لو احتجت.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          هل أحتاج خبرة تقنية لاستخدام المنصة؟
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          أبداً. لو تعرف تستخدم واتساب، تقدر تستخدم حِبر. الواجهة بسيطة جداً ومصممة لأصحاب الأعمال، مش للمبرمجين.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          هل المحتوى أصلي ولا منسوخ؟
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          ١٠٠٪ أصلي. كل محتوى يُولَّد خصيصاً لك بناءً على معلومات محلّك. ما فيه نسخ ولا لصق من مصادر أخرى.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          ماذا لو ما أعجبني المحتوى؟
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          تقدر تعيد التوليد بضغطة زر، أو تعدّل عليه بنفسك، أو ترفض الباقة وتاخذ فلوسك خلال ١٤ يوم بدون أي أسئلة.
+        </div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">
+          هل تدعمون طرق الدفع السعودية؟
+          <div class="faq-toggle">+</div>
+        </div>
+        <div class="faq-answer">
+          نعم — مدى، آبل باي، فيزا، ماستركارد، وحتى التحويل البنكي للباقات السنوية. كل المدفوعات آمنة ومشفّرة.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta" id="cta">
+  <div class="container">
+    <h2 class="reveal">جاهز توفّر ساعاتك ووقتك؟</h2>
+    <p class="reveal">انضم لـ ٥٠٠+ صاحب عمل في السعودية والخليج. ابدأ تجربتك المجانية اليوم — بدون بطاقة ائتمان، بدون مخاطرة.</p>
+    <a href="https://wa.me/9665484707515484707515484707515484707515484707515484707515484707515484707515XXXXXXXX?text=السلام%20عليكم،%20أبي%20أبدأ%20تجربتي%20المجانية%20مع%20حِبر" target="_blank" class="btn btn-primary btn-large reveal">ابدأ ٧ أيام مجانية الآن ←</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <a href="#" class="logo">حِبر<span class="logo-dot"></span></a>
+    <div class="footer-links">
+      <a href="#features">المميزات</a>
+      <a href="#pricing">الباقات</a>
+      <a href="#faq">الأسئلة</a>
+      <a href="#">الشروط</a>
+      <a href="#">الخصوصية</a>
+      <a href="#">تواصل معنا</a>
+    </div>
+    <p class="copyright">© ٢٠٢٦ حِبر · جميع الحقوق محفوظة · صُنع بحب في السعودية 🇸🇦</p>
+  </div>
+</footer>
+
+<script>
+  // FAQ toggle
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      item.classList.toggle('open');
+    });
+  });
+
+  // Reveal on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
