@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>إتمام الطلب — Chattlle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .checkout-layout{
+    display:grid;
+    grid-template-columns: 1fr 420px;
+    gap:2.5rem;
+    align-items:start;
+  }
+
+  .form-card{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2rem;
+    margin-bottom:1.5rem;
+  }
+  .form-card h3{
+    font-size:1.3rem;
+    margin-bottom:1.5rem;
+    color: var(--gold);
+    display:flex;
+    align-items:center;
+    gap:.7rem;
+  }
+  html[lang="ar"] .form-card h3{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .form-card h3{ font-family:'Fraunces', serif; font-weight:600 }
+  .form-card h3 .num{
+    width:30px;height:30px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.9rem;
+    font-weight:700;
+    font-family:'Outfit', sans-serif;
+  }
+
+  .form-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:1rem;
+    margin-bottom:1rem;
+  }
+  .form-group{
+    margin-bottom:1rem;
+  }
+  .form-group label{
+    display:block;
+    color: var(--ink-mute);
+    font-size:.9rem;
+    margin-bottom:.4rem;
+  }
+  .form-group input,
+  .form-group select{
+    width:100%;
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    color: var(--ink);
+    padding:.85rem 1rem;
+    border-radius:14px;
+    font-family:inherit;
+    font-size:.95rem;
+    outline:none;
+    transition: border .3s, background .3s;
+  }
+  .form-group input:focus,
+  .form-group select:focus{
+    border-color: var(--gold);
+    background: rgba(245,239,227,.06);
+  }
+  .form-group select{
+    cursor:pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23b8a99a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: left 1rem center;
+    padding-left:2.5rem;
+  }
+  html[lang="ar"] .form-group select{
+    background-position: left 1rem center;
+  }
+  html[lang="en"] .form-group select{
+    background-position: right 1rem center;
+    padding-right:2.5rem;
+    padding-left:1rem;
+  }
+
+  /* Payment methods */
+  .payment-methods{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:.8rem;
+    margin-bottom:1.5rem;
+  }
+  .pay-method{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:1rem;
+    text-align:center;
+    cursor:pointer;
+    transition: all .3s;
+    position:relative;
+  }
+  .pay-method:hover{ border-color: rgba(232,193,120,.3) }
+  .pay-method.active{
+    border-color: var(--gold);
+    background: rgba(232,193,120,.08);
+  }
+  .pay-method.active::after{
+    content:"✓";
+    position:absolute;
+    top:.5rem;
+    inset-inline-end:.5rem;
+    width:22px;height:22px;
+    background: var(--gold);
+    color: var(--bg-deep);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:.75rem;
+    font-weight:700;
+  }
+  .pay-method .ico{
+    font-size:1.8rem;
+    margin-bottom:.3rem;
+  }
+  .pay-method .name{
+    font-size:.85rem;
+    font-weight:600;
+  }
+
+  /* Demo banner */
+  .demo-banner{
+    background: linear-gradient(135deg, rgba(255,107,107,.15), rgba(232,193,120,.1));
+    border:1px solid rgba(255,107,107,.3);
+    border-radius:14px;
+    padding:1rem 1.2rem;
+    margin-bottom:1.5rem;
+    color: var(--ink);
+    font-size:.9rem;
+    text-align:center;
+  }
+
+  /* Summary */
+  .summary-card{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.8rem;
+    position:sticky;
+    top:6rem;
+  }
+  .summary-card h3{
+    font-size:1.2rem;
+    margin-bottom:1.2rem;
+    padding-bottom:1.2rem;
+    border-bottom:1px solid var(--line);
+  }
+  html[lang="ar"] .summary-card h3{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .summary-card h3{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .summary-items{
+    margin-bottom:1.5rem;
+    max-height:300px;
+    overflow-y:auto;
+  }
+  .summary-item{
+    display:flex;
+    gap:.8rem;
+    padding:.7rem 0;
+    border-bottom:1px solid var(--line);
+    align-items:center;
+  }
+  .summary-item:last-child{ border-bottom:none }
+  .summary-item .mini-img{
+    width:50px;
+    height:50px;
+    border-radius:10px;
+    position:relative;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .summary-item .mini-img .gradient{ position:absolute; inset:0 }
+  .summary-item .mini-img .ic{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.4rem;
+  }
+  .summary-item .info{ flex:1; min-width:0 }
+  .summary-item .info .nm{
+    font-size:.85rem;
+    line-height:1.3;
+    margin-bottom:.2rem;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient:vertical;
+  }
+  .summary-item .info .qty{
+    color: var(--ink-mute);
+    font-size:.8rem;
+  }
+  .summary-item .pr{
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
+    color: var(--gold);
+    font-size:1rem;
+    flex-shrink:0;
+  }
+
+  .summary-row{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:.7rem;
+    color: var(--ink-mute);
+    font-size:.95rem;
+  }
+  .summary-row.total{
+    padding-top:1rem;
+    margin-top:1rem;
+    border-top:1px solid var(--line);
+    color: var(--ink);
+    font-size:1.15rem;
+    font-weight:600;
+  }
+  .summary-row .amt{
+    font-family:'Cormorant Garamond', serif;
+  }
+  .summary-row.total .amt{
+    color: var(--gold);
+    font-size:1.5rem;
+  }
+
+  .terms-text{
+    color: var(--ink-mute);
+    font-size:.85rem;
+    margin: 1rem 0;
+    line-height:1.6;
+  }
+  .terms-text a{
+    color: var(--gold);
+    text-decoration:none;
+  }
+
+  .summary-card .btn-primary{
+    width:100%;
+  }
+
+  .empty-redirect{
+    text-align:center;
+    padding:5rem 0;
+  }
+  .empty-redirect h2{
+    font-size:1.8rem;
+    margin-bottom:1rem;
+  }
+
+  @media (max-width: 900px){
+    .checkout-layout{ grid-template-columns:1fr; gap:1.5rem }
+    .summary-card{ position:static }
+    .form-row{ grid-template-columns:1fr }
+    .payment-methods{ grid-template-columns:1fr 1fr; gap:.6rem }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <div class="nav-right" style="margin-inline-start:auto">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+  <div class="container">
+    <button class="back-link" type="button" data-fallback="cart.html">
+      <svg class="back-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+      <span data-i18n="bc.back">العودة</span>
+    </button>
+    <div class="breadcrumb">
+      <a href="index.html" data-i18n="bc.home"></a>
+      <span class="breadcrumb-sep">/</span>
+      <a href="cart.html" data-i18n="bc.cart"></a>
+      <span class="breadcrumb-sep">/</span>
+      <span data-i18n="bc.checkout"></span>
+    </div>
+    <h1 class="display" data-i18n="checkout.title"></h1>
+  </div>
+</section>
+
+<!-- CHECKOUT -->
+<section style="padding-top:2rem">
+  <div class="container">
+    <div id="checkoutContent"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/products.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/back-to-top.js"></script>
+<script>
+let selectedPaymentMethod = 'card';
+
+function renderCheckout(){
+  const lang = getCurrentLang();
+  const cartData = getCartDetailed();
+  const container = document.getElementById('checkoutContent');
+
+  if(cartData.length === 0){
+    container.innerHTML = `
+      <div class="empty-redirect">
+        <div style="font-size:4rem;margin-bottom:1rem;opacity:.5">🛒</div>
+        <h2>${getText('cart.empty', lang)}</h2>
+        <p style="color:var(--ink-mute);margin-bottom:2rem">${getText('cart.emptyDesc', lang)}</p>
+        <a href="index.html#products" class="btn-primary">${getText('btn.continueShopping', lang)}</a>
+      </div>
+    `;
+    return;
+  }
+
+  const subtotal = getCartSubtotal();
+  const vat = getCartVAT();
+  const total = getCartTotal();
+
+  const summaryItemsHtml = cartData.map(item => {
+    const t = item.product[lang];
+    const miniVisual = item.product.imageUrl
+      ? `<img src="${item.product.imageUrl}" alt="${t.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`
+      : `<div class="gradient ${item.product.gradient}"></div><div class="ic">${item.product.icon}</div>`;
+    return `
+      <div class="summary-item">
+        <div class="mini-img">
+          ${miniVisual}
+        </div>
+        <div class="info">
+          <div class="nm">${t.title}</div>
+          <div class="qty">${getText('cart.qty', lang)}: ${item.qty}</div>
+        </div>
+        <div class="pr">${formatPrice(item.lineTotal, lang)}</div>
+      </div>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div class="checkout-layout">
+
+      <!-- Form Side -->
+      <div>
+
+        <div class="demo-banner">${getText('checkout.demoNotice', lang)}</div>
+
+        <!-- Contact info -->
+        <div class="form-card">
+          <h3><span class="num">1</span>${getText('checkout.contact', lang)}</h3>
+          <div class="form-group">
+            <label>${getText('checkout.fullName', lang)}</label>
+            <input type="text" id="cName" placeholder="${getText('checkout.fullNamePh', lang)}" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>${getText('checkout.email', lang)}</label>
+              <input type="email" id="cEmail" placeholder="${getText('checkout.emailPh', lang)}" required>
+            </div>
+            <div class="form-group">
+              <label>${getText('checkout.phone', lang)}</label>
+              <input type="tel" id="cPhone" placeholder="${getText('checkout.phonePh', lang)}" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>${getText('checkout.country', lang)}</label>
+            <select id="cCountry">
+              <option value="SA">${lang === 'ar' ? 'المملكة العربية السعودية' : 'Saudi Arabia'}</option>
+              <option value="AE">${lang === 'ar' ? 'الإمارات' : 'United Arab Emirates'}</option>
+              <option value="KW">${lang === 'ar' ? 'الكويت' : 'Kuwait'}</option>
+              <option value="QA">${lang === 'ar' ? 'قطر' : 'Qatar'}</option>
+              <option value="BH">${lang === 'ar' ? 'البحرين' : 'Bahrain'}</option>
+              <option value="OM">${lang === 'ar' ? 'عمان' : 'Oman'}</option>
+              <option value="EG">${lang === 'ar' ? 'مصر' : 'Egypt'}</option>
+              <option value="JO">${lang === 'ar' ? 'الأردن' : 'Jordan'}</option>
+              <option value="OTHER">${lang === 'ar' ? 'دولة أخرى' : 'Other'}</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Payment method -->
+        <div class="form-card">
+          <h3><span class="num">2</span>${getText('checkout.payment', lang)}</h3>
+
+          <div class="payment-methods" id="paymentMethods">
+            <div class="pay-method active" data-method="card">
+              <div class="ico">💳</div>
+              <div class="name">${getText('checkout.card', lang)}</div>
+            </div>
+            <div class="pay-method" data-method="apple_pay">
+              <div class="ico"></div>
+              <div class="name">${getText('checkout.applePay', lang)}</div>
+            </div>
+            <div class="pay-method" data-method="stc_pay">
+              <div class="ico">📱</div>
+              <div class="name">${getText('checkout.stcPay', lang)}</div>
+            </div>
+          </div>
+
+          <div id="cardFields">
+            <div class="form-group">
+              <label>${getText('checkout.cardNumber', lang)}</label>
+              <input type="text" id="cCardNumber" placeholder="${getText('checkout.cardNumberPh', lang)}" maxlength="19" autocomplete="cc-number">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label>${getText('checkout.expiry', lang)}</label>
+                <input type="text" id="cExpiry" placeholder="${getText('checkout.expiryPh', lang)}" maxlength="5" autocomplete="cc-exp">
+              </div>
+              <div class="form-group">
+                <label>${getText('checkout.cvc', lang)}</label>
+                <input type="text" id="cCvc" placeholder="${getText('checkout.cvcPh', lang)}" maxlength="4" autocomplete="cc-csc">
+              </div>
+            </div>
+            <div class="form-group">
+              <label>${getText('checkout.cardName', lang)}</label>
+              <input type="text" id="cCardName" autocomplete="cc-name">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Summary Side -->
+      <div class="summary-card">
+        <h3>${getText('cart.summary', lang)}</h3>
+
+        <div class="summary-items">${summaryItemsHtml}</div>
+
+        <div class="summary-row">
+          <span>${getText('cart.subtotal', lang)}</span>
+          <span class="amt">${formatPrice(subtotal.toFixed(2), lang)}</span>
+        </div>
+        <div class="summary-row">
+          <span>${getText('cart.vat', lang)}</span>
+          <span class="amt">${formatPrice(vat.toFixed(2), lang)}</span>
+        </div>
+        <div class="summary-row total">
+          <span>${getText('cart.total', lang)}</span>
+          <span class="amt">${formatPrice(total.toFixed(2), lang)}</span>
+        </div>
+
+        <div class="terms-text">
+          ${getText('checkout.terms', lang)}
+          <a href="#">${getText('checkout.termsLink', lang)}</a>
+          ${getText('checkout.and', lang)}
+          <a href="#">${getText('checkout.privacyLink', lang)}</a>.
+        </div>
+
+        <button class="btn-primary" id="placeOrderBtn">
+          ${getText('btn.placeOrder', lang)}
+          <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <div class="secure-note" style="text-align:center;color:var(--ink-mute);font-size:.85rem;margin-top:1rem">
+          ${getText('cart.secureCheckout', lang)}
+        </div>
+      </div>
+    </div>
+  `;
+
+  attachCheckoutHandlers();
+}
+
+function attachCheckoutHandlers(){
+  // Payment method toggle
+  document.querySelectorAll('.pay-method').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.pay-method').forEach(p => p.classList.remove('active'));
+      el.classList.add('active');
+      selectedPaymentMethod = el.dataset.method;
+      const cardFields = document.getElementById('cardFields');
+      cardFields.style.display = (selectedPaymentMethod === 'card') ? 'block' : 'none';
+    });
+  });
+
+  // Card number formatting
+  const cardInput = document.getElementById('cCardNumber');
+  if(cardInput){
+    cardInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 16);
+      v = v.replace(/(.{4})/g, '$1 ').trim();
+      e.target.value = v;
+    });
+  }
+
+  // Expiry formatting
+  const expInput = document.getElementById('cExpiry');
+  if(expInput){
+    expInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 4);
+      if(v.length >= 3) v = v.slice(0, 2) + '/' + v.slice(2);
+      e.target.value = v;
+    });
+  }
+
+  // CVC numbers only
+  const cvcInput = document.getElementById('cCvc');
+  if(cvcInput){
+    cvcInput.addEventListener('input', (e) => {
+      e.target.value = e.target.value.replace(/\D/g, '').slice(0, 4);
+    });
+  }
+
+  // Place order button
+  document.getElementById('placeOrderBtn').addEventListener('click', handlePlaceOrder);
+}
+
+async function handlePlaceOrder(){
+  const lang = getCurrentLang();
+  const btn = document.getElementById('placeOrderBtn');
+
+  // Basic validation
+  const name = document.getElementById('cName').value.trim();
+  const email = document.getElementById('cEmail').value.trim();
+  const phone = document.getElementById('cPhone').value.trim();
+
+  if(!name || !email || !phone){
+    showToast(lang === 'ar' ? 'الرجاء تعبئة جميع الحقول' : 'Please fill all required fields', '!');
+    return;
+  }
+
+  if(selectedPaymentMethod === 'card'){
+    const cardNumber = document.getElementById('cCardNumber').value.replace(/\s/g, '');
+    const expiry = document.getElementById('cExpiry').value;
+    const cvc = document.getElementById('cCvc').value;
+
+    if(cardNumber.length < 13 || !expiry || cvc.length < 3){
+      showToast(lang === 'ar' ? 'الرجاء التحقق من بيانات البطاقة' : 'Please check your card details', '!');
+      return;
+    }
+  }
+
+  // Disable button & show processing
+  btn.disabled = true;
+  btn.innerHTML = `<span class="spinner" style="display:inline-block;width:18px;height:18px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:spin .8s linear infinite"></span> ${getText('checkout.processing', lang)}`;
+
+  /* =================================================================
+     💳 REAL PAYMENT INTEGRATION POINT
+     =================================================================
+     This is where you call Moyasar/Tap API.
+     Currently this is a DEMO that simulates a successful payment.
+
+     To activate real payments, replace the setTimeout below with:
+
+     === MOYASAR EXAMPLE ===
+     try {
+       const response = await fetch('YOUR_BACKEND_URL/create-payment', {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify({
+           amount: Math.round(getCartTotal() * 100), // halalas
+           currency: 'SAR',
+           description: 'Chattlle order',
+           source: {
+             type: 'creditcard',
+             name: document.getElementById('cCardName').value,
+             number: cardNumber,
+             cvc: cvc,
+             month: expiry.split('/')[0],
+             year: '20' + expiry.split('/')[1]
+           },
+           callback_url: window.location.origin + '/success.html',
+           metadata: { customer_name: name, customer_email: email }
+         })
+       });
+       const result = await response.json();
+       if(result.status === 'paid'){
+         // Success! Continue to success page
+       } else {
+         // Handle failure
+       }
+     } catch(err){ ... }
+
+     === TAP EXAMPLE ===
+     // Similar pattern; Tap uses /charges endpoint.
+
+     ⚠️ IMPORTANT: The actual API call MUST be made through your own
+     backend server (using your secret API key). NEVER expose your
+     secret key in this frontend code!
+     ================================================================= */
+
+  // DEMO: simulate processing delay
+  setTimeout(() => {
+    const orderId = generateOrderId();
+    const orderItems = getCartDetailed();
+    const orderSubtotal = getCartSubtotal();
+    const orderVat = getCartVAT();
+    const orderTotal = getCartTotal();
+
+    saveOrder({
+      id: orderId,
+      customer: { name, email, phone },
+      items: orderItems,
+      subtotal: orderSubtotal,
+      vat: orderVat,
+      total: orderTotal,
+      method: selectedPaymentMethod,
+      date: new Date().toISOString()
+    });
+
+    // Fire-and-forget: send the order email (won't block redirect)
+    sendOrderEmail({
+      orderNumber: orderId,
+      customer: { name, email },
+      items: orderItems.map(i => ({
+        title: i.product[lang].title,
+        format: i.product[lang].format,
+        size: i.product[lang].size,
+        filePath: i.product.fileUrl  // path inside product-files bucket
+      })),
+      subtotal: orderSubtotal,
+      vat: orderVat,
+      total: orderTotal,
+      lang: lang
+    });
+
+    clearCart();
+    window.location.href = 'success.html';
+  }, 2000);
+}
+
+/* ============ ORDER EMAIL ============
+   Sends the confirmation email via Netlify Function (which uses Resend).
+   Fails silently — if email isn't configured yet, order still goes through.
+==================================== */
+async function sendOrderEmail(payload){
+  try {
+    const res = await fetch('/.netlify/functions/send-order-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    if(!res.ok){
+      console.warn('Email send failed (this is OK if Resend is not configured yet):', await res.text());
+    }
+  } catch(err){
+    // Silently fail — likely means the function isn't deployed yet
+    console.warn('Email function not available:', err.message);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  initLangSwitcher('checkout');
+
+  // Load products so cart items resolve correctly
+  await loadProducts();
+  renderCheckout();
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+
+document.addEventListener('langChanged', renderCheckout);
+</script>
+
+<style>
+@keyframes spin{ to{ transform:rotate(360deg) } }
+</style>
+</body>
+</html>

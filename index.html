@@ -3,827 +3,406 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>حِبر — مساعد المحتوى الذكي للأعمال العربية</title>
-<meta name="description" content="منصة ذكاء اصطناعي تكتب لك محتوى سوشيال ميديا، إعلانات، وأوصاف منتجات احترافية بالعربي — يومياً وبدون عناء.">
+<title>Chattlle — متجر الملفات الرقمية بالذكاء الاصطناعي</title>
+<meta name="description" content="منصة Chattlle لبيع الملفات الإلكترونية المُولّدة بالذكاء الاصطناعي.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&family=Rubik:wght@300;400;500;600;700&family=Reem+Kufi:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
 <style>
-  :root {
-    --cream: #F4EEE3;
-    --cream-light: #FAF6EE;
-    --cream-dark: #E8DFCE;
-    --ink: #1A1612;
-    --ink-soft: #3B342C;
-    --ink-muted: #6B6258;
-    --saffron: #C2410C;
-    --saffron-light: #EA580C;
-    --saffron-bright: #F97316;
-    --emerald: #064E3B;
-    --line: #D4C9B4;
+  /* page-specific styles */
+  .hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding-top:8rem;
+    position:relative;
   }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Rubik', sans-serif;
-    background: var(--cream);
-    color: var(--ink);
-    line-height: 1.7;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:4rem;
+    align-items:center;
   }
-
-  h1, h2, h3, h4 {
-    font-family: 'El Messiri', serif;
-    font-weight: 600;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+  .hero h1{ font-size: clamp(2.8rem, 6vw, 5.5rem); margin:1.5rem 0 }
+  .hero h1 .accent{
+    background: linear-gradient(120deg, var(--gold) 0%, var(--gold-soft) 50%, var(--violet-glow) 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    font-style:italic;
+    font-family:'Cormorant Garamond', serif;
+    font-weight:600;
   }
-
-  /* Subtle noise texture */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    opacity: 0.4;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3CfeColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0 0.1 0 0 0 0.04 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  html[lang="en"] .hero h1 .accent{ font-family:'Fraunces', serif; font-style:italic }
+  .hero p.lead{
+    font-size:1.25rem;
+    color:var(--ink-mute);
+    margin-bottom:2.5rem;
+    max-width:520px;
+    line-height:1.8;
   }
-
-  .container {
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 0 2rem;
-    position: relative;
-    z-index: 2;
+  .hero-ctas{ display:flex; gap:1rem; flex-wrap:wrap; align-items:center }
+  .hero-visual{ position:relative; height:560px }
+  .orb{ position:absolute; border-radius:50%; filter: blur(2px) }
+  .orb-1{
+    width:380px;height:380px;
+    background: radial-gradient(circle at 30% 30%, var(--violet-glow), var(--violet) 60%, transparent 80%);
+    top:50px;right:40px;
+    opacity:.8;
+    animation: float 8s ease-in-out infinite;
   }
+  .orb-2{
+    width:220px;height:220px;
+    background: radial-gradient(circle at 30% 30%, var(--gold-soft), var(--gold) 60%, transparent 80%);
+    bottom:60px;left:20px;
+    opacity:.85;
+    animation: float 6s ease-in-out infinite reverse;
+  }
+  .orb-3{
+    width:140px;height:140px;
+    background: radial-gradient(circle at 30% 30%, var(--cyan), transparent 70%);
+    top:200px;left:50%;
+    opacity:.6;
+    animation: float 10s ease-in-out infinite;
+  }
+  @keyframes float{ 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(20px,-30px) scale(1.05)} }
 
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
+  .float-card{
+    position:absolute;
+    background: rgba(245,239,227,.06);
     backdrop-filter: blur(20px);
-    background: rgba(244, 238, 227, 0.75);
-    border-bottom: 1px solid rgba(212, 201, 180, 0.4);
-    z-index: 100;
-    padding: 1.1rem 0;
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:1.2rem 1.4rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
   }
-  .nav-wrap {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  .fc-1{ top:80px;left:-20px; animation: floatCard 7s ease-in-out infinite }
+  .fc-2{ bottom:120px;right:-10px; animation: floatCard 9s ease-in-out infinite reverse }
+  .fc-3{ top:340px;left:80px; animation: floatCard 8s ease-in-out infinite }
+  @keyframes floatCard{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+  .float-card .icon{
+    width:36px;height:36px;
+    border-radius:10px;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+    display:flex;align-items:center;justify-content:center;
+    font-size:1.1rem;
+    margin-bottom:.5rem;
   }
-  .logo {
-    font-family: 'El Messiri', serif;
-    font-size: 1.85rem;
-    font-weight: 700;
-    color: var(--ink);
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-  }
-  .logo-dot {
-    width: 8px;
-    height: 8px;
-    background: var(--saffron);
-    border-radius: 50%;
-    margin-bottom: 4px;
-  }
-  .nav-links {
-    display: flex;
-    gap: 2.5rem;
-    align-items: center;
-  }
-  .nav-links a {
-    color: var(--ink-soft);
-    text-decoration: none;
-    font-size: 0.95rem;
-    font-weight: 500;
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--saffron); }
+  .float-card .title{ font-weight:600; font-size:.95rem }
+  .float-card .sub{ color:var(--ink-mute); font-size:.8rem }
 
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.85rem 1.75rem;
-    border-radius: 100px;
-    font-family: 'Rubik', sans-serif;
-    font-weight: 500;
-    font-size: 0.95rem;
-    text-decoration: none;
-    transition: all 0.25s ease;
-    cursor: pointer;
-    border: none;
+  .scroll-cue{
+    position:absolute;
+    bottom:2rem;left:50%;
+    transform:translateX(-50%);
+    color:var(--ink-mute);
+    font-size:.85rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
   }
-  .btn-primary {
-    background: var(--ink);
-    color: var(--cream);
+  .scroll-cue::after{
+    content:"";
+    display:block;
+    width:1px;height:40px;
+    background:linear-gradient(var(--gold), transparent);
+    margin:.6rem auto 0;
+    animation: scrollLine 2s ease-in-out infinite;
   }
-  .btn-primary:hover {
-    background: var(--saffron);
-    transform: translateY(-2px);
-    box-shadow: 0 12px 28px -8px rgba(194, 65, 12, 0.35);
-  }
-  .btn-ghost {
-    background: transparent;
-    color: var(--ink);
-    border: 1px solid var(--line);
-  }
-  .btn-ghost:hover {
-    background: var(--ink);
-    color: var(--cream);
-    border-color: var(--ink);
-  }
-  .btn-large {
-    padding: 1.1rem 2.25rem;
-    font-size: 1.05rem;
-  }
+  @keyframes scrollLine{ 0%{transform:scaleY(0);transform-origin:top} 100%{transform:scaleY(1);transform-origin:top} }
 
-  /* HERO */
-  .hero {
-    padding: 6rem 0 5rem;
-    position: relative;
+  .marquee{
+    padding:2rem 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    background:rgba(0,0,0,.2);
   }
-  .hero::after {
-    content: '';
-    position: absolute;
-    top: 10%;
-    left: -10%;
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(234, 88, 12, 0.12) 0%, transparent 70%);
-    pointer-events: none;
+  .marquee-track{
+    display:flex;
+    gap:4rem;
+    white-space:nowrap;
+    animation: marquee 30s linear infinite;
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.6rem;
+    color:var(--ink-mute);
   }
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
-    gap: 4rem;
-    align-items: center;
-  }
-  .hero-eyebrow {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
-    padding: 0.4rem 1rem;
-    background: var(--cream-dark);
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    font-size: 0.85rem;
-    color: var(--ink-soft);
-    margin-bottom: 1.75rem;
-    font-weight: 500;
-  }
-  .pulse {
-    width: 7px;
-    height: 7px;
-    background: var(--saffron-light);
-    border-radius: 50%;
-    animation: pulse 2s infinite;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.4; }
-  }
+  .marquee-track span{ display:flex; align-items:center; gap:1rem }
+  .marquee-track .dot{ color:var(--gold); font-size:.6rem }
+  @keyframes marquee{ 0%{transform:translateX(0)} 100%{transform:translateX(50%)} }
 
-  .hero h1 {
-    font-size: clamp(2.5rem, 5.5vw, 4.4rem);
-    margin-bottom: 1.5rem;
-    color: var(--ink);
+  /* PRODUCTS GRID */
+  .products{ display:grid; grid-template-columns: repeat(3, 1fr); gap:2rem }
+  .product{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition: all .5s cubic-bezier(.2,.8,.2,1);
+    position:relative;
+    text-decoration:none;
+    color:inherit;
+    display:flex;
+    flex-direction:column;
   }
-  .hero h1 .accent {
-    color: var(--saffron);
-    font-style: italic;
-    position: relative;
-    display: inline-block;
+  .product:hover{
+    transform:translateY(-8px);
+    border-color: rgba(232,193,120,.4);
+    box-shadow: 0 30px 80px -20px rgba(0,0,0,.6), 0 0 60px -10px rgba(232,193,120,.2);
   }
-  .hero h1 .accent::after {
-    content: '';
-    position: absolute;
-    bottom: 0.1em;
-    right: 0;
-    left: 0;
-    height: 0.3em;
-    background: rgba(234, 88, 12, 0.18);
-    z-index: -1;
+  .product-img{ aspect-ratio: 4/3; position:relative; overflow:hidden; cursor:pointer }
+  .product-img .gradient{ position:absolute; inset:0; transition: transform .8s }
+  .product:hover .product-img .gradient{ transform:scale(1.08) }
+  .product-img .label{
+    position:absolute;
+    top:1rem;
+    inset-inline-end:1rem;
+    background: rgba(10,6,19,.7);
+    backdrop-filter: blur(10px);
+    border:1px solid var(--line);
+    padding:.4rem .8rem;
+    border-radius:100px;
+    font-size:.75rem;
+    font-weight:600;
+    color: var(--gold);
+    z-index:2;
   }
-  .hero p.lead {
-    font-size: 1.2rem;
-    color: var(--ink-soft);
-    margin-bottom: 2.5rem;
-    max-width: 540px;
-    line-height: 1.7;
+  .product-img .icon-big{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:5rem;
+    opacity:.9;
+    z-index:1;
   }
-  .hero-cta {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    margin-bottom: 2.5rem;
+  .product-body{ padding:1.5rem 1.6rem 1.8rem; flex:1; display:flex; flex-direction:column }
+  .product-cat{
+    color:var(--gold);
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:.95rem;
+    margin-bottom:.4rem;
   }
-  .hero-meta {
-    display: flex;
-    gap: 2rem;
-    color: var(--ink-muted);
-    font-size: 0.9rem;
-    flex-wrap: wrap;
+  .product h3{
+    font-size:1.35rem;
+    font-weight:600;
+    margin-bottom:.6rem;
   }
-  .hero-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
+  html[lang="ar"] .product h3{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .product h3{ font-family:'Fraunces', serif; font-weight:600 }
+  .product p{
+    color:var(--ink-mute);
+    font-size:.92rem;
+    margin-bottom:1.2rem;
+    line-height:1.6;
+    flex:1;
   }
-  .check {
-    color: var(--saffron-light);
-    font-weight: bold;
+  .product-foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding-top:1.2rem;
+    border-top:1px solid var(--line);
   }
+  .add-btn{
+    background:transparent;
+    border:1px solid var(--line);
+    color:var(--ink);
+    padding:.7rem 1.3rem;
+    border-radius:100px;
+    font-family:inherit;
+    font-weight:500;
+    cursor:pointer;
+    transition: all .3s;
+    font-size:.9rem;
+  }
+  .add-btn:hover{ background:var(--gold); color:var(--bg-deep); border-color:var(--gold) }
 
-  /* HERO VISUAL — Editorial mock card */
-  .hero-visual {
-    position: relative;
+  /* CATEGORIES */
+  .categories{ display:grid; grid-template-columns: repeat(4, 1fr); gap:1.2rem }
+  .cat{
+    background: rgba(245,239,227,.03);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2rem 1.5rem;
+    text-align:center;
+    cursor:pointer;
+    transition: all .4s;
+    position:relative;
+    overflow:hidden;
   }
-  .mock-card {
-    background: var(--cream-light);
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    padding: 2rem;
-    box-shadow: 0 30px 60px -20px rgba(26, 22, 18, 0.15),
-                0 0 0 1px rgba(212, 201, 180, 0.3);
-    transform: rotate(-1.5deg);
-    transition: transform 0.4s ease;
+  .cat::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:var(--radius);
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    opacity:0;
+    z-index:-1;
+    transition: opacity .4s;
   }
-  .mock-card:hover { transform: rotate(0deg) translateY(-5px); }
-  .mock-header {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px dashed var(--line);
-  }
-  .mock-avatar {
-    width: 42px;
-    height: 42px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--saffron), var(--emerald));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-family: 'El Messiri', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-  .mock-name {
-    font-weight: 600;
-    font-size: 0.95rem;
-  }
-  .mock-time {
-    font-size: 0.8rem;
-    color: var(--ink-muted);
-  }
-  .mock-content {
-    font-size: 1rem;
-    line-height: 1.8;
-    color: var(--ink-soft);
-  }
-  .mock-content strong { color: var(--saffron); }
-  .mock-tags {
-    margin-top: 1rem;
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
-  }
-  .mock-tag {
-    font-size: 0.78rem;
-    padding: 0.25rem 0.7rem;
-    background: var(--cream-dark);
-    border-radius: 100px;
-    color: var(--ink-soft);
-  }
-  .mock-badge {
-    position: absolute;
-    top: -15px;
-    left: -20px;
-    background: var(--ink);
-    color: var(--cream);
-    padding: 0.6rem 1.2rem;
-    border-radius: 100px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    transform: rotate(-8deg);
-    box-shadow: 0 8px 20px -5px rgba(26, 22, 18, 0.4);
-  }
-  .mock-badge .pulse {
-    margin-left: 0.4rem;
-  }
-
-  /* Social proof bar */
-  .social-bar {
-    margin-top: 5rem;
-    padding-top: 3rem;
-    border-top: 1px solid var(--line);
-    text-align: center;
-  }
-  .social-bar p {
-    color: var(--ink-muted);
-    font-size: 0.85rem;
-    margin-bottom: 1.5rem;
-    letter-spacing: 0.05em;
-  }
-  .logos-row {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3.5rem;
-    flex-wrap: wrap;
-    opacity: 0.5;
-    font-family: 'El Messiri', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    color: var(--ink-soft);
-  }
-  .logos-row span { transition: opacity 0.3s; }
-  .logos-row span:hover { opacity: 1; color: var(--ink); }
-
-  /* SECTIONS */
-  section.section {
-    padding: 7rem 0;
-    position: relative;
-  }
-  .section-eyebrow {
-    color: var(--saffron);
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    display: block;
-  }
-  .section-title {
-    font-size: clamp(2rem, 4vw, 3.2rem);
-    margin-bottom: 1.25rem;
-    max-width: 760px;
-  }
-  .section-subtitle {
-    font-size: 1.15rem;
-    color: var(--ink-soft);
-    max-width: 640px;
-    line-height: 1.7;
-    margin-bottom: 4rem;
-  }
-
-  /* PROBLEM */
-  .problem {
-    background: var(--ink);
-    color: var(--cream);
-  }
-  .problem .section-title { color: var(--cream); }
-  .problem .section-subtitle { color: var(--cream-dark); }
-  .problem .section-eyebrow { color: var(--saffron-bright); }
-  .problem-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 2rem;
-  }
-  .problem-card {
-    padding: 2.5rem 2rem;
-    background: rgba(244, 238, 227, 0.04);
-    border: 1px solid rgba(244, 238, 227, 0.1);
-    border-radius: 20px;
-    transition: all 0.3s;
-  }
-  .problem-card:hover {
-    background: rgba(244, 238, 227, 0.07);
-    transform: translateY(-4px);
-  }
-  .problem-num {
-    font-family: 'El Messiri', serif;
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--saffron-bright);
-    line-height: 1;
-    margin-bottom: 1rem;
-  }
-  .problem-card h3 {
-    color: var(--cream);
-    font-size: 1.3rem;
-    margin-bottom: 0.75rem;
-  }
-  .problem-card p {
-    color: var(--cream-dark);
-    font-size: 0.98rem;
-  }
-
-  /* FEATURES */
-  .features-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
-  }
-  .feature {
-    padding: 2.5rem;
-    background: var(--cream-light);
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    transition: all 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .feature:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 40px -15px rgba(26, 22, 18, 0.15);
-    border-color: var(--saffron-light);
-  }
-  .feature:nth-child(1) { grid-column: span 2; }
-  .feature-icon {
-    width: 56px;
-    height: 56px;
-    background: var(--ink);
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--saffron-bright);
-    font-size: 1.6rem;
-    margin-bottom: 1.5rem;
-    font-family: 'El Messiri', serif;
-    font-weight: 700;
-  }
-  .feature:hover .feature-icon {
-    background: var(--saffron);
-    color: var(--cream);
-    transition: background 0.3s;
-  }
-  .feature h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-  }
-  .feature p {
-    color: var(--ink-soft);
-    font-size: 1rem;
-  }
+  .cat:hover{ transform:translateY(-5px); border-color: transparent }
+  .cat:hover::before{ opacity:.3 }
+  .cat-icon{ font-size:2.5rem; margin-bottom:1rem }
+  .cat h4{ font-size:1.1rem; margin-bottom:.3rem }
+  html[lang="ar"] .cat h4{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .cat h4{ font-family:'Fraunces', serif; font-weight:600 }
+  .cat span{ color:var(--ink-mute); font-size:.85rem }
 
   /* HOW IT WORKS */
-  .how-section { background: var(--cream-light); }
-  .steps {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-    margin-top: 3rem;
-    position: relative;
+  .steps{ display:grid; grid-template-columns: repeat(3, 1fr); gap:3rem; position:relative }
+  .step{ text-align:center; position:relative }
+  .step-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:5rem;
+    font-style:italic;
+    font-weight:400;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    line-height:1;
+    margin-bottom:1rem;
   }
-  .step {
-    text-align: center;
-    position: relative;
-  }
-  .step-number {
-    font-family: 'El Messiri', serif;
-    font-size: 4.5rem;
-    font-weight: 700;
-    color: var(--saffron);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-    opacity: 0.85;
-  }
-  .step h3 {
-    font-size: 1.4rem;
-    margin-bottom: 0.75rem;
-  }
-  .step p {
-    color: var(--ink-soft);
-    font-size: 1rem;
-    max-width: 280px;
-    margin: 0 auto;
-  }
+  .step h3{ font-size:1.4rem; margin-bottom:.8rem }
+  html[lang="ar"] .step h3{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .step h3{ font-family:'Fraunces', serif; font-weight:600 }
+  .step p{ color:var(--ink-mute); max-width:280px; margin:0 auto }
 
-  /* PRICING */
-  .pricing-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
+  /* STATS */
+  .stats-wrap{
+    background: rgba(245,239,227,.03);
+    border:1px solid var(--line);
+    border-radius:32px;
+    padding:4rem 3rem;
+    position:relative;
+    overflow:hidden;
   }
-  .price-card {
-    background: var(--cream-light);
-    border: 1px solid var(--line);
-    border-radius: 24px;
-    padding: 2.5rem 2rem;
-    position: relative;
-    transition: all 0.3s;
+  .stats-wrap::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background: radial-gradient(circle at 80% 50%, rgba(232,193,120,.15), transparent 60%);
+    pointer-events:none;
   }
-  .price-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 25px 50px -15px rgba(26, 22, 18, 0.15);
+  .stats{ display:grid; grid-template-columns: repeat(4, 1fr); gap:2rem; position:relative }
+  .stat{ text-align:center }
+  .stat-num{
+    font-family:'Cormorant Garamond', serif;
+    font-size:3.5rem;
+    font-weight:600;
+    color:var(--gold);
+    line-height:1;
   }
-  .price-card.featured {
-    background: var(--ink);
-    color: var(--cream);
-    border-color: var(--ink);
-    transform: scale(1.04);
-  }
-  .price-card.featured:hover {
-    transform: scale(1.04) translateY(-6px);
-  }
-  .price-badge {
-    position: absolute;
-    top: -14px;
-    right: 50%;
-    transform: translateX(50%);
-    background: var(--saffron);
-    color: var(--cream);
-    padding: 0.4rem 1.1rem;
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-  }
-  .price-name {
-    font-family: 'El Messiri', serif;
-    font-size: 1.4rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-  }
-  .price-desc {
-    color: var(--ink-muted);
-    font-size: 0.9rem;
-    margin-bottom: 1.75rem;
-    min-height: 2.5rem;
-  }
-  .price-card.featured .price-desc { color: var(--cream-dark); }
-  .price-amount {
-    font-family: 'El Messiri', serif;
-    font-size: 3.2rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: 0.25rem;
-  }
-  .price-amount .currency {
-    font-size: 1.2rem;
-    font-weight: 500;
-    color: var(--ink-muted);
-    margin-right: 0.25rem;
-  }
-  .price-card.featured .price-amount .currency { color: var(--cream-dark); }
-  .price-period {
-    color: var(--ink-muted);
-    font-size: 0.9rem;
-    margin-bottom: 2rem;
-  }
-  .price-card.featured .price-period { color: var(--cream-dark); }
-  .price-features {
-    list-style: none;
-    margin-bottom: 2rem;
-  }
-  .price-features li {
-    padding: 0.55rem 0;
-    font-size: 0.95rem;
-    display: flex;
-    align-items: flex-start;
-    gap: 0.6rem;
-  }
-  .price-features li::before {
-    content: '✓';
-    color: var(--saffron);
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-  .price-card.featured .price-features li::before { color: var(--saffron-bright); }
-  .price-cta {
-    width: 100%;
-    justify-content: center;
-  }
-  .price-card.featured .btn-ghost {
-    background: var(--cream);
-    color: var(--ink);
-    border-color: var(--cream);
-  }
-  .price-card.featured .btn-ghost:hover {
-    background: var(--saffron);
-    color: var(--cream);
-    border-color: var(--saffron);
-  }
+  .stat-label{ color:var(--ink-mute); margin-top:.6rem; font-size:.95rem }
 
   /* TESTIMONIALS */
-  .testimonials { background: var(--cream-light); }
-  .test-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 3rem;
+  .testimonials{ display:grid; grid-template-columns: 1.2fr 1fr 1fr; gap:1.5rem }
+  .testi{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:2rem;
+    position:relative;
   }
-  .test-card {
-    padding: 2rem;
-    background: var(--cream);
-    border: 1px solid var(--line);
-    border-radius: 20px;
-    position: relative;
+  .testi:first-child{
+    background: linear-gradient(135deg, rgba(232,193,120,.15), rgba(123,63,255,.1));
+    border-color: rgba(232,193,120,.3);
   }
-  .test-quote {
-    font-family: 'El Messiri', serif;
-    font-size: 3rem;
-    color: var(--saffron);
-    line-height: 0.5;
-    margin-bottom: 0.5rem;
-    opacity: 0.5;
+  .quote-mark{
+    font-family:'Cormorant Garamond', serif;
+    font-size:5rem;
+    color:var(--gold);
+    line-height:.5;
+    margin-bottom:1rem;
+    opacity:.6;
   }
-  .test-text {
-    color: var(--ink-soft);
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-bottom: 1.5rem;
+  .testi p{ color:var(--ink); font-size:1rem; line-height:1.7; margin-bottom:1.5rem }
+  .testi-author{ display:flex; align-items:center; gap:.8rem }
+  .avatar{
+    width:42px;height:42px;
+    border-radius:50%;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    color:var(--bg-deep);
   }
-  .test-author {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--line);
-  }
-  .test-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--saffron), var(--emerald));
-    color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'El Messiri', serif;
-    font-weight: 700;
-  }
-  .test-name { font-weight: 600; font-size: 0.95rem; }
-  .test-role { color: var(--ink-muted); font-size: 0.85rem; }
+  .testi-author .name{ font-weight:600; font-size:.95rem }
+  .testi-author .role{ color:var(--ink-mute); font-size:.82rem }
 
-  /* FAQ */
-  .faq-list {
-    max-width: 820px;
-    margin: 3rem auto 0;
+  /* CTA */
+  .cta-section{ text-align:center; padding:8rem 0; position:relative }
+  .cta-box{
+    background:
+      radial-gradient(ellipse at center, rgba(123,63,255,.3), transparent 70%),
+      linear-gradient(135deg, rgba(232,193,120,.1), rgba(123,63,255,.1));
+    border:1px solid rgba(232,193,120,.3);
+    border-radius:32px;
+    padding:5rem 3rem;
+    position:relative;
+    overflow:hidden;
   }
-  .faq-item {
-    border-bottom: 1px solid var(--line);
-    padding: 1.5rem 0;
-    cursor: pointer;
+  .cta-box::before, .cta-box::after{
+    content:"";
+    position:absolute;
+    width:300px;height:300px;
+    border-radius:50%;
+    filter:blur(80px);
   }
-  .faq-question {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'El Messiri', serif;
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: var(--ink);
-  }
-  .faq-toggle {
-    width: 32px;
-    height: 32px;
-    background: var(--cream-dark);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s;
-    flex-shrink: 0;
-  }
-  .faq-item.open .faq-toggle {
-    background: var(--saffron);
-    color: var(--cream);
-    transform: rotate(45deg);
-  }
-  .faq-answer {
-    max-height: 0;
-    overflow: hidden;
-    color: var(--ink-soft);
-    transition: max-height 0.4s ease, padding-top 0.4s ease;
-  }
-  .faq-item.open .faq-answer {
-    max-height: 300px;
-    padding-top: 1rem;
-  }
+  .cta-box::before{ background:var(--gold); opacity:.3; top:-100px; right:-100px }
+  .cta-box::after{ background:var(--violet); opacity:.3; bottom:-100px; left:-100px }
+  .cta-box > *{ position:relative }
+  .cta-box h2{ font-size:clamp(2rem, 4.5vw, 3.5rem); margin-bottom:1.2rem }
+  .cta-box p{ color:var(--ink-mute); font-size:1.15rem; max-width:520px; margin:0 auto 2.5rem }
 
-  /* FINAL CTA */
-  .final-cta {
-    background: var(--ink);
-    color: var(--cream);
-    text-align: center;
-    padding: 6rem 0;
-    position: relative;
-    overflow: hidden;
+  @media (max-width: 900px){
+    .hero-grid{ grid-template-columns:1fr; gap:2rem }
+    .hero-visual{ height:380px; margin-top:2rem }
+    .products{ grid-template-columns:1fr; gap:1.5rem }
+    .categories{ grid-template-columns:repeat(2,1fr) }
+    .steps{ grid-template-columns:1fr; gap:2rem }
+    .stats{ grid-template-columns:repeat(2,1fr); gap:2.5rem }
+    .testimonials{ grid-template-columns:1fr }
+    .stats-wrap{ padding:2.5rem 1.5rem }
+    .cta-box{ padding:3rem 1.5rem }
   }
-  .final-cta::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 800px;
-    height: 800px;
-    background: radial-gradient(circle, rgba(234, 88, 12, 0.18) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .final-cta h2 {
-    font-size: clamp(2.2rem, 4.5vw, 3.5rem);
-    color: var(--cream);
-    margin-bottom: 1.25rem;
-    position: relative;
-  }
-  .final-cta p {
-    font-size: 1.2rem;
-    color: var(--cream-dark);
-    max-width: 600px;
-    margin: 0 auto 2.5rem;
-    position: relative;
-  }
-  .final-cta .btn-primary {
-    background: var(--saffron);
-    color: var(--cream);
-    position: relative;
-  }
-  .final-cta .btn-primary:hover {
-    background: var(--saffron-light);
-  }
-
-  /* FOOTER */
-  footer {
-    background: var(--ink);
-    color: var(--cream-dark);
-    padding: 3rem 0 2rem;
-    border-top: 1px solid rgba(244, 238, 227, 0.1);
-    text-align: center;
-    font-size: 0.9rem;
-  }
-  footer .logo {
-    color: var(--cream);
-    justify-content: center;
-    margin-bottom: 1rem;
-  }
-  .footer-links {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-  }
-  .footer-links a {
-    color: var(--cream-dark);
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .footer-links a:hover { color: var(--saffron-bright); }
-  .copyright { opacity: 0.5; font-size: 0.85rem; }
-
-  /* SCROLL ANIMATIONS */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 900px) {
-    .container { padding: 0 1.25rem; }
-    .nav-links { display: none; }
-    .nav-links.mobile-show { display: flex; }
-    .hero { padding: 3rem 0; }
-    .hero-grid {
-      grid-template-columns: 1fr;
-      gap: 3rem;
-    }
-    .problem-grid, .features-grid, .steps, .pricing-grid, .test-grid {
-      grid-template-columns: 1fr;
-    }
-    .feature:nth-child(1) { grid-column: span 1; }
-    .price-card.featured { transform: none; }
-    .price-card.featured:hover { transform: translateY(-6px); }
-    section.section { padding: 4rem 0; }
-    .hero h1 { font-size: 2.5rem; }
-    .logos-row { gap: 1.5rem; font-size: 1.1rem; }
+  @media (max-width: 600px){
+    .float-card{ display:none }
   }
 </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
-  <div class="container nav-wrap">
-    <a href="#" class="logo">حِبر<span class="logo-dot"></span></a>
-    <div class="nav-links">
-      <a href="#features">المميزات</a>
-      <a href="#how">كيف يشتغل</a>
-      <a href="#pricing">الباقات</a>
-      <a href="#faq">الأسئلة</a>
-      <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أعرف%20أكثر%20عن%20حِبر" target="_blank" class="btn btn-primary">ابدأ مجاناً</a>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#products" data-i18n="nav.products">المنتجات</a></li>
+      <li><a href="#categories" data-i18n="nav.categories">التصنيفات</a></li>
+      <li><a href="#how" data-i18n="nav.how">كيف يعمل</a></li>
+      <li><a href="#testimonials" data-i18n="nav.testimonials">آراء العملاء</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+      <button class="burger">☰</button>
     </div>
   </div>
 </nav>
@@ -832,261 +411,226 @@
 <section class="hero">
   <div class="container">
     <div class="hero-grid">
-      <div class="reveal">
-        <div class="hero-eyebrow">
-          <span class="pulse"></span>
-          مدعوم بأحدث تقنيات الذكاء الاصطناعي
-        </div>
-        <h1>
-          محتوى عربي <span class="accent">احترافي</span><br>
-          لمحلّك، يومياً، بضغطة زر.
+      <div class="hero-text">
+        <span class="eyebrow" data-i18n="hero.eyebrow"></span>
+        <h1 class="display">
+          <span data-i18n="hero.title1"></span>
+          <span class="accent" data-i18n="hero.title2"></span><br>
+          <span data-i18n="hero.title3"></span><br>
+          <span data-i18n="hero.title4"></span>
         </h1>
-        <p class="lead">
-          حِبر يكتب لك منشورات السوشيال ميديا، الإعلانات، وأوصاف المنتجات بلهجة تناسب عملاءك السعوديين والخليجيين — توفّر وقتك وتركّز على شغلك الحقيقي.
-        </p>
-        <div class="hero-cta">
-          <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أجرّب%20حِبر%20٧%20أيام%20مجاناً" target="_blank" class="btn btn-primary btn-large">جرّب ٧ أيام مجاناً</a>
-          <a href="#how" class="btn btn-ghost btn-large">شوف كيف يشتغل ←</a>
-        </div>
-        <div class="hero-meta">
-          <span><span class="check">✓</span> بدون بطاقة ائتمان</span>
-          <span><span class="check">✓</span> إلغاء في أي وقت</span>
-          <span><span class="check">✓</span> دعم بالعربي ٢٤/٧</span>
+        <p class="lead" data-i18n="hero.lead"></p>
+        <div class="hero-ctas">
+          <a href="#products" class="btn-primary">
+            <span data-i18n="hero.cta1"></span>
+            <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#how" class="btn-ghost" data-i18n="hero.cta2"></a>
         </div>
       </div>
-      <div class="hero-visual reveal">
-        <div class="mock-badge">
-          مولّد الآن<span class="pulse"></span>
+
+      <div class="hero-visual">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+        <div class="float-card fc-1">
+          <div class="icon">📚</div>
+          <div class="title" data-i18n="hero.card1.title"></div>
+          <div class="sub" data-i18n="hero.card1.sub"></div>
         </div>
-        <div class="mock-card">
-          <div class="mock-header">
-            <div class="mock-avatar">م</div>
-            <div>
-              <div class="mock-name">مطعم البيت الدمشقي</div>
-              <div class="mock-time">منشور إنستقرام · قبل ثانية</div>
-            </div>
-          </div>
-          <div class="mock-content">
-            <strong>طعم الشام يوصل لبيتك 🌿</strong><br>
-            جرّب أشهى أطباقنا الدمشقية اليوم — من الكبّة المقلية إلى المنسف الأصيل، كل لقمة قصة. اطلب الحين وخصم ١٥٪ لأول طلب 🍽️
-            <div class="mock-tags">
-              <span class="mock-tag">#مطاعم_الدمام</span>
-              <span class="mock-tag">#أكل_شامي</span>
-              <span class="mock-tag">#توصيل</span>
-            </div>
-          </div>
+        <div class="float-card fc-2">
+          <div class="icon">🎨</div>
+          <div class="title" data-i18n="hero.card2.title"></div>
+          <div class="sub" data-i18n="hero.card2.sub"></div>
+        </div>
+        <div class="float-card fc-3">
+          <div class="icon">⚡</div>
+          <div class="title" data-i18n="hero.card3.title"></div>
+          <div class="sub" data-i18n="hero.card3.sub"></div>
         </div>
       </div>
     </div>
+  </div>
+  <div class="scroll-cue">SCROLL</div>
+</section>
 
-    <div class="social-bar reveal">
-      <p>موثوق من قبل أصحاب الأعمال في</p>
-      <div class="logos-row">
-        <span>الرياض</span>
-        <span>·</span>
-        <span>جدة</span>
-        <span>·</span>
-        <span>الدمام</span>
-        <span>·</span>
-        <span>دبي</span>
-        <span>·</span>
-        <span>الكويت</span>
-        <span>·</span>
-        <span>الدوحة</span>
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- PRODUCTS -->
+<section id="products">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="products.eyebrow"></span>
+      <h2 class="display">
+        <span data-i18n="products.title1"></span>
+        <span class="accent" data-i18n="products.title2"></span>
+      </h2>
+      <p data-i18n="products.desc"></p>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar reveal" id="filterBar">
+      <div class="filter-top">
+        <div class="search-box">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input type="search" id="searchInput" data-i18n-ph="filter.search" placeholder="ابحث عن منتج...">
+        </div>
+        <div class="sort-box">
+          <select id="sortSelect">
+            <option value="default" data-i18n="filter.sort.default">المختار</option>
+            <option value="newest" data-i18n="filter.sort.newest">الأحدث</option>
+            <option value="price-asc" data-i18n="filter.sort.priceAsc">السعر: من الأقل</option>
+            <option value="price-desc" data-i18n="filter.sort.priceDesc">السعر: من الأعلى</option>
+            <option value="popular" data-i18n="filter.sort.popular">الأكثر تقييمًا</option>
+          </select>
+        </div>
       </div>
+
+      <div class="filter-section">
+        <div class="filter-label" data-i18n="filter.category">الفئة</div>
+        <div class="pill-group" id="categoryFilter">
+          <button class="pill active" type="button" data-cat="all" data-i18n="filter.all">الكل</button>
+          <button class="pill" type="button" data-cat="ebooks">📚 <span data-i18n="cat.ebooks"></span></button>
+          <button class="pill" type="button" data-cat="templates">🎨 <span data-i18n="cat.templates"></span></button>
+          <button class="pill" type="button" data-cat="prompts">⚡ <span data-i18n="cat.prompts"></span></button>
+          <button class="pill" type="button" data-cat="business">📊 <span data-i18n="cat.business"></span></button>
+          <button class="pill" type="button" data-cat="courses">🎓 <span data-i18n="cat.courses"></span></button>
+          <button class="pill" type="button" data-cat="images">🖼️ <span data-i18n="cat.images"></span></button>
+          <button class="pill" type="button" data-cat="music">🎵 <span data-i18n="cat.music"></span></button>
+          <button class="pill" type="button" data-cat="code">💻 <span data-i18n="cat.code"></span></button>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-label" data-i18n="filter.price">السعر</div>
+        <div class="pill-group" id="priceFilter">
+          <button class="pill active" type="button" data-price="all" data-i18n="filter.all">الكل</button>
+          <button class="pill" type="button" data-price="0-100" data-i18n="filter.under100">أقل من 100</button>
+          <button class="pill" type="button" data-price="100-200" data-i18n="filter.100to200">100 - 200</button>
+          <button class="pill" type="button" data-price="200-500" data-i18n="filter.200to500">200 - 500</button>
+          <button class="pill" type="button" data-price="500-9999999" data-i18n="filter.over500">أكثر من 500</button>
+        </div>
+      </div>
+
+      <div class="filter-results">
+        <div>
+          <span data-i18n="filter.found">تم العثور على</span>
+          <span class="count" id="resultsCount">0</span>
+          <span data-i18n="filter.products">منتج</span>
+        </div>
+        <button class="clear-filters" id="clearFiltersBtn" data-i18n="filter.clear">مسح الفلاتر</button>
+      </div>
+    </div>
+
+    <div class="products" id="productsGrid">
+      <!-- Rendered by JS -->
     </div>
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="section problem">
+<!-- CATEGORIES -->
+<section id="categories">
   <div class="container">
-    <span class="section-eyebrow reveal">المشكلة</span>
-    <h2 class="section-title reveal">صاحب المحل ما عنده وقت يكتب محتوى كل يوم</h2>
-    <p class="section-subtitle reveal">
-      أنت مشغول بإدارة محلك، عمالك، عملاءك. وفي نفس الوقت السوشيال ميديا تتطلّب محتوى يومي. النتيجة؟ حسابات نائمة، عملاء يبتعدون، ومنافسون يكبرون.
-    </p>
-    <div class="problem-grid">
-      <div class="problem-card reveal">
-        <div class="problem-num">٨٠٪</div>
-        <h3>من المحلات الصغيرة</h3>
-        <p>تنشر أقل من مرتين أسبوعياً في السوشيال ميديا، رغم أن الجمهور يتوقّع محتوى يومي.</p>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-num">٣٢h</div>
-        <h3>ساعة شهرياً</h3>
-        <p>تضيع في كتابة المحتوى — وقت كان ممكن تستثمره في تطوير منتجك وخدمة عملاءك.</p>
-      </div>
-      <div class="problem-card reveal">
-        <div class="problem-num">٢٠٠٠+</div>
-        <h3>ريال شهرياً</h3>
-        <p>تدفعها للمسوّقين والوكالات، بدون ضمان نتائج أو محتوى يعكس صوت علامتك الحقيقي.</p>
-      </div>
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="categories.eyebrow"></span>
+      <h2 class="display">
+        <span data-i18n="categories.title1"></span>
+        <span class="accent" data-i18n="categories.title2"></span>
+      </h2>
+      <p data-i18n="categories.desc"></p>
     </div>
-  </div>
-</section>
 
-<!-- FEATURES -->
-<section class="section" id="features">
-  <div class="container">
-    <span class="section-eyebrow reveal">الحل</span>
-    <h2 class="section-title reveal">كل ما تحتاجه لتسويق محلّك — في مكان واحد</h2>
-    <p class="section-subtitle reveal">
-      حِبر مش مجرد مولّد نصوص. هو مساعد متكامل مصمّم خصيصاً للأعمال السعودية والخليجية.
-    </p>
-    <div class="features-grid">
-      <div class="feature reveal">
-        <div class="feature-icon">١</div>
-        <h3>منشورات سوشيال ميديا يومية</h3>
-        <p>احصل على ٧ منشورات أسبوعية جاهزة للإنستقرام، تويتر، وسناب شات — مخصصة لنوع نشاطك وجمهورك المستهدف، مع هاشتاقات وإيموجي مدروسة.</p>
-      </div>
-      <div class="feature reveal">
-        <div class="feature-icon">٢</div>
-        <h3>إعلانات احترافية</h3>
-        <p>عناوين ونصوص إعلانية جاهزة لحملات قوقل وميتا — تجذب الانتباه وتزيد التحويلات.</p>
-      </div>
-      <div class="feature reveal">
-        <div class="feature-icon">٣</div>
-        <h3>وصف منتجات</h3>
-        <p>لمتاجر سلة وزد. أوصاف تبيع، لا تكتفي بالشرح.</p>
-      </div>
-      <div class="feature reveal">
-        <div class="feature-icon">٤</div>
-        <h3>ردود واتساب جاهزة</h3>
-        <p>قوالب احترافية للرد على استفسارات عملاءك، الشكاوى، والطلبات — وفّر وقت موظفينك.</p>
-      </div>
-      <div class="feature reveal">
-        <div class="feature-icon">٥</div>
-        <h3>جدولة وتذكيرات</h3>
-        <p>احفظ محتواك ونحن نذكّرك بأفضل أوقات النشر حسب جمهورك السعودي.</p>
-      </div>
+    <div class="categories">
+      <div class="cat reveal"><div class="cat-icon">📚</div><h4 data-i18n="cat.ebooks"></h4><span><span>+340</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">🎨</div><h4 data-i18n="cat.design"></h4><span><span>+520</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">⚡</div><h4 data-i18n="cat.prompts"></h4><span><span>+180</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">🎓</div><h4 data-i18n="cat.courses"></h4><span><span>+95</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">🖼️</div><h4 data-i18n="cat.icons"></h4><span><span>+1,200</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">📊</div><h4 data-i18n="cat.business"></h4><span><span>+260</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">🎵</div><h4 data-i18n="cat.music"></h4><span><span>+140</span> <span data-i18n="cat.products"></span></span></div>
+      <div class="cat reveal"><div class="cat-icon">💻</div><h4 data-i18n="cat.code"></h4><span><span>+320</span> <span data-i18n="cat.products"></span></span></div>
     </div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
-<section class="section how-section" id="how">
+<section id="how">
   <div class="container">
-    <span class="section-eyebrow reveal">كيف يشتغل</span>
-    <h2 class="section-title reveal">ثلاث خطوات بسيطة، نتيجة فورية</h2>
-    <p class="section-subtitle reveal">
-      ما تحتاج خبرة في التسويق. ما تحتاج تتعلّم برامج معقدة. فقط ثلاث خطوات.
-    </p>
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="how.eyebrow"></span>
+      <h2 class="display">
+        <span data-i18n="how.title1"></span>
+        <span class="accent" data-i18n="how.title2"></span>
+      </h2>
+      <p data-i18n="how.desc"></p>
+    </div>
     <div class="steps">
-      <div class="step reveal">
-        <div class="step-number">١</div>
-        <h3>عرّفنا بمحلّك</h3>
-        <p>اختر نوع نشاطك (مطعم، عيادة، صالون، متجر) واكتب اسم محلّك ووصف بسيط.</p>
-      </div>
-      <div class="step reveal">
-        <div class="step-number">٢</div>
-        <h3>اضغط "ولّد محتوى"</h3>
-        <p>حِبر يفكّر مثل مسوّق محترف ويكتب لك المحتوى بلهجة تناسب عملاءك.</p>
-      </div>
-      <div class="step reveal">
-        <div class="step-number">٣</div>
-        <h3>انشر واستمتع</h3>
-        <p>انسخ المحتوى أو احفظه للنشر لاحقاً. المحتوى جاهز ١٠٠٪، بدون تعديل.</p>
-      </div>
+      <div class="step reveal"><div class="step-num">01</div><h3 data-i18n="how.s1.title"></h3><p data-i18n="how.s1.desc"></p></div>
+      <div class="step reveal"><div class="step-num">02</div><h3 data-i18n="how.s2.title"></h3><p data-i18n="how.s2.desc"></p></div>
+      <div class="step reveal"><div class="step-num">03</div><h3 data-i18n="how.s3.title"></h3><p data-i18n="how.s3.desc"></p></div>
     </div>
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="section" id="pricing">
-  <div class="container">
-    <span class="section-eyebrow reveal">الباقات</span>
-    <h2 class="section-title reveal">اختر الباقة المناسبة لحجم أعمالك</h2>
-    <p class="section-subtitle reveal">
-      كل الباقات تشمل ٧ أيام تجربة مجانية. بدون بطاقة ائتمان. ألغِ متى تبي.
-    </p>
-    <div class="pricing-grid">
-      <div class="price-card reveal">
-        <div class="price-name">المبتدئ</div>
-        <div class="price-desc">مناسبة للمحلات الصغيرة والمشاريع الجديدة</div>
-        <div class="price-amount"><span class="currency">ر.س</span>٩٩</div>
-        <div class="price-period">شهرياً</div>
-        <ul class="price-features">
-          <li>٣٠ منشور سوشيال ميديا شهرياً</li>
-          <li>١٠ إعلانات قوقل وميتا</li>
-          <li>٥ أوصاف منتجات</li>
-          <li>دعم بالواتساب</li>
-        </ul>
-        <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20المبتدئ%20(٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
-      </div>
-
-      <div class="price-card featured reveal">
-        <div class="price-badge">الأكثر طلباً</div>
-        <div class="price-name">الاحترافي</div>
-        <div class="price-desc">للأعمال النامية اللي تبي تطلع للقمة</div>
-        <div class="price-amount"><span class="currency">ر.س</span>١٩٩</div>
-        <div class="price-period">شهرياً</div>
-        <ul class="price-features">
-          <li>٩٠ منشور سوشيال ميديا شهرياً</li>
-          <li>٣٠ إعلان قوقل وميتا</li>
-          <li>وصف منتجات غير محدود</li>
-          <li>ردود واتساب جاهزة</li>
-          <li>جدولة محتوى ذكية</li>
-          <li>دعم بالأولوية</li>
-        </ul>
-        <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20الاحترافي%20(١٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
-      </div>
-
-      <div class="price-card reveal">
-        <div class="price-name">الأعمال</div>
-        <div class="price-desc">للعلامات الكبيرة والوكالات الإعلانية</div>
-        <div class="price-amount"><span class="currency">ر.س</span>٣٩٩</div>
-        <div class="price-period">شهرياً</div>
-        <ul class="price-features">
-          <li>محتوى غير محدود</li>
-          <li>إدارة عدة علامات تجارية</li>
-          <li>تخصيص لهجة العلامة</li>
-          <li>مدير حساب مخصص</li>
-          <li>دعم فوري ٢٤/٧</li>
-          <li>تقارير أداء شهرية</li>
-        </ul>
-        <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أشترك%20بالباقة%20الأعمال%20(٣٩٩%20ريال)" target="_blank" class="btn btn-ghost price-cta">ابدأ الآن</a>
+<!-- STATS -->
+<section>
+  <div class="container reveal">
+    <div class="stats-wrap">
+      <div class="stats">
+        <div class="stat"><div class="stat-num">3,500+</div><div class="stat-label" data-i18n="stats.files"></div></div>
+        <div class="stat"><div class="stat-num">28K</div><div class="stat-label" data-i18n="stats.customers"></div></div>
+        <div class="stat"><div class="stat-num">96%</div><div class="stat-label" data-i18n="stats.satisfaction"></div></div>
+        <div class="stat"><div class="stat-num">24/7</div><div class="stat-label" data-i18n="stats.support"></div></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="section testimonials">
+<section id="testimonials">
   <div class="container">
-    <span class="section-eyebrow reveal">آراء عملائنا</span>
-    <h2 class="section-title reveal">أكثر من ٥٠٠ صاحب عمل غيّروا طريقة تسويقهم</h2>
-    <div class="test-grid">
-      <div class="test-card reveal">
-        <div class="test-quote">"</div>
-        <p class="test-text">صرت أنشر يومياً بدون ما أفكر! حسابي زاد ٣٠٠٪ في الشهرين الأخيرين، والعملاء يجوني من السوشيال ميديا مباشرة.</p>
-        <div class="test-author">
-          <div class="test-avatar">س</div>
+    <div class="section-head reveal">
+      <span class="eyebrow" data-i18n="testi.eyebrow"></span>
+      <h2 class="display">
+        <span data-i18n="testi.title1"></span>
+        <span class="accent" data-i18n="testi.title2"></span>
+      </h2>
+      <p data-i18n="testi.desc"></p>
+    </div>
+    <div class="testimonials">
+      <div class="testi reveal">
+        <div class="quote-mark">"</div>
+        <p data-i18n="testi.1.quote"></p>
+        <div class="testi-author">
+          <div class="avatar" data-i18n="testi.1.initial"></div>
           <div>
-            <div class="test-name">سارة المطيري</div>
-            <div class="test-role">صالون تجميل، الرياض</div>
+            <div class="name" data-i18n="testi.1.name"></div>
+            <div class="role" data-i18n="testi.1.role"></div>
           </div>
         </div>
       </div>
-      <div class="test-card reveal">
-        <div class="test-quote">"</div>
-        <p class="test-text">كنت أدفع ٢٥٠٠ ريال للمسوّق. اليوم أدفع ١٩٩ وأحصل على محتوى أفضل وأسرع. حِبر غيّر معادلة التسويق عندي.</p>
-        <div class="test-author">
-          <div class="test-avatar">أ</div>
+      <div class="testi reveal">
+        <div class="quote-mark">"</div>
+        <p data-i18n="testi.2.quote"></p>
+        <div class="testi-author">
+          <div class="avatar" data-i18n="testi.2.initial"></div>
           <div>
-            <div class="test-name">أحمد العتيبي</div>
-            <div class="test-role">مطعم، جدة</div>
+            <div class="name" data-i18n="testi.2.name"></div>
+            <div class="role" data-i18n="testi.2.role"></div>
           </div>
         </div>
       </div>
-      <div class="test-card reveal">
-        <div class="test-quote">"</div>
-        <p class="test-text">المحتوى يطلع باللهجة الخليجية الصحيحة، بدون أخطاء، وبأسلوب يلامس عميلي السعودي. أحسن استثمار سوّيته هالسنة.</p>
-        <div class="test-author">
-          <div class="test-avatar">ف</div>
+      <div class="testi reveal">
+        <div class="quote-mark">"</div>
+        <p data-i18n="testi.3.quote"></p>
+        <div class="testi-author">
+          <div class="avatar" data-i18n="testi.3.initial"></div>
           <div>
-            <div class="test-name">فهد القحطاني</div>
-            <div class="test-role">متجر إلكتروني، الدمام</div>
+            <div class="name" data-i18n="testi.3.name"></div>
+            <div class="role" data-i18n="testi.3.role"></div>
           </div>
         </div>
       </div>
@@ -1094,105 +638,336 @@
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section" id="faq">
-  <div class="container">
-    <span class="section-eyebrow reveal">الأسئلة الشائعة</span>
-    <h2 class="section-title reveal">كل اللي تبي تعرفه</h2>
-    <div class="faq-list">
-      <div class="faq-item">
-        <div class="faq-question">
-          هل المحتوى مكتوب بالعربية الفصحى أو باللهجة؟
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-answer">
-          أنت تختار. حِبر يقدر يكتب بالفصحى المبسّطة، اللهجة السعودية، أو الخليجية حسب جمهورك المستهدف. كمان يقدر يخلط بينها لو احتجت.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          هل أحتاج خبرة تقنية لاستخدام المنصة؟
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-answer">
-          أبداً. لو تعرف تستخدم واتساب، تقدر تستخدم حِبر. الواجهة بسيطة جداً ومصممة لأصحاب الأعمال، مش للمبرمجين.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          هل المحتوى أصلي ولا منسوخ؟
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-answer">
-          ١٠٠٪ أصلي. كل محتوى يُولَّد خصيصاً لك بناءً على معلومات محلّك. ما فيه نسخ ولا لصق من مصادر أخرى.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          ماذا لو ما أعجبني المحتوى؟
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-answer">
-          تقدر تعيد التوليد بضغطة زر، أو تعدّل عليه بنفسك، أو ترفض الباقة وتاخذ فلوسك خلال ١٤ يوم بدون أي أسئلة.
-        </div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-question">
-          هل تدعمون طرق الدفع السعودية؟
-          <div class="faq-toggle">+</div>
-        </div>
-        <div class="faq-answer">
-          نعم — مدى، آبل باي، فيزا، ماستركارد، وحتى التحويل البنكي للباقات السنوية. كل المدفوعات آمنة ومشفّرة.
-        </div>
-      </div>
+<!-- CTA -->
+<section class="cta-section" id="cta">
+  <div class="container reveal">
+    <div class="cta-box">
+      <span class="eyebrow" data-i18n="cta.eyebrow"></span>
+      <h2 class="display">
+        <span data-i18n="cta.title1"></span>
+        <span class="accent" data-i18n="cta.title2"></span><br>
+        <span data-i18n="cta.title3"></span>
+      </h2>
+      <p data-i18n="cta.desc"></p>
+      <a href="#products" class="btn-primary">
+        <span data-i18n="cta.btn"></span>
+        <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
     </div>
-  </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-cta" id="cta">
-  <div class="container">
-    <h2 class="reveal">جاهز توفّر ساعاتك ووقتك؟</h2>
-    <p class="reveal">انضم لـ ٥٠٠+ صاحب عمل في السعودية والخليج. ابدأ تجربتك المجانية اليوم — بدون بطاقة ائتمان، بدون مخاطرة.</p>
-    <a href="https://wa.me/966548470751?text=السلام%20عليكم،%20أبي%20أبدأ%20تجربتي%20المجانية%20مع%20حِبر" target="_blank" class="btn btn-primary btn-large reveal">ابدأ ٧ أيام مجانية الآن ←</a>
   </div>
 </section>
 
 <!-- FOOTER -->
 <footer>
   <div class="container">
-    <a href="#" class="logo">حِبر<span class="logo-dot"></span></a>
-    <div class="footer-links">
-      <a href="#features">المميزات</a>
-      <a href="#pricing">الباقات</a>
-      <a href="#faq">الأسئلة</a>
-      <a href="#">الشروط</a>
-      <a href="#">الخصوصية</a>
-      <a href="#">تواصل معنا</a>
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-dot"></span>
+          <span class="latin">Chattlle</span>
+        </a>
+        <p data-i18n="footer.desc"></p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.shop"></h5>
+        <ul>
+          <li><a href="#products" data-i18n="footer.all"></a></li>
+          <li><a href="#categories" data-i18n="footer.cats"></a></li>
+          <li><a href="#" data-i18n="footer.deals"></a></li>
+          <li><a href="#" data-i18n="footer.new"></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.company"></h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.about"></a></li>
+          <li><a href="#" data-i18n="footer.blog"></a></li>
+          <li><a href="#" data-i18n="footer.partners"></a></li>
+          <li><a href="#" data-i18n="footer.contact"></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.help"></h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.faq"></a></li>
+          <li><a href="#" data-i18n="footer.refund"></a></li>
+          <li><a href="#" data-i18n="footer.privacy"></a></li>
+          <li><a href="#" data-i18n="footer.terms"></a></li>
+        </ul>
+      </div>
     </div>
-    <p class="copyright">© ٢٠٢٦ حِبر · جميع الحقوق محفوظة · صُنع بحب في السعودية 🇸🇦</p>
+    <div class="foot-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="TikTok">♪</a>
+        <a href="#" aria-label="Email">✉</a>
+      </div>
+    </div>
   </div>
 </footer>
 
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/products.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/back-to-top.js"></script>
 <script>
-  // FAQ toggle
-  document.querySelectorAll('.faq-item').forEach(item => {
-    item.addEventListener('click', () => {
-      item.classList.toggle('open');
+/* ============ FILTER STATE ============ */
+let filterState = {
+  search: '',
+  category: 'all',
+  priceRange: 'all',
+  sort: 'default'
+};
+let searchDebounceTimer = null;
+
+/* Apply filters & sorting to PRODUCTS, return filtered array */
+function applyFilters(){
+  const lang = getCurrentLang();
+  let result = [...PRODUCTS];
+
+  // 1. Search filter (title + description in current language)
+  if(filterState.search.trim()){
+    const q = filterState.search.trim().toLowerCase();
+    result = result.filter(p => {
+      const t = p[lang];
+      const tOther = p[lang === 'ar' ? 'en' : 'ar']; // also search the other language
+      return (t.title && t.title.toLowerCase().includes(q))
+          || (t.desc && t.desc.toLowerCase().includes(q))
+          || (tOther.title && tOther.title.toLowerCase().includes(q))
+          || (tOther.desc && tOther.desc.toLowerCase().includes(q));
+    });
+  }
+
+  // 2. Category filter
+  if(filterState.category !== 'all'){
+    result = result.filter(p => p.category === filterState.category);
+  }
+
+  // 3. Price range filter
+  if(filterState.priceRange !== 'all'){
+    const [min, max] = filterState.priceRange.split('-').map(Number);
+    result = result.filter(p => p.prices.current >= min && p.prices.current <= max);
+  }
+
+  // 4. Sorting
+  switch(filterState.sort){
+    case 'newest':
+      result.sort((a, b) => b.id - a.id);
+      break;
+    case 'price-asc':
+      result.sort((a, b) => a.prices.current - b.prices.current);
+      break;
+    case 'price-desc':
+      result.sort((a, b) => b.prices.current - a.prices.current);
+      break;
+    case 'popular':
+      result.sort((a, b) => (b.rating * b.reviews) - (a.rating * a.reviews));
+      break;
+    case 'default':
+    default:
+      result.sort((a, b) => (a.displayOrder || 0) - (b.displayOrder || 0));
+      break;
+  }
+
+  return result;
+}
+
+/* Render product grid from filtered data */
+function renderProducts(){
+  const lang = getCurrentLang();
+  const grid = document.getElementById('productsGrid');
+  if(!grid) return;
+
+  const filtered = applyFilters();
+  const countEl = document.getElementById('resultsCount');
+  if(countEl) countEl.textContent = filtered.length;
+
+  if(PRODUCTS.length === 0){
+    grid.innerHTML = `<div class="no-results"><div class="icon">📦</div><h3>${lang === 'ar' ? 'لا توجد منتجات حاليًا' : 'No products yet'}</h3></div>`;
+    return;
+  }
+
+  if(filtered.length === 0){
+    grid.innerHTML = `
+      <div class="no-results">
+        <div class="icon">🔍</div>
+        <h3>${getText('filter.noResults.title', lang)}</h3>
+        <p>${getText('filter.noResults.desc', lang)}</p>
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(p => {
+    const t = p[lang];
+    const priceHtml = p.prices.old
+      ? `<span class="price-old">${formatPrice(p.prices.old, lang)}</span><span class="price">${formatPrice(p.prices.current, lang)}</span>`
+      : `<span class="price">${formatPrice(p.prices.current, lang)}</span>`;
+
+    const visual = p.imageUrl
+      ? `<img src="${p.imageUrl}" alt="${t.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`
+      : `<div class="gradient ${p.gradient}"></div><div class="icon-big">${p.icon}</div>`;
+
+    return `
+      <div class="product reveal">
+        <a href="product.html?id=${p.id}" class="product-img" aria-label="${t.title}">
+          ${visual}
+          <span class="label">${getText('badge.' + p.badge, lang)}</span>
+        </a>
+        <div class="product-body">
+          <div class="product-cat">${getText('cat.' + p.category, lang)}</div>
+          <h3><a href="product.html?id=${p.id}" style="color:inherit;text-decoration:none">${t.title}</a></h3>
+          <p>${t.desc}</p>
+          <div class="product-foot">
+            <div>${priceHtml}</div>
+            <button class="add-btn" data-product-id="${p.id}">${getText('btn.add', lang)}</button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  // attach add-to-cart listeners
+  grid.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const id = parseInt(btn.dataset.productId);
+      addToCart(id);
+      const original = btn.textContent;
+      btn.textContent = getText('btn.added');
+      btn.style.background = 'var(--gold)';
+      btn.style.color = 'var(--bg-deep)';
+      btn.style.borderColor = 'var(--gold)';
+      setTimeout(() => {
+        btn.textContent = getText('btn.add');
+        btn.style.background = '';
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 1500);
     });
   });
 
-  // Reveal on scroll
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
+  // re-observe new reveals
+  observeReveals();
+}
+
+/* Wire filter UI events */
+function setupFilters(){
+  // Search input (debounced)
+  const searchInput = document.getElementById('searchInput');
+  if(searchInput){
+    searchInput.addEventListener('input', (e) => {
+      clearTimeout(searchDebounceTimer);
+      searchDebounceTimer = setTimeout(() => {
+        filterState.search = e.target.value;
+        renderProducts();
+      }, 250);
+    });
+  }
+
+  // Category pills
+  document.querySelectorAll('#categoryFilter .pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#categoryFilter .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      filterState.category = pill.dataset.cat;
+      renderProducts();
+    });
+  });
+
+  // Price pills
+  document.querySelectorAll('#priceFilter .pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      document.querySelectorAll('#priceFilter .pill').forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      filterState.priceRange = pill.dataset.price;
+      renderProducts();
+    });
+  });
+
+  // Sort dropdown
+  const sortSelect = document.getElementById('sortSelect');
+  if(sortSelect){
+    sortSelect.addEventListener('change', (e) => {
+      filterState.sort = e.target.value;
+      renderProducts();
+    });
+  }
+
+  // Clear filters button
+  const clearBtn = document.getElementById('clearFiltersBtn');
+  if(clearBtn){
+    clearBtn.addEventListener('click', () => {
+      filterState = { search: '', category: 'all', priceRange: 'all', sort: 'default' };
+      if(searchInput) searchInput.value = '';
+      if(sortSelect) sortSelect.value = 'default';
+      document.querySelectorAll('#categoryFilter .pill').forEach(p => p.classList.toggle('active', p.dataset.cat === 'all'));
+      document.querySelectorAll('#priceFilter .pill').forEach(p => p.classList.toggle('active', p.dataset.price === 'all'));
+      renderProducts();
+    });
+  }
+}
+
+/* Show loading state */
+function showProductsLoading(){
+  const grid = document.getElementById('productsGrid');
+  if(!grid) return;
+  grid.innerHTML = Array(3).fill('').map(() => `
+    <div class="product" style="opacity:.5">
+      <div class="product-img" style="background:rgba(245,239,227,.05)"></div>
+      <div class="product-body">
+        <div style="height:14px;background:rgba(245,239,227,.06);border-radius:7px;width:30%;margin-bottom:.6rem"></div>
+        <div style="height:20px;background:rgba(245,239,227,.06);border-radius:7px;width:80%;margin-bottom:.6rem"></div>
+        <div style="height:14px;background:rgba(245,239,227,.06);border-radius:7px;width:100%;margin-bottom:1.2rem"></div>
+        <div class="product-foot">
+          <div style="height:24px;background:rgba(245,239,227,.06);border-radius:7px;width:60px"></div>
+          <div style="height:36px;background:rgba(245,239,227,.06);border-radius:18px;width:100px"></div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+/* Reveal animation */
+let revealObserver;
+function observeReveals(){
+  if(revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+}
 
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.addEventListener('DOMContentLoaded', async () => {
+  initLangSwitcher('home');
+  observeReveals();
+  showProductsLoading();
+  setupFilters();
+
+  // Load products from Supabase, then render
+  await loadProducts();
+  renderProducts();
+
+  // nav background on scroll
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+
+// re-render on language change
+document.addEventListener('langChanged', renderProducts);
 </script>
 
 </body>

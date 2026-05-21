@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تفاصيل المنتج — Chattlle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .product-page{
+    padding: 8rem 0 4rem;
+  }
+  .product-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:4rem;
+    align-items:start;
+  }
+  .product-visual{
+    position:relative;
+    aspect-ratio: 4/3;
+    border-radius:32px;
+    overflow:hidden;
+    border:1px solid var(--line);
+  }
+  .product-visual .gradient{
+    position:absolute;
+    inset:0;
+  }
+  .product-visual .icon-huge{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:9rem;
+  }
+  .product-visual .badge{
+    position:absolute;
+    top:1.5rem;
+    inset-inline-end:1.5rem;
+    background: rgba(10,6,19,.8);
+    backdrop-filter: blur(10px);
+    border:1px solid var(--gold);
+    padding:.5rem 1rem;
+    border-radius:100px;
+    font-size:.85rem;
+    font-weight:700;
+    color: var(--gold);
+  }
+
+  .product-info .category-tag{
+    color: var(--gold);
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:1.05rem;
+    margin-bottom:.6rem;
+  }
+  .product-info h1{
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    margin-bottom:1rem;
+    line-height:1.2;
+  }
+  html[lang="ar"] .product-info h1{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  html[lang="en"] .product-info h1{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .rating-row{
+    display:flex;
+    align-items:center;
+    gap:.8rem;
+    margin-bottom:1.5rem;
+    color: var(--ink-mute);
+  }
+  .stars{ color: var(--gold); letter-spacing:.1em }
+  .rating-num{ font-weight:600; color: var(--ink) }
+
+  .price-block{
+    display:flex;
+    align-items:baseline;
+    gap:1rem;
+    margin:1.5rem 0;
+    padding:1.5rem 0;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .price-block .price{
+    font-size:2.5rem;
+  }
+  .savings-tag{
+    background: var(--green);
+    color: var(--bg-deep);
+    padding:.3rem .8rem;
+    border-radius:100px;
+    font-size:.85rem;
+    font-weight:700;
+    font-family:'Outfit', sans-serif;
+  }
+
+  .desc-block{
+    color: var(--ink-mute);
+    margin-bottom:2rem;
+    line-height:1.8;
+    font-size:1.05rem;
+  }
+
+  .meta-row{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1rem;
+    margin-bottom:2rem;
+  }
+  .meta-item{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:1rem;
+    text-align:center;
+  }
+  .meta-item .label{
+    color: var(--gold);
+    font-family:'Cormorant Garamond', serif;
+    font-style:italic;
+    font-size:.85rem;
+    margin-bottom:.3rem;
+  }
+  .meta-item .value{
+    font-weight:600;
+    font-size:.95rem;
+  }
+
+  .features-list{
+    list-style:none;
+    margin-bottom:2rem;
+  }
+  .features-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:.7rem;
+    padding:.6rem 0;
+    color: var(--ink);
+  }
+  .features-list li::before{
+    content:"✓";
+    color: var(--bg-deep);
+    background: var(--gold);
+    width:22px;height:22px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:700;
+    font-size:.75rem;
+    flex-shrink:0;
+    margin-top:.15rem;
+  }
+  .features-block h3{
+    font-size:1.1rem;
+    margin-bottom:1rem;
+    color: var(--gold);
+  }
+  html[lang="ar"] .features-block h3{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .features-block h3{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .qty-control{
+    display:inline-flex;
+    align-items:center;
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:100px;
+    overflow:hidden;
+    direction:ltr;
+  }
+  .qty-control button{
+    background:transparent;
+    border:none;
+    color:var(--ink);
+    width:42px;height:42px;
+    font-size:1.2rem;
+    cursor:pointer;
+    transition: background .2s;
+  }
+  .qty-control button:hover{ background: rgba(232,193,120,.15) }
+  .qty-control span{
+    min-width:36px;
+    text-align:center;
+    font-weight:600;
+    font-family:'Outfit', sans-serif;
+  }
+
+  .actions-row{
+    display:flex;
+    gap:1rem;
+    flex-wrap:wrap;
+    align-items:center;
+    margin-top:2rem;
+  }
+
+  .trust-row{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1rem;
+    margin-top:2rem;
+    padding-top:2rem;
+    border-top:1px solid var(--line);
+  }
+  .trust-item{
+    display:flex;
+    align-items:center;
+    gap:.6rem;
+    color: var(--ink-mute);
+    font-size:.85rem;
+  }
+  .trust-item .ico{
+    width:32px;height:32px;
+    border-radius:50%;
+    background: rgba(232,193,120,.15);
+    color: var(--gold);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+
+  /* Related products */
+  .related-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:1.5rem;
+    margin-top:2rem;
+  }
+  .related-card{
+    background: rgba(245,239,227,.04);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    overflow:hidden;
+    transition: all .3s;
+    text-decoration:none;
+    color:inherit;
+  }
+  .related-card:hover{ transform:translateY(-5px); border-color: rgba(232,193,120,.3) }
+  .related-card .img{
+    aspect-ratio: 4/3;
+    position:relative;
+    overflow:hidden;
+  }
+  .related-card .img .gradient{ position:absolute; inset:0 }
+  .related-card .img .ic{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:3.5rem;
+  }
+  .related-card .body{ padding:1.2rem }
+  .related-card h4{
+    font-size:1rem;
+    margin-bottom:.5rem;
+    line-height:1.4;
+  }
+  html[lang="ar"] .related-card h4{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .related-card h4{ font-family:'Fraunces', serif; font-weight:600 }
+  .related-card .pr{
+    font-family:'Cormorant Garamond', serif;
+    font-size:1.2rem;
+    color: var(--gold);
+    font-weight:600;
+  }
+
+  /* Not found state */
+  .not-found{
+    text-align:center;
+    padding:6rem 0;
+  }
+  .not-found h1{
+    font-size:2.5rem;
+    margin-bottom:1rem;
+  }
+  html[lang="ar"] .not-found h1{ font-family:'Reem Kufi', sans-serif }
+  html[lang="en"] .not-found h1{ font-family:'Fraunces', serif; font-weight:600 }
+  .not-found p{
+    color: var(--ink-mute);
+    margin-bottom:2rem;
+  }
+
+  @media (max-width: 900px){
+    .product-grid{ grid-template-columns:1fr; gap:2rem }
+    .meta-row{ grid-template-columns:1fr; gap:.6rem }
+    .trust-row{ grid-template-columns:1fr; gap:.6rem }
+    .related-grid{ grid-template-columns:1fr }
+    .product-visual .icon-huge{ font-size:6rem }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV (same as index) -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#products" data-i18n="nav.products"></a></li>
+      <li><a href="index.html#categories" data-i18n="nav.categories"></a></li>
+      <li><a href="index.html#how" data-i18n="nav.how"></a></li>
+      <li><a href="index.html#testimonials" data-i18n="nav.testimonials"></a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a href="cart.html" class="cart-icon" aria-label="Cart">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main id="mainContent">
+  <!-- Rendered by JS -->
+</main>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <a href="index.html" class="logo">
+          <span class="logo-dot"></span>
+          <span class="latin">Chattlle</span>
+        </a>
+        <p data-i18n="footer.desc"></p>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.shop"></h5>
+        <ul>
+          <li><a href="index.html#products" data-i18n="footer.all"></a></li>
+          <li><a href="index.html#categories" data-i18n="footer.cats"></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.company"></h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.about"></a></li>
+          <li><a href="#" data-i18n="footer.contact"></a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5 data-i18n="footer.help"></h5>
+        <ul>
+          <li><a href="#" data-i18n="footer.faq"></a></li>
+          <li><a href="#" data-i18n="footer.privacy"></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+        <a href="#" aria-label="TikTok">♪</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/products.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/back-to-top.js"></script>
+<script>
+let currentQty = 1;
+let currentProduct = null;
+
+function renderStars(rating){
+  const full = Math.floor(rating);
+  const half = (rating % 1) >= 0.5;
+  let stars = '';
+  for(let i = 0; i < full; i++) stars += '★';
+  if(half) stars += '⯨';
+  for(let i = 0; i < (5 - full - (half ? 1 : 0)); i++) stars += '☆';
+  return stars;
+}
+
+function renderProduct(){
+  const lang = getCurrentLang();
+  const urlParams = new URLSearchParams(window.location.search);
+  const id = parseInt(urlParams.get('id'));
+  const product = getProduct(id);
+  const main = document.getElementById('mainContent');
+
+  if(!product){
+    main.innerHTML = `
+      <div class="container not-found">
+        <div style="font-size:5rem;margin-bottom:1rem">🔍</div>
+        <h1 data-i18n="product.notFound">${getText('product.notFound', lang)}</h1>
+        <p data-i18n="product.notFoundDesc">${getText('product.notFoundDesc', lang)}</p>
+        <a href="index.html" class="btn-primary">${getText('btn.backHome', lang)}</a>
+      </div>
+    `;
+    return;
+  }
+
+  currentProduct = product;
+  const t = product[lang];
+  const savings = product.prices.old ? product.prices.old - product.prices.current : 0;
+
+  const priceHtml = product.prices.old
+    ? `<span class="price-old" style="font-size:1.4rem">${formatPrice(product.prices.old, lang)}</span><span class="price">${formatPrice(product.prices.current, lang)}</span>${savings ? `<span class="savings-tag">${getText('product.savings', lang)} ${formatPrice(savings, lang)}</span>` : ''}`
+    : `<span class="price">${formatPrice(product.prices.current, lang)}</span>`;
+
+  // related products: same category or random 3
+  const related = PRODUCTS.filter(p => p.id !== product.id).slice(0, 3);
+
+  main.innerHTML = `
+    <section class="product-page">
+      <div class="container">
+
+        <button class="back-link" type="button" data-fallback="index.html">
+          <svg class="back-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          <span>${getText('bc.back', lang)}</span>
+        </button>
+
+        <div class="breadcrumb">
+          <a href="index.html">${getText('bc.home', lang)}</a>
+          <span class="breadcrumb-sep">/</span>
+          <a href="index.html#products">${getText('bc.products', lang)}</a>
+          <span class="breadcrumb-sep">/</span>
+          <span>${t.title}</span>
+        </div>
+
+        <div class="product-grid">
+          <div class="product-visual">
+            ${product.imageUrl
+              ? `<img src="${product.imageUrl}" alt="${t.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`
+              : `<div class="gradient ${product.gradient}"></div><div class="icon-huge">${product.icon}</div>`
+            }
+            <div class="badge">${getText('badge.' + product.badge, lang)}</div>
+          </div>
+
+          <div class="product-info">
+            <div class="category-tag">${getText('cat.' + product.category, lang)}</div>
+            <h1>${t.title}</h1>
+
+            <div class="rating-row">
+              <span class="stars">${renderStars(product.rating)}</span>
+              <span class="rating-num">${product.rating}</span>
+              <span>(${product.reviews} ${getText('product.reviews', lang)})</span>
+            </div>
+
+            <div class="price-block">
+              ${priceHtml}
+            </div>
+
+            <div class="desc-block">${t.longDesc}</div>
+
+            <div class="meta-row">
+              <div class="meta-item">
+                <div class="label">${getText('product.format', lang)}</div>
+                <div class="value">${t.format}</div>
+              </div>
+              <div class="meta-item">
+                <div class="label">${getText('product.size', lang)}</div>
+                <div class="value">${t.size}</div>
+              </div>
+              <div class="meta-item">
+                <div class="label">${getText('product.language', lang)}</div>
+                <div class="value">${t.language}</div>
+              </div>
+            </div>
+
+            <div class="features-block">
+              <h3>${getText('product.whatsIncluded', lang)}</h3>
+              <ul class="features-list">
+                ${t.features.map(f => `<li>${f}</li>`).join('')}
+              </ul>
+            </div>
+
+            <div class="actions-row">
+              <div class="qty-control">
+                <button id="qtyMinus" type="button">−</button>
+                <span id="qtyValue">1</span>
+                <button id="qtyPlus" type="button">+</button>
+              </div>
+              <button class="btn-primary" id="addToCartBtn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+                ${getText('btn.add', lang)}
+              </button>
+              <button class="btn-outline" id="buyNowBtn">
+                ${getText('btn.buyNow', lang)}
+              </button>
+            </div>
+
+            <div class="trust-row">
+              <div class="trust-item">
+                <div class="ico">⚡</div>
+                <div>${getText('product.instantDownload', lang)}</div>
+              </div>
+              <div class="trust-item">
+                <div class="ico">↻</div>
+                <div>${getText('product.guarantee', lang)}</div>
+              </div>
+              <div class="trust-item">
+                <div class="ico">∞</div>
+                <div>${getText('product.lifetimeAccess', lang)}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:6rem">
+          <div class="section-head">
+            <h2 class="display">${getText('product.related', lang)}</h2>
+          </div>
+          <div class="related-grid">
+            ${related.map(p => {
+              const rt = p[lang];
+              const relVisual = p.imageUrl
+                ? `<img src="${p.imageUrl}" alt="${rt.title}" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`
+                : `<div class="gradient ${p.gradient}"></div><div class="ic">${p.icon}</div>`;
+              return `
+                <a href="product.html?id=${p.id}" class="related-card">
+                  <div class="img">
+                    ${relVisual}
+                  </div>
+                  <div class="body">
+                    <h4>${rt.title}</h4>
+                    <div class="pr">${formatPrice(p.prices.current, lang)}</div>
+                  </div>
+                </a>
+              `;
+            }).join('')}
+          </div>
+        </div>
+
+      </div>
+    </section>
+  `;
+
+  // attach handlers
+  document.getElementById('qtyMinus').addEventListener('click', () => {
+    currentQty = Math.max(1, currentQty - 1);
+    document.getElementById('qtyValue').textContent = currentQty;
+  });
+  document.getElementById('qtyPlus').addEventListener('click', () => {
+    currentQty = Math.min(99, currentQty + 1);
+    document.getElementById('qtyValue').textContent = currentQty;
+  });
+  document.getElementById('addToCartBtn').addEventListener('click', () => {
+    addToCart(product.id, currentQty);
+  });
+  document.getElementById('buyNowBtn').addEventListener('click', () => {
+    addToCart(product.id, currentQty);
+    setTimeout(() => { window.location.href = 'checkout.html'; }, 600);
+  });
+
+  // Re-wire back-link button (page was just re-rendered)
+  if(window.chattlleSetupBackLinks) window.chattlleSetupBackLinks();
+}
+
+function showProductLoading(){
+  const main = document.getElementById('mainContent');
+  main.innerHTML = `
+    <section class="product-page">
+      <div class="container">
+        <div class="product-grid">
+          <div style="aspect-ratio:4/3;background:rgba(245,239,227,.05);border-radius:32px"></div>
+          <div>
+            <div style="height:14px;background:rgba(245,239,227,.06);border-radius:7px;width:25%;margin-bottom:1rem"></div>
+            <div style="height:40px;background:rgba(245,239,227,.06);border-radius:8px;width:80%;margin-bottom:1rem"></div>
+            <div style="height:20px;background:rgba(245,239,227,.06);border-radius:8px;width:50%;margin-bottom:2rem"></div>
+            <div style="height:60px;background:rgba(245,239,227,.06);border-radius:14px;margin-bottom:1.5rem"></div>
+            <div style="height:80px;background:rgba(245,239,227,.06);border-radius:14px;margin-bottom:2rem"></div>
+            <div style="height:50px;background:rgba(232,193,120,.15);border-radius:25px;width:200px"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+  initLangSwitcher('product');
+  showProductLoading();
+
+  // Load products from Supabase, then render
+  await loadProducts();
+  renderProduct();
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+
+document.addEventListener('langChanged', renderProduct);
+</script>
+</body>
+</html>
