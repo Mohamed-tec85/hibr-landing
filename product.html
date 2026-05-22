@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
 <title>تفاصيل المنتج — Chattlle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -418,6 +427,23 @@ function renderProduct(){
   currentProduct = product;
   const t = product[lang];
   const savings = product.prices.old ? product.prices.old - product.prices.current : 0;
+
+  // ========== GA4: view_item event ==========
+  if(typeof gtag !== 'undefined' && !window._ga_viewedProduct){
+    try {
+      gtag('event', 'view_item', {
+        currency: 'SAR',
+        value: parseFloat(product.prices.current),
+        items: [{
+          item_id: String(id),
+          item_name: t.title,
+          item_category: product.category || '',
+          price: parseFloat(product.prices.current)
+        }]
+      });
+      window._ga_viewedProduct = true;
+    } catch(e){ console.warn('GA4 tracking error:', e); }
+  }
 
   const priceHtml = product.prices.old
     ? `<span class="price-old" style="font-size:1.4rem">${formatPrice(product.prices.old, lang)}</span><span class="price">${formatPrice(product.prices.current, lang)}</span>${savings ? `<span class="savings-tag">${getText('product.savings', lang)} ${formatPrice(savings, lang)}</span>` : ''}`

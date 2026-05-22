@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
 <title>إتمام الطلب — Chattlle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -700,6 +709,30 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Load products so cart items resolve correctly
   await loadProducts();
   renderCheckout();
+
+  // ========== GA4: begin_checkout event ==========
+  if(typeof gtag !== 'undefined'){
+    try {
+      const lang = getCurrentLang();
+      const cart = getCart();
+      const items = cart.map(item => {
+        const product = getProduct(item.id);
+        return {
+          item_id: String(item.id),
+          item_name: product ? (product[lang]?.title || product.ar?.title || 'Product') : 'Product',
+          item_category: product?.category || '',
+          price: product ? parseFloat(product.prices.current) : 0,
+          quantity: item.qty
+        };
+      });
+      const subtotal = getCartSubtotal();
+      gtag('event', 'begin_checkout', {
+        currency: 'SAR',
+        value: subtotal,
+        items: items
+      });
+    } catch(e){ console.warn('GA4 tracking error:', e); }
+  }
 
   const nav = document.querySelector('nav');
   window.addEventListener('scroll', () => {

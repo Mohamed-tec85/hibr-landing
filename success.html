@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
 <title>تم الطلب بنجاح — Chattlle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -350,6 +359,31 @@ function renderSuccess(){
     hour: '2-digit',
     minute: '2-digit'
   });
+
+  // ========== GA4 Ecommerce: Purchase Event ==========
+  // Only fire once per order (use sessionStorage flag)
+  const purchaseTrackedKey = `ga_purchase_${order.id}`;
+  if(typeof gtag !== 'undefined' && !sessionStorage.getItem(purchaseTrackedKey)){
+    try {
+      gtag('event', 'purchase', {
+        transaction_id: order.id,
+        value: parseFloat(order.total),
+        tax: parseFloat(order.vat || 0),
+        currency: 'SAR',
+        items: order.items.map(item => ({
+          item_id: String(item.product.id || ''),
+          item_name: item.product.ar?.title || item.product.en?.title || 'Product',
+          item_category: item.product.category || '',
+          price: parseFloat(item.product.priceCurrent || 0),
+          quantity: parseInt(item.qty || 1)
+        }))
+      });
+      sessionStorage.setItem(purchaseTrackedKey, '1');
+      console.log('✓ GA4 purchase event sent:', order.id);
+    } catch(e){
+      console.warn('GA4 tracking error:', e);
+    }
+  }
 
   const itemsHtml = order.items.map((item, idx) => {
     const t = item.product[lang];
