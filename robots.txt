@@ -1,0 +1,13 @@
+# Chattlle.com — robots.txt
+# Allow all search engines to index the public pages
+
+User-agent: *
+Allow: /
+Disallow: /admin.html
+Disallow: /checkout.html
+Disallow: /cart.html
+Disallow: /success.html
+Disallow: /.netlify/
+
+# Sitemap location
+Sitemap: https://chattlle.com/sitemap.xml

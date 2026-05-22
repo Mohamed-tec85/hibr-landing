@@ -7,6 +7,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Cdefs%3E%3ClinearGradient id=%27g%27 x1=%270%25%27 y1=%270%25%27 x2=%27100%25%27 y2=%27100%25%27%3E%3Cstop offset=%270%25%27 stop-color=%27%23e8c178%27/%3E%3Cstop offset=%27100%25%27 stop-color=%27%237b3fff%27/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx=%2750%27 cy=%2750%27 r=%2745%27 fill=%27url(%23g)%27/%3E%3Ctext x=%2750%27 y=%2765%27 font-family=%27Georgia,serif%27 font-size=%2750%27 font-style=%27italic%27 text-anchor=%27middle%27 fill=%27%230a0613%27 font-weight=%27bold%27%3EC%3C/text%3E%3C/svg%3E">
+<meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="assets/styles.css">
 <style>
   /* ============ ADMIN LAYOUT ============ */
@@ -790,6 +792,7 @@
   /* ============ RESPONSIVE ============ */
   @media (max-width: 900px){
     .stats-grid{ grid-template-columns: repeat(2,1fr) }
+    .analytics-row{ grid-template-columns: 1fr !important; }
     .products-table .row{
       grid-template-columns: 50px 1fr auto;
       gap:.8rem;
@@ -903,7 +906,64 @@
           </div>
         </div>
 
-        <div class="sec-head">
+        <!-- ANALYTICS: Secondary stats -->
+        <div class="stats-grid" style="margin-top:1.2rem">
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-label" data-i18n="admin.stats.avgOrder">متوسط قيمة الطلب</div>
+            <div class="stat-value" id="statAvgOrder">0 ر.س</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🧾</div>
+            <div class="stat-label" data-i18n="admin.stats.totalVat">إجمالي الضريبة</div>
+            <div class="stat-value" id="statTotalVat">0 ر.س</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-label" data-i18n="admin.stats.last30Days">آخر 30 يومًا</div>
+            <div class="stat-value" id="stat30Days">0 ر.س</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-label" data-i18n="admin.stats.uniqueCustomers">عملاء مختلفون</div>
+            <div class="stat-value" id="statUniqueCustomers">0</div>
+          </div>
+        </div>
+
+        <!-- ANALYTICS: Sales Chart -->
+        <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:18px;padding:2rem;margin-top:2rem">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
+            <div>
+              <h3 style="font-size:1.2rem;margin:0 0 .3rem" data-i18n="admin.chart.salesTitle">المبيعات عبر الزمن</h3>
+              <p style="color:var(--ink-mute);font-size:.85rem;margin:0" data-i18n="admin.chart.salesDesc">آخر 30 يومًا</p>
+            </div>
+            <div class="pill-group">
+              <button class="pill active" data-period="30" onclick="setChartPeriod(30)">30 يومًا</button>
+              <button class="pill" data-period="7" onclick="setChartPeriod(7)">7 أيام</button>
+              <button class="pill" data-period="90" onclick="setChartPeriod(90)">90 يومًا</button>
+            </div>
+          </div>
+          <div id="salesChart" style="width:100%;height:280px"></div>
+        </div>
+
+        <!-- ANALYTICS: Top Products & Recent Activity -->
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:1.5rem;margin-top:2rem" class="analytics-row">
+          <!-- Top Products -->
+          <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:18px;padding:2rem">
+            <h3 style="font-size:1.2rem;margin-bottom:.3rem" data-i18n="admin.chart.topProducts">الأكثر مبيعًا</h3>
+            <p style="color:var(--ink-mute);font-size:.85rem;margin-bottom:1.5rem" data-i18n="admin.chart.topProductsDesc">المنتجات الأعلى في الإيرادات</p>
+            <div id="topProductsList"></div>
+          </div>
+
+          <!-- Category Breakdown -->
+          <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:18px;padding:2rem">
+            <h3 style="font-size:1.2rem;margin-bottom:.3rem" data-i18n="admin.chart.categoryBreakdown">حسب الفئة</h3>
+            <p style="color:var(--ink-mute);font-size:.85rem;margin-bottom:1.5rem" data-i18n="admin.chart.categoryBreakdownDesc">توزيع المبيعات</p>
+            <div id="categoryChart"></div>
+          </div>
+        </div>
+
+        <div class="sec-head" style="margin-top:3rem">
           <h2 data-i18n="admin.quickActions">إجراءات سريعة</h2>
         </div>
         <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));gap:1rem">
@@ -1230,7 +1290,19 @@ const ADMIN_I18N = {
     "admin.noOrders": "لا توجد طلبات بعد",
     "admin.savedSuccess": "تم الحفظ بنجاح",
     "admin.deletedSuccess": "تم الحذف بنجاح",
-    "admin.uploadError": "فشل رفع الملف"
+    "admin.uploadError": "فشل رفع الملف",
+
+    // Analytics translations
+    "admin.stats.avgOrder": "متوسط قيمة الطلب",
+    "admin.stats.totalVat": "إجمالي الضريبة",
+    "admin.stats.last30Days": "آخر 30 يومًا",
+    "admin.stats.uniqueCustomers": "عملاء مختلفون",
+    "admin.chart.salesTitle": "المبيعات عبر الزمن",
+    "admin.chart.salesDesc": "تابع نمو إيراداتك",
+    "admin.chart.topProducts": "الأكثر مبيعًا",
+    "admin.chart.topProductsDesc": "المنتجات الأعلى في الإيرادات",
+    "admin.chart.categoryBreakdown": "حسب الفئة",
+    "admin.chart.categoryBreakdownDesc": "توزيع المبيعات"
   },
   en: {
     "admin.loginSubtitle": "Admin Dashboard",
@@ -1286,7 +1358,19 @@ const ADMIN_I18N = {
     "admin.noOrders": "No orders yet",
     "admin.savedSuccess": "Saved successfully",
     "admin.deletedSuccess": "Deleted successfully",
-    "admin.uploadError": "File upload failed"
+    "admin.uploadError": "File upload failed",
+
+    // Analytics translations
+    "admin.stats.avgOrder": "Avg Order Value",
+    "admin.stats.totalVat": "Total VAT",
+    "admin.stats.last30Days": "Last 30 Days",
+    "admin.stats.uniqueCustomers": "Unique Customers",
+    "admin.chart.salesTitle": "Sales Over Time",
+    "admin.chart.salesDesc": "Track your revenue growth",
+    "admin.chart.topProducts": "Top Sellers",
+    "admin.chart.topProductsDesc": "Highest revenue products",
+    "admin.chart.categoryBreakdown": "By Category",
+    "admin.chart.categoryBreakdownDesc": "Sales distribution"
   }
 };
 
@@ -1413,6 +1497,285 @@ function renderDashboard(){
 
   document.getElementById('productsCount').textContent = totalProducts;
   document.getElementById('ordersCount').textContent = totalOrders;
+
+  // Render advanced analytics
+  renderAnalytics();
+}
+
+/* ============================================================
+   ANALYTICS — Advanced stats and charts
+   ============================================================ */
+let _chartPeriod = 30;
+
+function setChartPeriod(days){
+  _chartPeriod = days;
+  document.querySelectorAll('[data-period]').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.period) === days);
+  });
+  renderSalesChart();
+}
+
+function renderAnalytics(){
+  const lang = getCurrentLang();
+
+  // Secondary stats
+  const totalSales = allOrders.reduce((s, o) => s + parseFloat(o.total || 0), 0);
+  const totalVat = allOrders.reduce((s, o) => s + parseFloat(o.vat || 0), 0);
+  const avgOrder = allOrders.length > 0 ? totalSales / allOrders.length : 0;
+  const uniqueCustomers = new Set(allOrders.map(o => o.customer_email)).size;
+
+  // Last 30 days
+  const cutoff30 = new Date();
+  cutoff30.setDate(cutoff30.getDate() - 30);
+  const last30Days = allOrders
+    .filter(o => new Date(o.created_at) >= cutoff30)
+    .reduce((s, o) => s + parseFloat(o.total || 0), 0);
+
+  document.getElementById('statAvgOrder').textContent = formatPrice(avgOrder.toFixed(2), lang);
+  document.getElementById('statTotalVat').textContent = formatPrice(totalVat.toFixed(2), lang);
+  document.getElementById('stat30Days').textContent = formatPrice(last30Days.toFixed(2), lang);
+  document.getElementById('statUniqueCustomers').textContent = uniqueCustomers;
+
+  renderSalesChart();
+  renderTopProducts();
+  renderCategoryChart();
+}
+
+/* SALES OVER TIME CHART */
+function renderSalesChart(){
+  const lang = getCurrentLang();
+  const container = document.getElementById('salesChart');
+  if(!container) return;
+
+  // Group orders by day
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - _chartPeriod);
+  const dailyTotals = {};
+
+  // Initialize all days in range with 0
+  for(let i = 0; i < _chartPeriod; i++){
+    const d = new Date();
+    d.setDate(d.getDate() - i);
+    const key = d.toISOString().slice(0, 10);
+    dailyTotals[key] = 0;
+  }
+
+  // Sum orders by day
+  allOrders.forEach(o => {
+    const date = new Date(o.created_at);
+    if(date < cutoff) return;
+    const key = date.toISOString().slice(0, 10);
+    if(key in dailyTotals){
+      dailyTotals[key] += parseFloat(o.total || 0);
+    }
+  });
+
+  // Convert to sorted array
+  const sortedDays = Object.keys(dailyTotals).sort();
+  const data = sortedDays.map(d => ({ date: d, value: dailyTotals[d] }));
+
+  if(data.length === 0 || data.every(d => d.value === 0)){
+    container.innerHTML = `<div style="text-align:center;padding:5rem 2rem;color:var(--ink-mute)"><div style="font-size:3rem;margin-bottom:1rem;opacity:.3">📊</div><p>${lang === 'ar' ? 'لا توجد مبيعات بعد في هذه الفترة' : 'No sales yet in this period'}</p></div>`;
+    return;
+  }
+
+  const maxValue = Math.max(...data.map(d => d.value)) || 1;
+  const width = container.clientWidth || 800;
+  const height = 280;
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+  const innerWidth = width - padding.left - padding.right;
+  const innerHeight = height - padding.top - padding.bottom;
+
+  // Build path
+  const points = data.map((d, i) => ({
+    x: padding.left + (i / (data.length - 1 || 1)) * innerWidth,
+    y: padding.top + (1 - d.value / maxValue) * innerHeight,
+    value: d.value,
+    date: d.date
+  }));
+
+  // Smooth path
+  const linePath = points.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x.toFixed(1)} ${p.y.toFixed(1)}`).join(' ');
+  const areaPath = `${linePath} L ${points[points.length-1].x.toFixed(1)} ${padding.top + innerHeight} L ${points[0].x.toFixed(1)} ${padding.top + innerHeight} Z`;
+
+  // Y-axis labels
+  const ySteps = 4;
+  const yLabels = Array.from({length: ySteps + 1}, (_, i) => {
+    const value = (maxValue / ySteps) * i;
+    return {
+      y: padding.top + innerHeight - (i / ySteps) * innerHeight,
+      label: Math.round(value)
+    };
+  });
+
+  // X-axis labels (show every nth date)
+  const xLabelStep = Math.max(1, Math.floor(data.length / 6));
+  const xLabels = points.filter((_, i) => i % xLabelStep === 0 || i === points.length - 1);
+
+  container.innerHTML = `
+    <svg width="${width}" height="${height}" style="overflow:visible">
+      <defs>
+        <linearGradient id="salesGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#e8c178" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#e8c178" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Y grid lines -->
+      ${yLabels.map(l => `<line x1="${padding.left}" x2="${width - padding.right}" y1="${l.y}" y2="${l.y}" stroke="rgba(245,239,227,.06)" stroke-width="1"/>`).join('')}
+
+      <!-- Y labels -->
+      ${yLabels.map(l => `<text x="${padding.left - 10}" y="${l.y + 4}" text-anchor="end" fill="#b8a99a" font-size="11" font-family="Outfit, sans-serif">${l.label}</text>`).join('')}
+
+      <!-- Area fill -->
+      <path d="${areaPath}" fill="url(#salesGrad)"/>
+
+      <!-- Line -->
+      <path d="${linePath}" fill="none" stroke="#e8c178" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+
+      <!-- Points -->
+      ${points.map(p => p.value > 0 ? `<circle cx="${p.x}" cy="${p.y}" r="3.5" fill="#0a0613" stroke="#e8c178" stroke-width="2"><title>${p.date}: ${formatPrice(p.value.toFixed(2), lang)}</title></circle>` : '').join('')}
+
+      <!-- X labels -->
+      ${xLabels.map(p => {
+        const d = new Date(p.date);
+        const lbl = lang === 'ar'
+          ? d.toLocaleDateString('ar-SA', { day: 'numeric', month: 'short' })
+          : d.toLocaleDateString('en-US', { day: 'numeric', month: 'short' });
+        return `<text x="${p.x}" y="${height - padding.bottom + 20}" text-anchor="middle" fill="#b8a99a" font-size="11" font-family="Outfit, sans-serif">${lbl}</text>`;
+      }).join('')}
+    </svg>
+  `;
+}
+
+/* TOP PRODUCTS */
+function renderTopProducts(){
+  const lang = getCurrentLang();
+  const container = document.getElementById('topProductsList');
+  if(!container) return;
+
+  // Aggregate sales by product
+  const productSales = {};
+  allOrders.forEach(o => {
+    (Array.isArray(o.items) ? o.items : []).forEach(item => {
+      const pid = item.product_id;
+      if(!productSales[pid]){
+        productSales[pid] = {
+          id: pid,
+          title: item.product_title || `#${pid}`,
+          revenue: 0,
+          quantity: 0
+        };
+      }
+      productSales[pid].revenue += parseFloat(item.line_total || 0);
+      productSales[pid].quantity += parseInt(item.qty || 0);
+    });
+  });
+
+  const sorted = Object.values(productSales).sort((a, b) => b.revenue - a.revenue).slice(0, 5);
+
+  if(sorted.length === 0){
+    container.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--ink-mute);font-size:.9rem">${lang === 'ar' ? 'لا توجد مبيعات بعد' : 'No sales yet'}</div>`;
+    return;
+  }
+
+  const maxRev = sorted[0].revenue || 1;
+  container.innerHTML = sorted.map((p, i) => {
+    // Try to find product for icon
+    const prod = allProducts.find(pp => pp.id === p.id);
+    const icon = prod ? (prod.icon || '📦') : '📦';
+    const percentage = (p.revenue / maxRev) * 100;
+    return `
+      <div style="display:grid;grid-template-columns:36px 1fr auto;gap:.8rem;align-items:center;padding:.7rem 0;border-bottom:1px solid var(--line)">
+        <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg, var(--gold), var(--violet));display:flex;align-items:center;justify-content:center;font-size:1.1rem">${icon}</div>
+        <div>
+          <div style="font-weight:600;font-size:.9rem;margin-bottom:.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${p.title}</div>
+          <div style="background:rgba(245,239,227,.06);height:4px;border-radius:2px;overflow:hidden">
+            <div style="width:${percentage}%;height:100%;background:linear-gradient(90deg,var(--gold),var(--violet))"></div>
+          </div>
+        </div>
+        <div style="text-align:end;font-family:'Cormorant Garamond',serif;font-weight:600">
+          <div style="color:var(--gold);font-size:1.05rem">${formatPrice(p.revenue.toFixed(2), lang)}</div>
+          <div style="color:var(--ink-mute);font-size:.75rem">${p.quantity} ${lang === 'ar' ? 'مبيعات' : 'sold'}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+/* CATEGORY BREAKDOWN (donut chart) */
+function renderCategoryChart(){
+  const lang = getCurrentLang();
+  const container = document.getElementById('categoryChart');
+  if(!container) return;
+
+  // Aggregate by category
+  const categorySales = {};
+  allOrders.forEach(o => {
+    (Array.isArray(o.items) ? o.items : []).forEach(item => {
+      const prod = allProducts.find(pp => pp.id === item.product_id);
+      const cat = prod ? prod.category : 'unknown';
+      categorySales[cat] = (categorySales[cat] || 0) + parseFloat(item.line_total || 0);
+    });
+  });
+
+  const sorted = Object.entries(categorySales).sort((a, b) => b[1] - a[1]);
+  const total = sorted.reduce((s, [_, v]) => s + v, 0);
+
+  if(total === 0){
+    container.innerHTML = `<div style="text-align:center;padding:2rem;color:var(--ink-mute);font-size:.9rem">${lang === 'ar' ? 'لا توجد بيانات بعد' : 'No data yet'}</div>`;
+    return;
+  }
+
+  // Donut chart
+  const colors = ['#e8c178', '#7b3fff', '#5ce5d9', '#ff8c69', '#a78bfa', '#fbbf24', '#34d399', '#f472b6'];
+  const size = 160;
+  const cx = size / 2, cy = size / 2;
+  const radius = 60, strokeWidth = 22;
+  const circumference = 2 * Math.PI * radius;
+
+  let offset = 0;
+  const segments = sorted.map(([cat, val], i) => {
+    const percent = val / total;
+    const length = percent * circumference;
+    const segment = {
+      cat,
+      val,
+      percent: (percent * 100).toFixed(1),
+      color: colors[i % colors.length],
+      length,
+      offset: offset
+    };
+    offset += length;
+    return segment;
+  });
+
+  container.innerHTML = `
+    <div style="display:flex;gap:1.5rem;align-items:center;flex-wrap:wrap">
+      <svg width="${size}" height="${size}" style="flex-shrink:0">
+        <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none" stroke="rgba(245,239,227,.06)" stroke-width="${strokeWidth}"/>
+        ${segments.map(s => `
+          <circle cx="${cx}" cy="${cy}" r="${radius}" fill="none"
+            stroke="${s.color}" stroke-width="${strokeWidth}"
+            stroke-dasharray="${s.length} ${circumference}"
+            stroke-dashoffset="-${s.offset}"
+            transform="rotate(-90 ${cx} ${cy})"
+            stroke-linecap="butt"/>
+        `).join('')}
+        <text x="${cx}" y="${cy - 2}" text-anchor="middle" fill="var(--gold)" font-family="'Cormorant Garamond',serif" font-style="italic" font-size="11" font-weight="600">${lang === 'ar' ? 'الإجمالي' : 'Total'}</text>
+        <text x="${cx}" y="${cy + 16}" text-anchor="middle" fill="var(--ink)" font-family="Outfit" font-size="14" font-weight="700">${formatPrice(total.toFixed(0), lang)}</text>
+      </svg>
+      <div style="flex:1;min-width:140px">
+        ${segments.map(s => `
+          <div style="display:flex;align-items:center;gap:.5rem;padding:.4rem 0;font-size:.85rem">
+            <div style="width:10px;height:10px;border-radius:3px;background:${s.color}"></div>
+            <div style="flex:1;color:var(--ink)">${getText('cat.' + s.cat, lang) || s.cat}</div>
+            <div style="color:var(--ink-mute);font-family:'Cormorant Garamond',serif;font-style:italic">${s.percent}%</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
 }
 
 /* ============================================================
