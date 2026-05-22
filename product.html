@@ -113,18 +113,128 @@
     font-family:'Outfit', sans-serif;
   }
 
-  .desc-block{
+  /* ============ INFO SECTIONS — Short/Long Desc + Features ============ */
+  .info-section{
+    margin-bottom: 1.8rem;
+    background: linear-gradient(180deg, rgba(245,239,227,.035), rgba(245,239,227,.015));
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 1.5rem 1.7rem;
+    transition: all .4s ease;
+  }
+  .info-section:hover{
+    border-color: rgba(232,193,120,.25);
+    background: linear-gradient(180deg, rgba(245,239,227,.05), rgba(245,239,227,.02));
+  }
+
+  .info-section-header{
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    margin-bottom: 1rem;
+    padding-bottom: .9rem;
+    border-bottom: 1px solid rgba(232,193,120,.18);
+  }
+  .info-section-icon{
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+    box-shadow: 0 4px 12px rgba(232,193,120,.25);
+  }
+  .info-section-title{
+    font-size: 1.05rem;
+    color: var(--gold);
+    margin: 0;
+    flex: 1;
+  }
+  html[lang="ar"] .info-section-title{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .info-section-title{ font-family:'Fraunces', serif; font-weight:600 }
+
+  /* Features count badge */
+  .features-count{
+    background: rgba(232,193,120,.15);
+    color: var(--gold);
+    padding: .2rem .65rem;
+    border-radius: 100px;
+    font-size: .8rem;
+    font-weight: 700;
+    font-family: 'Outfit', sans-serif;
+    border: 1px solid rgba(232,193,120,.3);
+  }
+
+  /* Short description */
+  .short-desc-text{
+    color: var(--ink);
+    font-size: 1rem;
+    line-height: 1.75;
+    margin: 0;
+    font-weight: 500;
+  }
+
+  /* Long description */
+  .long-desc-text{
     color: var(--ink-mute);
-    margin-bottom:2rem;
-    line-height:1.8;
-    font-size:1.05rem;
+    font-size: .98rem;
+    line-height: 1.95;
+    margin: 0;
+    white-space: pre-line;
+  }
+
+  /* Features as cards */
+  .features-cards{
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+  .feature-card{
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    background: rgba(10,6,19,.4);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: .85rem 1rem;
+    transition: all .3s ease;
+    position: relative;
+  }
+  .feature-card:hover{
+    border-color: rgba(232,193,120,.4);
+    background: rgba(232,193,120,.04);
+    transform: translateX(0);
+  }
+  html[dir="rtl"] .feature-card:hover{ transform: translateX(-3px) }
+  html[dir="ltr"] .feature-card:hover{ transform: translateX(3px) }
+
+  .feature-check{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold), #f4d4a0);
+    color: var(--bg-deep);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(232,193,120,.3);
+  }
+  .feature-text{
+    color: var(--ink);
+    font-size: .92rem;
+    line-height: 1.5;
+    flex: 1;
   }
 
   .meta-row{
     display:grid;
     grid-template-columns: repeat(3, 1fr);
     gap:1rem;
-    margin-bottom:2rem;
+    margin-bottom:1.8rem;
   }
   .meta-item{
     background: rgba(245,239,227,.04);
@@ -144,39 +254,6 @@
     font-weight:600;
     font-size:.95rem;
   }
-
-  .features-list{
-    list-style:none;
-    margin-bottom:2rem;
-  }
-  .features-list li{
-    display:flex;
-    align-items:flex-start;
-    gap:.7rem;
-    padding:.6rem 0;
-    color: var(--ink);
-  }
-  .features-list li::before{
-    content:"✓";
-    color: var(--bg-deep);
-    background: var(--gold);
-    width:22px;height:22px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:700;
-    font-size:.75rem;
-    flex-shrink:0;
-    margin-top:.15rem;
-  }
-  .features-block h3{
-    font-size:1.1rem;
-    margin-bottom:1rem;
-    color: var(--gold);
-  }
-  html[lang="ar"] .features-block h3{ font-family:'Reem Kufi', sans-serif }
-  html[lang="en"] .features-block h3{ font-family:'Fraunces', serif; font-weight:600 }
 
   .qty-control{
     display:inline-flex;
@@ -492,7 +569,25 @@ function renderProduct(){
               ${priceHtml}
             </div>
 
-            <div class="desc-block">${t.longDesc}</div>
+            ${t.desc && t.desc !== t.longDesc ? `
+            <div class="info-section short-desc-section">
+              <div class="info-section-header">
+                <span class="info-section-icon">🏷️</span>
+                <h3 class="info-section-title">${getText('product.shortDesc', lang)}</h3>
+              </div>
+              <p class="short-desc-text">${t.desc}</p>
+            </div>
+            ` : ''}
+
+            ${t.longDesc ? `
+            <div class="info-section long-desc-section">
+              <div class="info-section-header">
+                <span class="info-section-icon">📝</span>
+                <h3 class="info-section-title">${getText('product.longDesc', lang)}</h3>
+              </div>
+              <p class="long-desc-text">${t.longDesc}</p>
+            </div>
+            ` : ''}
 
             <div class="meta-row">
               <div class="meta-item">
@@ -509,12 +604,27 @@ function renderProduct(){
               </div>
             </div>
 
-            <div class="features-block">
-              <h3>${getText('product.whatsIncluded', lang)}</h3>
-              <ul class="features-list">
-                ${t.features.map(f => `<li>${f}</li>`).join('')}
-              </ul>
+            ${t.features && t.features.length > 0 ? `
+            <div class="info-section features-section">
+              <div class="info-section-header">
+                <span class="info-section-icon">⭐</span>
+                <h3 class="info-section-title">${getText('product.features', lang)}</h3>
+                <span class="features-count">${t.features.length}</span>
+              </div>
+              <div class="features-cards">
+                ${t.features.map((f, i) => `
+                  <div class="feature-card">
+                    <div class="feature-check">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                      </svg>
+                    </div>
+                    <span class="feature-text">${f}</span>
+                  </div>
+                `).join('')}
+              </div>
             </div>
+            ` : ''}
 
             <div class="actions-row">
               <div class="qty-control">
