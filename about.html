@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>من نحن — Chattlle</title>
+<meta name="description" content="تعرّف على قصة Chattlle، رسالتنا، ورؤيتنا في تقديم أفضل الملفات الرقمية المُولّدة بالذكاء الاصطناعي.">
+<meta name="keywords" content="Chattlle, من نحن, ذكاء اصطناعي, ملفات رقمية, متجر إلكتروني">
+<meta property="og:title" content="من نحن — Chattlle">
+<meta property="og:description" content="منصة الجيل الجديد لبيع الملفات الرقمية بالذكاء الاصطناعي">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chattlle.com/about.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Reem+Kufi:wght@400;500;600;700&family=Tajawal:wght@300;400;500;700;900&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+<style>
+  .about-hero{
+    padding: 9rem 0 4rem;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .about-hero::before{
+    content:"";
+    position:absolute;
+    top:20%;left:50%;
+    width:600px;height:600px;
+    background: radial-gradient(circle, rgba(232,193,120,.15), transparent 70%);
+    transform:translateX(-50%);
+    pointer-events:none;
+  }
+  .about-hero > *{ position:relative }
+  .about-hero h1{
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    margin: 1rem 0 1.5rem;
+    line-height: 1.1;
+  }
+  .about-hero h1 .accent{
+    background: linear-gradient(120deg, var(--gold), var(--violet-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .about-hero p{
+    max-width: 700px;
+    margin: 0 auto;
+    color: var(--ink-mute);
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .story-section{ padding: 5rem 0 }
+  .story-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items:center;
+  }
+  .story-text h2{
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+  html[lang="ar"] .story-text h2{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .story-text h2{ font-family:'Fraunces', serif; font-weight:600 }
+  .story-text p{
+    color: var(--ink-mute);
+    line-height: 1.9;
+    margin-bottom: 1.2rem;
+  }
+  .story-visual{
+    aspect-ratio: 4/5;
+    border-radius: 30px;
+    background: linear-gradient(135deg, var(--violet) 0%, var(--gold) 50%, var(--cyan) 100%);
+    position:relative;
+    overflow:hidden;
+    box-shadow: 0 40px 80px rgba(123,63,255,.25);
+  }
+  .story-visual::after{
+    content:"✦";
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 8rem;
+    color: rgba(255,255,255,.8);
+    font-family: 'Cormorant Garamond', serif;
+  }
+
+  .values-section{
+    padding: 5rem 0;
+    background: rgba(245,239,227,.02);
+    border-block: 1px solid var(--line);
+  }
+  .values-grid{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .value-card{
+    background: rgba(245,239,227,.04);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 2rem;
+    transition: all .4s;
+  }
+  .value-card:hover{
+    border-color: rgba(232,193,120,.4);
+    transform: translateY(-4px);
+  }
+  .value-icon{
+    width: 56px; height: 56px;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size: 1.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .value-card h3{
+    font-size: 1.25rem;
+    margin-bottom: .7rem;
+  }
+  html[lang="ar"] .value-card h3{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .value-card h3{ font-family:'Fraunces', serif; font-weight:600 }
+  .value-card p{
+    color: var(--ink-mute);
+    line-height: 1.7;
+    font-size: .95rem;
+  }
+
+  .cta-section{
+    padding: 6rem 0;
+    text-align:center;
+  }
+  .cta-section h2{
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  html[lang="ar"] .cta-section h2{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  html[lang="en"] .cta-section h2{ font-family:'Fraunces', serif; font-weight:600; font-style:italic }
+  .cta-section p{
+    color: var(--ink-mute);
+    max-width: 600px;
+    margin: 0 auto 2rem;
+    font-size: 1.1rem;
+  }
+
+  @media (max-width: 900px){
+    .story-grid{ grid-template-columns: 1fr; gap: 2.5rem }
+    .story-visual{ max-width: 400px; margin: 0 auto }
+    .values-grid{ grid-template-columns: 1fr; gap: 1.2rem }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <div class="nav-links">
+      <a href="index.html#products" data-i18n="nav.products"></a>
+      <a href="index.html#how" data-i18n="nav.how"></a>
+      <a href="about.html" class="active" data-i18n="nav.about"></a>
+      <a href="contact.html" data-i18n="nav.contact"></a>
+    </div>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+    <button class="burger" aria-label="menu">☰</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="about-hero">
+  <div class="container">
+    <span class="eyebrow" data-i18n="about.eyebrow"></span>
+    <h1>
+      <span data-i18n="about.title1"></span>
+      <span class="accent" data-i18n="about.title2"></span>
+    </h1>
+    <p data-i18n="about.hero.desc"></p>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section">
+  <div class="container">
+    <div class="story-grid">
+      <div class="story-text reveal">
+        <span class="eyebrow" data-i18n="about.story.eyebrow"></span>
+        <h2 data-i18n="about.story.title"></h2>
+        <p data-i18n="about.story.p1"></p>
+        <p data-i18n="about.story.p2"></p>
+        <p data-i18n="about.story.p3"></p>
+      </div>
+      <div class="story-visual reveal"></div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="values-section">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center">
+      <span class="eyebrow" data-i18n="about.values.eyebrow"></span>
+      <h2 class="display" data-i18n="about.values.title"></h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-card reveal">
+        <div class="value-icon">✨</div>
+        <h3 data-i18n="about.value1.title"></h3>
+        <p data-i18n="about.value1.desc"></p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🎯</div>
+        <h3 data-i18n="about.value2.title"></h3>
+        <p data-i18n="about.value2.desc"></p>
+      </div>
+      <div class="value-card reveal">
+        <div class="value-icon">🚀</div>
+        <h3 data-i18n="about.value3.title"></h3>
+        <p data-i18n="about.value3.desc"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2 data-i18n="about.cta.title"></h2>
+    <p data-i18n="about.cta.desc"></p>
+    <a href="index.html#products" class="btn-primary">
+      <span data-i18n="about.cta.btn"></span>
+      <svg class="arrow-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="index.html" class="logo" style="margin-bottom:1rem;display:inline-flex;text-decoration:none">
+          <span class="logo-dot"></span>
+          <span class="latin">Chattlle</span>
+        </a>
+        <p data-i18n="footer.brand.desc"></p>
+      </div>
+      <div>
+        <h4 data-i18n="footer.col.shop"></h4>
+        <a href="index.html#products" data-i18n="nav.products"></a>
+        <a href="index.html#categories" data-i18n="footer.link.categories"></a>
+        <a href="faq.html" data-i18n="footer.link.faq"></a>
+      </div>
+      <div>
+        <h4 data-i18n="footer.col.company"></h4>
+        <a href="about.html" data-i18n="nav.about"></a>
+        <a href="contact.html" data-i18n="nav.contact"></a>
+      </div>
+      <div>
+        <h4 data-i18n="footer.col.legal"></h4>
+        <a href="terms.html" data-i18n="footer.link.terms"></a>
+        <a href="privacy.html" data-i18n="footer.link.privacy"></a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <div data-i18n="footer.copy"></div>
+      <div class="socials">
+        <a href="#" aria-label="Twitter">𝕏</a>
+        <a href="#" aria-label="Instagram">◎</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/products.js"></script>
+<script src="assets/cart.js"></script>
+<script src="assets/back-to-top.js"></script>
+<script>
+let revealObserver;
+function observeReveals(){
+  if(revealObserver) revealObserver.disconnect();
+  revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if(entry.isIntersecting){
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLangSwitcher();
+  observeReveals();
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+</script>
+</body>
+</html>
