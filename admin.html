@@ -1656,7 +1656,7 @@ let blogImageUrl = null;
 
 async function loadBlogPosts(){
   try {
-    const { data, error } = await supabaseClient
+    const { data, error } = await sb
       .from('blog_posts')
       .select('*')
       .order('created_at', { ascending: false });
@@ -1799,7 +1799,7 @@ function editBlogPost(id){
 async function deleteBlogPost(id){
   if(!confirm('هل أنت متأكّد من حذف هذه المقالة؟ لا يمكن التراجع.')) return;
   try {
-    const { error } = await supabaseClient
+    const { error } = await sb
       .from('blog_posts')
       .delete()
       .eq('id', id);
@@ -1825,17 +1825,24 @@ document.addEventListener('DOMContentLoaded', () => {
       bar.style.width = '30%';
 
       try {
-        const fileName = `blog-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-        const { data, error } = await supabaseClient.storage
+        const timestamp = Date.now();
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const fileName = `blog-${timestamp}-${cleanName}`;
+
+        // Upload to product-images bucket (same as products use)
+        const { data, error } = await sb.storage
           .from('product-images')
-          .upload(`blog/${fileName}`, file);
+          .upload(fileName, file, {
+            cacheControl: '3600',
+            upsert: false
+          });
 
         bar.style.width = '70%';
         if(error) throw error;
 
-        const { data: urlData } = supabaseClient.storage
+        const { data: urlData } = sb.storage
           .from('product-images')
-          .getPublicUrl(`blog/${fileName}`);
+          .getPublicUrl(fileName);
 
         blogImageUrl = urlData.publicUrl;
         bar.style.width = '100%';
@@ -1846,7 +1853,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => progress.classList.remove('active'), 500);
       } catch(err){
-        alert('خطأ في رفع الصورة: ' + err.message);
+        console.error('Image upload error:', err);
+        alert('خطأ في رفع الصورة: ' + err.message + '\n\nتأكّد من أن Storage مفعّل في Supabase');
         progress.classList.remove('active');
       }
     });
@@ -1904,13 +1912,13 @@ async function saveBlogPost(){
     let result;
     if(editingBlogPostId){
       // Update
-      result = await supabaseClient
+      result = await sb
         .from('blog_posts')
         .update(postData)
         .eq('id', editingBlogPostId);
     } else {
       // Insert
-      result = await supabaseClient
+      result = await sb
         .from('blog_posts')
         .insert([postData]);
     }

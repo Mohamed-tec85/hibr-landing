@@ -394,7 +394,7 @@ async function loadArticle(){
 
   try {
     // Try to fetch by slug OR by id (in case slug is actually an ID)
-    let { data, error } = await supabaseClient
+    let { data, error } = await sb
       .from('blog_posts')
       .select('*')
       .or(`slug.eq.${slug},id.eq.${slug}`)

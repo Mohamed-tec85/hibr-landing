@@ -630,7 +630,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 // Load posts from Supabase
 async function loadBlogPosts(){
   try {
-    const { data, error } = await supabaseClient
+    const { data, error } = await sb
       .from('blog_posts')
       .select('*')
       .eq('is_published', true)
