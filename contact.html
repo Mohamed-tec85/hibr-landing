@@ -166,7 +166,7 @@
     font-size: 1rem;
   }
 
-  /* Success message */
+  /* Success message (legacy) */
   .success-msg{
     background: rgba(92,229,217,.1);
     border: 1px solid rgba(92,229,217,.4);
@@ -178,6 +178,137 @@
     text-align:center;
   }
   .success-msg.show{ display:block }
+
+  /* ============ Success Modal — Luxury Design ============ */
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+  @keyframes successPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(92,229,217,.4); }
+    50% { box-shadow: 0 0 0 18px rgba(92,229,217,0); }
+  }
+  @keyframes checkPop {
+    0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+    50% { transform: scale(1.2) rotate(0deg); }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+  }
+
+  .success-modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(10,6,19,.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1.5rem;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+  .success-modal-overlay.show{ opacity: 1; }
+
+  .success-modal{
+    background: linear-gradient(180deg, rgba(245,239,227,.06), rgba(245,239,227,.02));
+    border: 1px solid rgba(232,193,120,.3);
+    border-radius: 28px;
+    padding: 3rem 2.5rem;
+    max-width: 500px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 60px rgba(232,193,120,.15);
+    transform: scale(.85) translateY(20px);
+    opacity: 0;
+    transition: all .4s cubic-bezier(.34,1.56,.64,1);
+    position: relative;
+    overflow: hidden;
+  }
+  .success-modal::before{
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), var(--violet), var(--cyan));
+  }
+  .success-modal-overlay.show .success-modal{
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+
+  .success-icon-wrap{
+    width: 90px;
+    height: 90px;
+    margin: 0 auto 1.8rem;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--cyan), #4dd4c4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--bg-deep);
+    animation: successPulse 2s infinite;
+  }
+  .success-checkmark{
+    animation: checkPop .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+
+  .success-title{
+    font-size: 1.65rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(120deg, var(--gold), var(--violet-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  html[lang="ar"] .success-title{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  html[lang="en"] .success-title{ font-family:'Fraunces', serif; font-weight:600; font-style:italic }
+
+  .success-text{
+    color: var(--ink-mute);
+    line-height: 1.85;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+  }
+
+  .success-actions{
+    display: flex;
+    gap: .8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .success-actions .btn-primary,
+  .success-actions .btn-secondary{
+    min-width: 160px;
+    padding: .9rem 1.5rem;
+    font-size: .95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all .3s;
+    font-family: inherit;
+    border: none;
+  }
+  .success-actions .btn-secondary{
+    background: rgba(245,239,227,.05);
+    color: var(--ink);
+    border: 1px solid var(--line);
+  }
+  .success-actions .btn-secondary:hover{
+    background: rgba(245,239,227,.1);
+    border-color: rgba(232,193,120,.3);
+  }
+
+  @media (max-width: 500px){
+    .success-modal{ padding: 2.5rem 1.5rem; }
+    .success-title{ font-size: 1.35rem; }
+    .success-actions{ flex-direction: column; }
+    .success-actions .btn-primary,
+    .success-actions .btn-secondary{ width: 100%; }
+  }
 
   @media (max-width: 900px){
     .contact-grid{ grid-template-columns: 1fr; gap: 2rem }
@@ -265,7 +396,7 @@
           <div style="margin-top:.5rem;color:var(--ink-mute);font-size:.9rem" data-i18n="contact.form.successSub"></div>
         </div>
 
-        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm">
+        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm" action="/?contact=success">
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none">
             <label>Don't fill this out: <input name="bot-field"></label>
@@ -288,7 +419,6 @@
               <option value="general" data-i18n="contact.form.subj.general"></option>
               <option value="order" data-i18n="contact.form.subj.order"></option>
               <option value="technical" data-i18n="contact.form.subj.technical"></option>
-              <option value="refund" data-i18n="contact.form.subj.refund"></option>
               <option value="partnership" data-i18n="contact.form.subj.partnership"></option>
               <option value="other" data-i18n="contact.form.subj.other"></option>
             </select>
@@ -368,18 +498,111 @@ function observeReveals(){
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => revealObserver.observe(el));
 }
 
-// Form submission with Netlify Forms (built-in)
-document.getElementById('contactForm').addEventListener('submit', function(e){
-  // Netlify handles the submission, but show success message inline
-  // Note: For full SPA experience, you can prevent default and submit via fetch
-  // For simplicity, we let Netlify handle it
+// Encode form data for Netlify Forms
+function encodeFormData(data){
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+}
+
+// Handle form submission via AJAX (prevents 404 page)
+document.getElementById('contactForm').addEventListener('submit', async function(e){
+  e.preventDefault();
+
+  const form = e.target;
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const lang = getCurrentLang();
+
+  // Disable button and show loading state
+  const originalBtnHTML = submitBtn.innerHTML;
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `
+    <span>${lang === 'ar' ? 'جاري الإرسال...' : 'Sending...'}</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="animation:spin 1s linear infinite">
+      <path d="M21 12a9 9 0 11-6.219-8.56"/>
+    </svg>
+  `;
+
+  // Collect form data
+  const formData = new FormData(form);
+  const data = {};
+  formData.forEach((value, key) => { data[key] = value; });
+
+  try {
+    // Submit to Netlify Forms via AJAX
+    const response = await fetch('/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: encodeFormData(data)
+    });
+
+    if(response.ok || response.status === 200){
+      // Hide form, show beautiful success modal
+      showSuccessModal();
+      form.reset();
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch(error){
+    // Show error message
+    alert(lang === 'ar'
+      ? 'حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى أو التواصل عبر الإيميل.'
+      : 'An error occurred. Please try again or contact us via email.');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = originalBtnHTML;
+  }
 });
 
-// Check if returned from successful submission
-if(window.location.search.includes('success=true')){
-  document.getElementById('successMsg').classList.add('show');
-  document.getElementById('contactForm').reset();
-  window.scrollTo({ top: document.querySelector('.contact-section').offsetTop, behavior: 'smooth' });
+// Show success modal with luxury design
+function showSuccessModal(){
+  const lang = getCurrentLang();
+  const modal = document.createElement('div');
+  modal.className = 'success-modal-overlay';
+  modal.innerHTML = `
+    <div class="success-modal">
+      <div class="success-icon-wrap">
+        <svg class="success-checkmark" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+      <h2 class="success-title">${lang === 'ar' ? '✓ تم إرسال رسالتك بنجاح!' : '✓ Message Sent Successfully!'}</h2>
+      <p class="success-text">${lang === 'ar'
+        ? 'شكرًا لتواصلك معنا. سيقوم فريقنا بالرد على استفسارك خلال 24 ساعة كحدّ أقصى على بريدك الإلكتروني.'
+        : 'Thank you for reaching out. Our team will respond to your inquiry within 24 hours via email.'}</p>
+      <div class="success-actions">
+        <a href="index.html" class="btn-primary">
+          <span>${lang === 'ar' ? 'العودة للرئيسية' : 'Back to Home'}</span>
+        </a>
+        <button type="button" class="btn-secondary" onclick="closeSuccessModal()">
+          <span>${lang === 'ar' ? 'إغلاق' : 'Close'}</span>
+        </button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(modal);
+  document.body.style.overflow = 'hidden';
+  // Trigger animation
+  setTimeout(() => modal.classList.add('show'), 10);
+}
+
+function closeSuccessModal(){
+  const modal = document.querySelector('.success-modal-overlay');
+  if(modal){
+    modal.classList.remove('show');
+    setTimeout(() => {
+      modal.remove();
+      document.body.style.overflow = '';
+    }, 300);
+  }
+}
+
+// Legacy: check if returned from successful submission (fallback)
+if(window.location.search.includes('contact=success') || window.location.search.includes('success=true')){
+  setTimeout(() => showSuccessModal(), 300);
+  // Clean URL
+  if(window.history.replaceState){
+    window.history.replaceState({}, '', window.location.pathname);
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
