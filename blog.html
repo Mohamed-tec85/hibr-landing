@@ -359,25 +359,92 @@
   }
   .coming-soon-feature{
     background: rgba(10,6,19,.4);
-    padding: 1rem;
+    padding: 1.3rem;
     border-radius: 14px;
     border: 1px solid var(--line);
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all .35s cubic-bezier(.34,1.56,.64,1);
+    position: relative;
+    overflow: hidden;
+    display: block;
   }
+  .coming-soon-feature::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(232,193,120,.08), rgba(123,63,255,.05));
+    opacity: 0;
+    transition: opacity .35s;
+  }
+  .coming-soon-feature:hover{
+    transform: translateY(-4px);
+    border-color: rgba(232,193,120,.5);
+    box-shadow: 0 12px 30px rgba(0,0,0,.25), 0 0 20px rgba(232,193,120,.1);
+  }
+  .coming-soon-feature:hover::before{ opacity: 1; }
+  .coming-soon-feature > *{ position: relative; z-index: 1; }
+
   .coming-soon-feature-icon{
-    font-size: 1.3rem;
-    margin-bottom: .4rem;
+    font-size: 1.6rem;
+    margin-bottom: .5rem;
   }
   .coming-soon-feature-title{
     color: var(--gold);
     font-weight: 600;
-    font-size: .9rem;
+    font-size: .95rem;
     margin-bottom: .3rem;
   }
+  html[lang="ar"] .coming-soon-feature-title{ font-family:'Reem Kufi', sans-serif; }
   .coming-soon-feature-desc{
     color: var(--ink-mute);
     font-size: .82rem;
     line-height: 1.5;
+    margin-bottom: .8rem;
   }
+  .coming-soon-feature-cta{
+    display: inline-block;
+    color: var(--cyan);
+    font-size: .78rem;
+    font-weight: 600;
+    padding-top: .6rem;
+    border-top: 1px dashed rgba(92,229,217,.2);
+    width: 100%;
+  }
+
+  /* Coming Soon CTA Section */
+  .coming-soon-cta{
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(232,193,120,.15);
+    text-align: center;
+  }
+  .coming-soon-cta-text{
+    color: var(--ink);
+    font-size: 1rem;
+    margin-bottom: 1.2rem !important;
+    font-weight: 500;
+  }
+  .coming-soon-cta-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    padding: .95rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: .95rem;
+    transition: all .3s;
+    box-shadow: 0 8px 24px rgba(232,193,120,.25);
+  }
+  .coming-soon-cta-btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(232,193,120,.4);
+  }
+  html[dir="rtl"] .coming-soon-cta-btn svg{ transform: rotate(180deg); }
 
   @media (max-width: 768px){
     .blog-hero{ padding: 7rem 5% 3rem; }
@@ -451,21 +518,36 @@
       <p data-i18n="blog.comingSoonText">نعمل على إعداد مقالات قيّمة عن الذكاء الاصطناعي وصناعة المحتوى. ترقّب أوّل المقالات قريبًا — ستجد فيها أسرارًا تُغيّر طريقة عملك مع AI.</p>
 
       <div class="coming-soon-features">
-        <div class="coming-soon-feature">
+        <a href="contact.html?subject=topic-prompts" class="coming-soon-feature" title="اطلب موضوعًا">
           <div class="coming-soon-feature-icon">🎨</div>
           <div class="coming-soon-feature-title" data-i18n="blog.feature1Title">براومبتات احترافية</div>
           <div class="coming-soon-feature-desc" data-i18n="blog.feature1Desc">دروس متقدّمة عن Midjourney وSora</div>
-        </div>
-        <div class="coming-soon-feature">
+          <span class="coming-soon-feature-cta" data-i18n="blog.requestTopic">اطلب موضوعًا ←</span>
+        </a>
+        <a href="contact.html?subject=topic-content" class="coming-soon-feature" title="اطلب موضوعًا">
           <div class="coming-soon-feature-icon">🎬</div>
           <div class="coming-soon-feature-title" data-i18n="blog.feature2Title">صناعة المحتوى</div>
           <div class="coming-soon-feature-desc" data-i18n="blog.feature2Desc">أسرار TikTok وReels والـ LUTs</div>
-        </div>
-        <div class="coming-soon-feature">
+          <span class="coming-soon-feature-cta" data-i18n="blog.requestTopic">اطلب موضوعًا ←</span>
+        </a>
+        <a href="contact.html?subject=topic-business" class="coming-soon-feature" title="اطلب موضوعًا">
           <div class="coming-soon-feature-icon">🚀</div>
           <div class="coming-soon-feature-title" data-i18n="blog.feature3Title">ريادة الأعمال</div>
           <div class="coming-soon-feature-desc" data-i18n="blog.feature3Desc">دليلك لبناء مشروع رقمي ناجح</div>
-        </div>
+          <span class="coming-soon-feature-cta" data-i18n="blog.requestTopic">اطلب موضوعًا ←</span>
+        </a>
+      </div>
+
+      <!-- CTA: Stay updated / Browse products -->
+      <div class="coming-soon-cta">
+        <p class="coming-soon-cta-text" data-i18n="blog.ctaText">في انتظار المقالات؟ استكشف منتجاتنا الرقمية الجاهزة الآن!</p>
+        <a href="index.html#products" class="coming-soon-cta-btn">
+          <span data-i18n="blog.ctaBtn">استكشف المنتجات</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
       </div>
     </div>
   </div>

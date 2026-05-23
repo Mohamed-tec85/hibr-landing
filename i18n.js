@@ -385,7 +385,10 @@ const I18N = {
     "blog.feature2Title": "صناعة المحتوى",
     "blog.feature2Desc": "أسرار TikTok وReels والـ LUTs",
     "blog.feature3Title": "ريادة الأعمال",
-    "blog.feature3Desc": "دليلك لبناء مشروع رقمي ناجح"
+    "blog.feature3Desc": "دليلك لبناء مشروع رقمي ناجح",
+    "blog.requestTopic": "اطلب موضوعًا ←",
+    "blog.ctaText": "في انتظار المقالات؟ استكشف منتجاتنا الرقمية الجاهزة الآن!",
+    "blog.ctaBtn": "استكشف المنتجات"
   },
 
   en: {
@@ -765,7 +768,10 @@ const I18N = {
     "blog.feature2Title": "Content Creation",
     "blog.feature2Desc": "TikTok, Reels, and LUTs secrets",
     "blog.feature3Title": "Entrepreneurship",
-    "blog.feature3Desc": "Your guide to building a successful digital business"
+    "blog.feature3Desc": "Your guide to building a successful digital business",
+    "blog.requestTopic": "Request topic →",
+    "blog.ctaText": "Waiting for articles? Explore our ready digital products now!",
+    "blog.ctaBtn": "Explore Products"
   }
 };
 
