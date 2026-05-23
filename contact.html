@@ -319,6 +319,19 @@
 </head>
 <body>
 
+<!-- ============================================================
+     HIDDEN STATIC FORM (REQUIRED for Netlify Forms detection)
+     Netlify's build bot scans this form to register it.
+     The visible form below uses JavaScript/AJAX to submit.
+     DO NOT REMOVE THIS HIDDEN FORM!
+     ============================================================ -->
+<form name="contact" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="name" />
+  <input type="email" name="email" />
+  <input type="text" name="subject" />
+  <textarea name="message"></textarea>
+</form>
+
 <!-- NAV -->
 <nav>
   <div class="container nav-inner">
@@ -396,7 +409,7 @@
           <div style="margin-top:.5rem;color:var(--ink-mute);font-size:.9rem" data-i18n="contact.form.successSub"></div>
         </div>
 
-        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm" action="/?contact=success">
+        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field" id="contactForm">
           <input type="hidden" name="form-name" value="contact">
           <p style="display:none">
             <label>Don't fill this out: <input name="bot-field"></label>
@@ -525,29 +538,40 @@ document.getElementById('contactForm').addEventListener('submit', async function
 
   // Collect form data
   const formData = new FormData(form);
+  // Ensure form-name is set (required by Netlify Forms)
+  formData.set('form-name', 'contact');
+
   const data = {};
   formData.forEach((value, key) => { data[key] = value; });
 
   try {
     // Submit to Netlify Forms via AJAX
+    // POST to current page URL (Netlify intercepts based on form-name)
     const response = await fetch('/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: encodeFormData(data)
     });
 
-    if(response.ok || response.status === 200){
+    // Netlify returns 200 OK on success
+    // Sometimes returns 303 redirect — both are success
+    if(response.ok || response.status === 200 || response.status === 303 || response.redirected){
       // Hide form, show beautiful success modal
       showSuccessModal();
       form.reset();
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHTML;
     } else {
-      throw new Error('Form submission failed');
+      // Try fallback: submit form normally as last resort
+      console.error('Netlify Forms returned status:', response.status);
+      throw new Error('Submission failed with status: ' + response.status);
     }
   } catch(error){
-    // Show error message
+    console.error('Form submission error:', error);
+    // Show friendly error with email fallback
     alert(lang === 'ar'
-      ? 'حدث خطأ في الإرسال. يرجى المحاولة مرة أخرى أو التواصل عبر الإيميل.'
-      : 'An error occurred. Please try again or contact us via email.');
+      ? 'تعذّر الإرسال عبر النموذج. يرجى التواصل معنا مباشرة على: hello@chattlle.com'
+      : 'Form submission failed. Please contact us directly at: hello@chattlle.com');
     submitBtn.disabled = false;
     submitBtn.innerHTML = originalBtnHTML;
   }
