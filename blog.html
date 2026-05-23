@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
+
+<title>المدوّنة | Chattlle — مقالات الذكاء الاصطناعي وصناعة المحتوى</title>
+<meta name="description" content="مدوّنة Chattlle: أحدث المقالات عن الذكاء الاصطناعي، البراومبتات، LUTs السينمائية، وصناعة المحتوى الرقمي. دروس ونصائح للمبدعين العرب.">
+<meta name="keywords" content="مدوّنة ذكاء اصطناعي, مقالات Midjourney, براومبتات, LUTs, صناعة المحتوى, تصميم رقمي, Chattlle blog">
+<link rel="canonical" href="https://chattlle.com/blog">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chattlle.com/blog">
+<meta property="og:title" content="مدوّنة Chattlle — مقالات الذكاء الاصطناعي وصناعة المحتوى">
+<meta property="og:description" content="أحدث المقالات والدروس عن الذكاء الاصطناعي وصناعة المحتوى الرقمي.">
+<meta property="og:image" content="https://chattlle.com/og-image.png">
+<meta property="og:locale" content="ar_SA">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="مدوّنة Chattlle">
+<meta name="twitter:description" content="أحدث المقالات عن AI وصناعة المحتوى">
+<meta name="twitter:image" content="https://chattlle.com/og-image.png">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "مدوّنة Chattlle",
+  "description": "مقالات عن الذكاء الاصطناعي وصناعة المحتوى",
+  "url": "https://chattlle.com/blog",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Chattlle",
+    "url": "https://chattlle.com"
+  }
+}
+</script>
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e8c178'/%3E%3Cstop offset='100%25' style='stop-color:%237b3fff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23g)'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' fill='white' text-anchor='middle' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Reem+Kufi:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+  /* Blog-specific styles */
+  .blog-hero{
+    padding: 9rem 8% 4rem;
+    text-align: center;
+    background: linear-gradient(180deg, rgba(123,63,255,.08), transparent);
+    position: relative;
+    overflow: hidden;
+  }
+  .blog-hero::before{
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(circle, rgba(232,193,120,.08), transparent 60%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .blog-hero-content{
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .blog-hero h1{
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    margin-bottom: 1rem;
+    background: linear-gradient(120deg, var(--gold), var(--violet-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  html[lang="ar"] .blog-hero h1{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  html[lang="en"] .blog-hero h1{ font-family:'Fraunces', serif; font-weight:600; font-style:italic }
+
+  .blog-hero p{
+    color: var(--ink-mute);
+    font-size: 1.15rem;
+    line-height: 1.8;
+  }
+
+  .blog-section{
+    padding: 2rem 8% 6rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  /* Filters bar */
+  .blog-filters{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .category-chips{
+    display: flex;
+    gap: .6rem;
+    flex-wrap: wrap;
+  }
+  .chip{
+    padding: .55rem 1.2rem;
+    background: rgba(245,239,227,.04);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    transition: all .3s;
+    font-size: .9rem;
+    font-weight: 500;
+  }
+  .chip:hover{ border-color: rgba(232,193,120,.3); color: var(--ink); }
+  .chip.active{
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    border-color: transparent;
+    font-weight: 700;
+  }
+
+  .blog-search{
+    display: flex;
+    align-items: center;
+    background: rgba(245,239,227,.04);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    padding: .5rem 1rem;
+    width: 280px;
+    max-width: 100%;
+  }
+  .blog-search input{
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--ink);
+    flex: 1;
+    font-family: inherit;
+    font-size: .9rem;
+    padding: 0 .5rem;
+  }
+  .blog-search input::placeholder{ color: var(--ink-mute); }
+
+  /* Blog grid */
+  .blog-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 2rem;
+  }
+
+  .blog-card{
+    background: linear-gradient(180deg, rgba(245,239,227,.04), rgba(245,239,227,.01));
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    overflow: hidden;
+    transition: all .4s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover{
+    transform: translateY(-6px);
+    border-color: rgba(232,193,120,.35);
+    box-shadow: 0 20px 50px rgba(0,0,0,.3), 0 0 30px rgba(232,193,120,.08);
+  }
+
+  .blog-card-image{
+    width: 100%;
+    height: 220px;
+    overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, var(--violet), var(--gold));
+  }
+  .blog-card-image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform .5s;
+  }
+  .blog-card:hover .blog-card-image img{ transform: scale(1.05); }
+  .blog-card-image-placeholder{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    opacity: .5;
+  }
+
+  .blog-card-content{
+    padding: 1.6rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .blog-card-meta{
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    margin-bottom: .8rem;
+    font-size: .82rem;
+    color: var(--ink-mute);
+    flex-wrap: wrap;
+  }
+  .blog-card-category{
+    background: rgba(232,193,120,.15);
+    color: var(--gold);
+    padding: .25rem .7rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: .75rem;
+    border: 1px solid rgba(232,193,120,.25);
+  }
+  .blog-card-date{ display: inline-flex; align-items: center; gap: .3rem; }
+  .blog-card-read-time{ display: inline-flex; align-items: center; gap: .3rem; }
+
+  .blog-card h2{
+    font-size: 1.25rem;
+    margin-bottom: .7rem;
+    color: var(--ink);
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  html[lang="ar"] .blog-card h2{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .blog-card h2{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .blog-card-excerpt{
+    color: var(--ink-mute);
+    font-size: .92rem;
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+    flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .blog-card-footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+  .blog-read-more{
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    color: var(--gold);
+    font-weight: 600;
+    font-size: .9rem;
+  }
+  html[dir="rtl"] .blog-read-more svg{ transform: rotate(180deg); }
+
+  /* Loading state */
+  .blog-loading{
+    text-align: center;
+    padding: 4rem 0;
+    color: var(--ink-mute);
+  }
+  .blog-spinner{
+    width: 40px;
+    height: 40px;
+    border: 3px solid var(--line);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    margin: 0 auto 1rem;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Empty state */
+  .blog-empty{
+    text-align: center;
+    padding: 4rem 1rem;
+    color: var(--ink-mute);
+  }
+  .blog-empty-icon{
+    font-size: 4rem;
+    margin-bottom: 1rem;
+    opacity: .4;
+  }
+  .blog-empty h3{
+    color: var(--ink);
+    font-size: 1.5rem;
+    margin-bottom: .8rem;
+  }
+  .blog-empty p{ line-height: 1.7; }
+
+  /* Coming soon (first launch) */
+  .coming-soon{
+    background: linear-gradient(135deg, rgba(232,193,120,.08), rgba(123,63,255,.05));
+    border: 1px solid rgba(232,193,120,.25);
+    border-radius: 24px;
+    padding: 3rem 2rem;
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .coming-soon-icon{
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, var(--gold), var(--violet));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    box-shadow: 0 10px 30px rgba(232,193,120,.25);
+  }
+  .coming-soon h2{
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(120deg, var(--gold), var(--violet-glow));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  html[lang="ar"] .coming-soon h2{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  .coming-soon p{
+    color: var(--ink-mute);
+    line-height: 1.85;
+    font-size: 1.05rem;
+    margin-bottom: 1.5rem;
+  }
+  .coming-soon-features{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-top: 2rem;
+    text-align: start;
+  }
+  .coming-soon-feature{
+    background: rgba(10,6,19,.4);
+    padding: 1rem;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+  }
+  .coming-soon-feature-icon{
+    font-size: 1.3rem;
+    margin-bottom: .4rem;
+  }
+  .coming-soon-feature-title{
+    color: var(--gold);
+    font-weight: 600;
+    font-size: .9rem;
+    margin-bottom: .3rem;
+  }
+  .coming-soon-feature-desc{
+    color: var(--ink-mute);
+    font-size: .82rem;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px){
+    .blog-hero{ padding: 7rem 5% 3rem; }
+    .blog-section{ padding: 1rem 5% 4rem; }
+    .blog-filters{ flex-direction: column; align-items: stretch; }
+    .blog-search{ width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span>Chattlle</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+    <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
+    <a href="index.html#how" data-i18n="nav.how">كيف يعمل</a>
+    <a href="about.html" data-i18n="nav.about">من نحن</a>
+    <a href="blog.html" class="active" data-i18n="nav.blog">المدوّنة</a>
+    <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ar">AR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</nav>
+
+<!-- Blog Hero -->
+<section class="blog-hero">
+  <div class="blog-hero-content">
+    <h1 data-i18n="blog.title">المدوّنة</h1>
+    <p data-i18n="blog.subtitle">أحدث المقالات والدروس عن الذكاء الاصطناعي، البراومبتات، LUTs السينمائية، وصناعة المحتوى الرقمي.</p>
+  </div>
+</section>
+
+<!-- Blog Content -->
+<section class="blog-section">
+
+  <!-- Filters (shown only when posts exist) -->
+  <div class="blog-filters" id="filtersBar" style="display:none;">
+    <div class="category-chips" id="categoryChips">
+      <button class="chip active" data-category="all" data-i18n="blog.all">جميع المقالات</button>
+    </div>
+    <div class="blog-search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--ink-mute)">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="blogSearch" placeholder="ابحث في المقالات..." data-i18n-placeholder="blog.searchPlaceholder">
+    </div>
+  </div>
+
+  <!-- Loading -->
+  <div class="blog-loading" id="blogLoading">
+    <div class="blog-spinner"></div>
+    <p data-i18n="blog.loading">جاري تحميل المقالات...</p>
+  </div>
+
+  <!-- Posts Grid -->
+  <div class="blog-grid" id="blogGrid" style="display:none;"></div>
+
+  <!-- Empty State (no posts yet) -->
+  <div id="blogEmpty" style="display:none;">
+    <div class="coming-soon">
+      <div class="coming-soon-icon">📰</div>
+      <h2 data-i18n="blog.comingSoon">المدوّنة قريبًا!</h2>
+      <p data-i18n="blog.comingSoonText">نعمل على إعداد مقالات قيّمة عن الذكاء الاصطناعي وصناعة المحتوى. ترقّب أوّل المقالات قريبًا — ستجد فيها أسرارًا تُغيّر طريقة عملك مع AI.</p>
+
+      <div class="coming-soon-features">
+        <div class="coming-soon-feature">
+          <div class="coming-soon-feature-icon">🎨</div>
+          <div class="coming-soon-feature-title" data-i18n="blog.feature1Title">براومبتات احترافية</div>
+          <div class="coming-soon-feature-desc" data-i18n="blog.feature1Desc">دروس متقدّمة عن Midjourney وSora</div>
+        </div>
+        <div class="coming-soon-feature">
+          <div class="coming-soon-feature-icon">🎬</div>
+          <div class="coming-soon-feature-title" data-i18n="blog.feature2Title">صناعة المحتوى</div>
+          <div class="coming-soon-feature-desc" data-i18n="blog.feature2Desc">أسرار TikTok وReels والـ LUTs</div>
+        </div>
+        <div class="coming-soon-feature">
+          <div class="coming-soon-feature-icon">🚀</div>
+          <div class="coming-soon-feature-title" data-i18n="blog.feature3Title">ريادة الأعمال</div>
+          <div class="coming-soon-feature-desc" data-i18n="blog.feature3Desc">دليلك لبناء مشروع رقمي ناجح</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- No results from search -->
+  <div class="blog-empty" id="blogNoResults" style="display:none;">
+    <div class="blog-empty-icon">🔍</div>
+    <h3 data-i18n="blog.noResults">لم نجد نتائج</h3>
+    <p data-i18n="blog.noResultsText">جرّب كلمات بحث مختلفة أو اختر تصنيفًا آخر.</p>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:1rem;">
+        <div class="logo-dot"></div>
+        <span>Chattlle</span>
+      </div>
+      <p style="color:var(--ink-mute); line-height:1.7;" data-i18n="footer.tagline">منصّة الجيل الجديد لبيع الملفات الإلكترونية المُولّدة بالذكاء الاصطناعي.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.quickLinks">روابط سريعة</h4>
+      <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+      <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
+      <a href="about.html" data-i18n="nav.about">من نحن</a>
+      <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.support">الدعم</h4>
+      <a href="faq.html" data-i18n="nav.faq">الأسئلة الشائعة</a>
+      <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
+      <a href="terms.html" data-i18n="nav.terms">الشروط</a>
+      <a href="privacy.html" data-i18n="nav.privacy">الخصوصية</a>
+    </div>
+    <div class="footer-col">
+      <h4 data-i18n="footer.contact">تواصل</h4>
+      <a href="mailto:hello@chattlle.com">hello@chattlle.com</a>
+      <a href="mailto:support@chattlle.com">support@chattlle.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Chattlle. <span data-i18n="footer.rights">جميع الحقوق محفوظة.</span></p>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/back-to-top.js"></script>
+
+<script>
+let allPosts = [];
+let filteredPosts = [];
+let activeCategory = 'all';
+let searchQuery = '';
+
+// Initialize
+document.addEventListener('DOMContentLoaded', async () => {
+  initLangSwitcher();
+
+  await loadBlogPosts();
+
+  // Search
+  const searchInput = document.getElementById('blogSearch');
+  if(searchInput){
+    searchInput.addEventListener('input', (e) => {
+      searchQuery = e.target.value.toLowerCase();
+      renderPosts();
+    });
+  }
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+
+// Load posts from Supabase
+async function loadBlogPosts(){
+  try {
+    const { data, error } = await supabaseClient
+      .from('blog_posts')
+      .select('*')
+      .eq('is_published', true)
+      .order('published_at', { ascending: false });
+
+    document.getElementById('blogLoading').style.display = 'none';
+
+    if(error){
+      console.warn('Blog posts table may not exist yet:', error.message);
+      showEmptyState();
+      return;
+    }
+
+    if(!data || data.length === 0){
+      showEmptyState();
+      return;
+    }
+
+    allPosts = data;
+    setupCategories();
+    renderPosts();
+    document.getElementById('filtersBar').style.display = 'flex';
+    document.getElementById('blogGrid').style.display = 'grid';
+
+  } catch(err){
+    console.error('Error loading blog posts:', err);
+    document.getElementById('blogLoading').style.display = 'none';
+    showEmptyState();
+  }
+}
+
+function showEmptyState(){
+  document.getElementById('blogEmpty').style.display = 'block';
+}
+
+// Setup category filter chips
+function setupCategories(){
+  const categories = [...new Set(allPosts.map(p => p.category).filter(Boolean))];
+  const chipsContainer = document.getElementById('categoryChips');
+  const lang = getCurrentLang();
+
+  categories.forEach(cat => {
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.dataset.category = cat;
+    chip.textContent = cat;
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeCategory = cat;
+      renderPosts();
+    });
+    chipsContainer.appendChild(chip);
+  });
+
+  // "All" chip click handler
+  const allChip = chipsContainer.querySelector('[data-category="all"]');
+  allChip.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+    allChip.classList.add('active');
+    activeCategory = 'all';
+    renderPosts();
+  });
+}
+
+// Filter & render posts
+function renderPosts(){
+  const lang = getCurrentLang();
+  filteredPosts = allPosts.filter(post => {
+    const matchCategory = activeCategory === 'all' || post.category === activeCategory;
+    const matchSearch = !searchQuery ||
+      (post[`title_${lang}`] || post.title_ar || '').toLowerCase().includes(searchQuery) ||
+      (post[`excerpt_${lang}`] || post.excerpt_ar || '').toLowerCase().includes(searchQuery);
+    return matchCategory && matchSearch;
+  });
+
+  const grid = document.getElementById('blogGrid');
+  const noResults = document.getElementById('blogNoResults');
+
+  if(filteredPosts.length === 0){
+    grid.style.display = 'none';
+    noResults.style.display = 'block';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  noResults.style.display = 'none';
+
+  grid.innerHTML = filteredPosts.map(post => {
+    const title = post[`title_${lang}`] || post.title_ar || 'مقالة';
+    const excerpt = post[`excerpt_${lang}`] || post.excerpt_ar || '';
+    const readTime = post.read_time || 5;
+    const date = formatDate(post.published_at, lang);
+    const slug = post.slug || post.id;
+
+    return `
+      <a href="blog-post.html?slug=${slug}" class="blog-card">
+        <div class="blog-card-image">
+          ${post.image_url ? `<img src="${post.image_url}" alt="${title}">` :
+            `<div class="blog-card-image-placeholder">📝</div>`}
+        </div>
+        <div class="blog-card-content">
+          <div class="blog-card-meta">
+            ${post.category ? `<span class="blog-card-category">${post.category}</span>` : ''}
+            <span class="blog-card-date">📅 ${date}</span>
+            <span class="blog-card-read-time">⏱️ ${readTime} ${lang === 'ar' ? 'د قراءة' : 'min read'}</span>
+          </div>
+          <h2>${title}</h2>
+          <p class="blog-card-excerpt">${excerpt}</p>
+          <div class="blog-card-footer">
+            <span class="blog-read-more">
+              ${lang === 'ar' ? 'اقرأ المزيد' : 'Read More'}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    `;
+  }).join('');
+}
+
+function formatDate(dateStr, lang){
+  if(!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+
+document.addEventListener('langChanged', () => {
+  if(allPosts.length > 0) renderPosts();
+});
+</script>
+
+</body>
+</html>

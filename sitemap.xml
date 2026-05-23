@@ -47,9 +47,19 @@
   <!-- Privacy -->
   <url>
     <loc>https://chattlle.com/privacy.html</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+
+  <!-- Blog -->
+  <url>
+    <loc>https://chattlle.com/blog.html</loc>
+    <lastmod>2026-05-23</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/blog.html?lang=en"/>
   </url>
 
   <!-- Product pages (one entry per product) -->

@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
+
+<title id="pageTitle">مقالة | Chattlle</title>
+<meta id="metaDesc" name="description" content="مقالة في مدوّنة Chattlle">
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Reem+Kufi:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+  .article-container{
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 9rem 5% 6rem;
+  }
+
+  .article-back{
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: var(--ink-mute);
+    text-decoration: none;
+    margin-bottom: 2rem;
+    padding: .6rem 1.2rem;
+    background: rgba(245,239,227,.04);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    font-size: .9rem;
+    transition: all .3s;
+  }
+  .article-back:hover{ color: var(--gold); border-color: rgba(232,193,120,.3); }
+  html[dir="rtl"] .article-back svg{ transform: rotate(180deg); }
+
+  .article-meta-top{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    font-size: .9rem;
+    color: var(--ink-mute);
+  }
+  .article-category{
+    background: rgba(232,193,120,.15);
+    color: var(--gold);
+    padding: .3rem .9rem;
+    border-radius: 100px;
+    font-weight: 600;
+    font-size: .82rem;
+    border: 1px solid rgba(232,193,120,.25);
+  }
+
+  .article-title{
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(120deg, var(--ink), var(--gold));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  html[lang="ar"] .article-title{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  html[lang="en"] .article-title{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .article-excerpt{
+    font-size: 1.2rem;
+    line-height: 1.85;
+    color: var(--ink-mute);
+    margin-bottom: 2.5rem;
+    font-style: italic;
+    padding-inline-start: 1.5rem;
+    border-inline-start: 3px solid var(--gold);
+  }
+
+  .article-hero-image{
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 24px;
+    margin-bottom: 3rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,.3);
+  }
+
+  .article-content{
+    font-size: 1.08rem;
+    line-height: 2;
+    color: var(--ink);
+  }
+  .article-content h2{
+    font-size: 1.75rem;
+    margin: 3rem 0 1.2rem;
+    color: var(--gold);
+  }
+  html[lang="ar"] .article-content h2{ font-family:'Reem Kufi', sans-serif; font-weight:600 }
+  html[lang="en"] .article-content h2{ font-family:'Fraunces', serif; font-weight:600 }
+
+  .article-content h3{
+    font-size: 1.35rem;
+    margin: 2.2rem 0 .8rem;
+    color: var(--ink);
+  }
+  .article-content p{ margin-bottom: 1.4rem; }
+  .article-content ul, .article-content ol{
+    margin-bottom: 1.5rem;
+    padding-inline-start: 1.5rem;
+  }
+  .article-content li{ margin-bottom: .6rem; }
+  .article-content img{
+    max-width: 100%;
+    border-radius: 16px;
+    margin: 1.5rem 0;
+  }
+  .article-content a{
+    color: var(--gold);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .article-content blockquote{
+    background: rgba(232,193,120,.05);
+    border-inline-start: 4px solid var(--gold);
+    padding: 1.2rem 1.5rem;
+    border-radius: 0 16px 16px 0;
+    margin: 1.8rem 0;
+    font-style: italic;
+    color: var(--ink-mute);
+  }
+  html[dir="rtl"] .article-content blockquote{ border-radius: 16px 0 0 16px; }
+  .article-content code{
+    background: rgba(245,239,227,.08);
+    padding: .2rem .5rem;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-size: .92em;
+    color: var(--cyan);
+  }
+  .article-content strong{ color: var(--gold); }
+
+  /* Share buttons */
+  .article-share{
+    margin-top: 3rem;
+    padding: 1.8rem;
+    background: linear-gradient(135deg, rgba(232,193,120,.06), rgba(123,63,255,.04));
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    text-align: center;
+  }
+  .article-share h3{
+    font-size: 1.1rem;
+    margin-bottom: 1.2rem;
+    color: var(--gold);
+  }
+  html[lang="ar"] .article-share h3{ font-family:'Reem Kufi', sans-serif }
+  .share-buttons{
+    display: flex;
+    gap: .8rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .share-btn{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(10,6,19,.5);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    cursor: pointer;
+    transition: all .3s;
+    text-decoration: none;
+  }
+  .share-btn:hover{
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+  .share-btn-twitter:hover{ color: #1da1f2; border-color: #1da1f2; }
+  .share-btn-whatsapp:hover{ color: #25d366; border-color: #25d366; }
+  .share-btn-facebook:hover{ color: #1877f2; border-color: #1877f2; }
+  .share-btn-copy:hover{ color: var(--cyan); border-color: var(--cyan); }
+
+  /* Related products */
+  .article-related-products{
+    margin-top: 4rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(123,63,255,.08), rgba(232,193,120,.04));
+    border: 1px solid rgba(123,63,255,.2);
+    border-radius: 20px;
+  }
+  .article-related-products h3{
+    font-size: 1.3rem;
+    margin-bottom: 1.2rem;
+    color: var(--gold);
+    text-align: center;
+  }
+  html[lang="ar"] .article-related-products h3{ font-family:'Reem Kufi', sans-serif }
+
+  /* Loading & error states */
+  .article-loading, .article-error{
+    text-align: center;
+    padding: 6rem 2rem;
+  }
+  .article-spinner{
+    width: 50px;
+    height: 50px;
+    border: 3px solid var(--line);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    margin: 0 auto 1.5rem;
+    animation: spin 1s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .article-error h2{ color: var(--gold); margin-bottom: 1rem; }
+  .article-error p{ color: var(--ink-mute); margin-bottom: 2rem; }
+
+  @media (max-width: 768px){
+    .article-container{ padding: 7rem 5% 4rem; }
+    .article-title{ font-size: 1.8rem; }
+    .article-content{ font-size: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span>Chattlle</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+    <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
+    <a href="about.html" data-i18n="nav.about">من نحن</a>
+    <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
+    <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ar">AR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</nav>
+
+<article class="article-container">
+
+  <!-- Loading -->
+  <div class="article-loading" id="articleLoading">
+    <div class="article-spinner"></div>
+    <p style="color:var(--ink-mute)">جاري تحميل المقالة...</p>
+  </div>
+
+  <!-- Error / Not Found -->
+  <div class="article-error" id="articleError" style="display:none;">
+    <h2>المقالة غير موجودة</h2>
+    <p>عذرًا، لم نتمكّن من العثور على هذه المقالة.</p>
+    <a href="blog.html" class="cta-primary" style="text-decoration:none; display:inline-flex;">
+      <span>العودة للمدوّنة</span>
+    </a>
+  </div>
+
+  <!-- Article Content -->
+  <div id="articleContent" style="display:none;">
+    <a href="blog.html" class="article-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="19" y1="12" x2="5" y2="12"></line>
+        <polyline points="12 19 5 12 12 5"></polyline>
+      </svg>
+      <span id="backText">العودة للمدوّنة</span>
+    </a>
+
+    <div class="article-meta-top">
+      <span class="article-category" id="articleCategory"></span>
+      <span id="articleDate"></span>
+      <span id="articleReadTime"></span>
+    </div>
+
+    <h1 class="article-title" id="articleTitle"></h1>
+    <p class="article-excerpt" id="articleExcerpt"></p>
+
+    <img id="articleImage" class="article-hero-image" style="display:none;" alt="">
+
+    <div class="article-content" id="articleBody"></div>
+
+    <!-- Share buttons -->
+    <div class="article-share">
+      <h3 id="shareTitle">شارك المقالة</h3>
+      <div class="share-buttons">
+        <a href="#" id="shareTwitter" target="_blank" class="share-btn share-btn-twitter" title="Twitter">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/></svg>
+        </a>
+        <a href="#" id="shareWhatsApp" target="_blank" class="share-btn share-btn-whatsapp" title="WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+        </a>
+        <a href="#" id="shareFacebook" target="_blank" class="share-btn share-btn-facebook" title="Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </a>
+        <button id="shareCopy" class="share-btn share-btn-copy" title="نسخ الرابط">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Related Products CTA -->
+    <div class="article-related-products" id="relatedProductsBox" style="display:none;">
+      <h3>🎁 تستحق منتجاتنا تجربتك!</h3>
+      <p style="color:var(--ink-mute); text-align:center; margin-bottom:1.5rem;" id="relatedText">
+        إذا أعجبتك هذه المقالة، استكشف منتجاتنا الرقمية الاحترافية المُولّدة بالذكاء الاصطناعي.
+      </p>
+      <div style="text-align:center;">
+        <a href="index.html#products" class="cta-primary" style="text-decoration:none; display:inline-flex;">
+          <span id="ctaText">استكشف المنتجات</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:1rem;">
+        <div class="logo-dot"></div>
+        <span>Chattlle</span>
+      </div>
+      <p style="color:var(--ink-mute); line-height:1.7;">منصّة الجيل الجديد لبيع الملفات الإلكترونية المُولّدة بالذكاء الاصطناعي.</p>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#products">المنتجات</a>
+      <a href="blog.html">المدوّنة</a>
+    </div>
+    <div class="footer-col">
+      <h4>الدعم</h4>
+      <a href="faq.html">الأسئلة الشائعة</a>
+      <a href="contact.html">اتصل بنا</a>
+      <a href="terms.html">الشروط</a>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل</h4>
+      <a href="mailto:hello@chattlle.com">hello@chattlle.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Chattlle. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/supabase.js"></script>
+<script src="assets/back-to-top.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+  initLangSwitcher();
+  await loadArticle();
+
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+
+async function loadArticle(){
+  const urlParams = new URLSearchParams(window.location.search);
+  const slug = urlParams.get('slug');
+
+  if(!slug){
+    showError();
+    return;
+  }
+
+  try {
+    // Try to fetch by slug OR by id (in case slug is actually an ID)
+    let { data, error } = await supabaseClient
+      .from('blog_posts')
+      .select('*')
+      .or(`slug.eq.${slug},id.eq.${slug}`)
+      .eq('is_published', true)
+      .single();
+
+    if(error || !data){
+      console.warn('Article not found:', error);
+      showError();
+      return;
+    }
+
+    renderArticle(data);
+
+  } catch(err){
+    console.error('Error loading article:', err);
+    showError();
+  }
+}
+
+function renderArticle(post){
+  const lang = getCurrentLang();
+  const title = post[`title_${lang}`] || post.title_ar || 'مقالة';
+  const excerpt = post[`excerpt_${lang}`] || post.excerpt_ar || '';
+  const content = post[`content_${lang}`] || post.content_ar || '';
+
+  // Update page meta
+  document.getElementById('pageTitle').textContent = `${title} | مدوّنة Chattlle`;
+  document.getElementById('metaDesc').setAttribute('content', excerpt.substring(0, 160));
+
+  // Update content
+  document.getElementById('articleTitle').textContent = title;
+  document.getElementById('articleExcerpt').textContent = excerpt;
+  document.getElementById('articleBody').innerHTML = content;
+
+  if(post.category){
+    document.getElementById('articleCategory').textContent = post.category;
+  }
+
+  if(post.published_at){
+    document.getElementById('articleDate').textContent = '📅 ' + formatDate(post.published_at, lang);
+  }
+
+  if(post.read_time){
+    document.getElementById('articleReadTime').textContent =
+      '⏱️ ' + post.read_time + (lang === 'ar' ? ' دقيقة قراءة' : ' min read');
+  }
+
+  if(post.image_url){
+    const img = document.getElementById('articleImage');
+    img.src = post.image_url;
+    img.alt = title;
+    img.style.display = 'block';
+  }
+
+  // Setup share buttons
+  setupShareButtons(title);
+
+  // Show related products
+  document.getElementById('relatedProductsBox').style.display = 'block';
+
+  // Update back button text
+  document.getElementById('backText').textContent = lang === 'ar' ? 'العودة للمدوّنة' : 'Back to Blog';
+  document.getElementById('shareTitle').textContent = lang === 'ar' ? 'شارك المقالة' : 'Share Article';
+  document.getElementById('ctaText').textContent = lang === 'ar' ? 'استكشف المنتجات' : 'Explore Products';
+
+  // Hide loading, show content
+  document.getElementById('articleLoading').style.display = 'none';
+  document.getElementById('articleContent').style.display = 'block';
+}
+
+function setupShareButtons(title){
+  const url = encodeURIComponent(window.location.href);
+  const text = encodeURIComponent(title);
+
+  document.getElementById('shareTwitter').href = `https://twitter.com/intent/tweet?text=${text}&url=${url}`;
+  document.getElementById('shareWhatsApp').href = `https://wa.me/?text=${text}%20${url}`;
+  document.getElementById('shareFacebook').href = `https://www.facebook.com/sharer/sharer.php?u=${url}`;
+
+  document.getElementById('shareCopy').addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      const btn = document.getElementById('shareCopy');
+      const originalHTML = btn.innerHTML;
+      btn.innerHTML = `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+      btn.style.color = 'var(--cyan)';
+      btn.style.borderColor = 'var(--cyan)';
+      setTimeout(() => {
+        btn.innerHTML = originalHTML;
+        btn.style.color = '';
+        btn.style.borderColor = '';
+      }, 2000);
+    } catch(err){
+      console.error('Copy failed:', err);
+    }
+  });
+}
+
+function showError(){
+  document.getElementById('articleLoading').style.display = 'none';
+  document.getElementById('articleError').style.display = 'block';
+}
+
+function formatDate(dateStr, lang){
+  if(!dateStr) return '';
+  const date = new Date(dateStr);
+  return date.toLocaleDateString(lang === 'ar' ? 'ar-SA' : 'en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+}
+</script>
+
+</body>
+</html>

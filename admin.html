@@ -888,6 +888,11 @@
           <span data-i18n="admin.tab.orders">الطلبات</span>
           <span class="count" id="ordersCount">0</span>
         </button>
+        <button class="admin-tab" data-section="blog">
+          <span>📰</span>
+          <span data-i18n="admin.tab.blog">المدوّنة</span>
+          <span class="count" id="blogCount">0</span>
+        </button>
       </div>
 
       <!-- Dashboard section -->
@@ -1025,6 +1030,154 @@
         <div id="ordersList" class="orders-list"></div>
       </section>
 
+      <!-- Blog Section -->
+      <section id="section-blog" class="admin-section">
+        <div class="sec-head">
+          <h2 data-i18n="admin.tab.blog">إدارة المدوّنة</h2>
+          <button class="btn-primary" onclick="openBlogModal()" style="display:inline-flex;align-items:center;gap:.4rem">
+            <span>➕</span>
+            <span data-i18n="admin.blog.newPost">مقالة جديدة</span>
+          </button>
+        </div>
+
+        <div id="blogPostsList" style="display:grid;gap:1rem"></div>
+
+        <!-- Empty state -->
+        <div id="blogEmptyState" style="display:none;text-align:center;padding:4rem 2rem;background:rgba(245,239,227,.04);border:1px dashed var(--line);border-radius:18px;margin-top:2rem">
+          <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">📰</div>
+          <h3 style="color:var(--ink);margin-bottom:.8rem" data-i18n="admin.blog.empty">لا توجد مقالات بعد</h3>
+          <p style="color:var(--ink-mute);margin-bottom:1.5rem;line-height:1.7" data-i18n="admin.blog.emptyDesc">ابدأ بإضافة أوّل مقالة في مدوّنتك. استخدم ChatGPT أو Claude لكتابة محتوى احترافي بسرعة!</p>
+          <button class="btn-primary" onclick="openBlogModal()">
+            <span>➕</span>
+            <span data-i18n="admin.blog.firstPost">أضف أوّل مقالة</span>
+          </button>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<!-- BLOG POST MODAL -->
+<div class="modal-overlay" id="blogModal">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="blogModalTitle">مقالة جديدة</h3>
+      <button class="modal-close" onclick="closeBlogModal()">×</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Featured Image -->
+      <div class="field-group">
+        <div class="field-group-title">🖼️ صورة المقالة المميّزة</div>
+        <div class="image-uploader">
+          <div class="image-preview" id="blogImagePreview">
+            <div class="placeholder">
+              <span style="font-size:1.8rem">📰</span>
+              <span>لا توجد صورة</span>
+            </div>
+          </div>
+          <div class="upload-info">
+            <p>ارفع صورة مستطيلة (1200×630 مثالي للسوشيال). يُفضّل صورة جذّابة تعبّر عن موضوع المقالة.</p>
+            <div class="upload-actions">
+              <input type="file" id="blogImageFile" accept="image/*" style="display:none">
+              <button type="button" class="upload-btn" onclick="document.getElementById('blogImageFile').click()">
+                📤 <span>رفع صورة</span>
+              </button>
+              <button type="button" class="upload-btn removing" id="blogRemoveImageBtn" style="display:none">
+                ✕ <span>إزالة الصورة</span>
+              </button>
+            </div>
+            <div class="upload-progress" id="blogImageProgress"><div class="bar"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Basic Info -->
+      <div class="field-group">
+        <div class="field-group-title">⚙️ المعلومات الأساسية</div>
+        <div class="form-grid-3">
+          <div class="form-group">
+            <label>التصنيف</label>
+            <select id="blogCategory">
+              <option value="الذكاء الاصطناعي">الذكاء الاصطناعي</option>
+              <option value="البراومبتات">البراومبتات</option>
+              <option value="LUTs والمونتاج">LUTs والمونتاج</option>
+              <option value="صناعة المحتوى">صناعة المحتوى</option>
+              <option value="ريادة الأعمال">ريادة الأعمال</option>
+              <option value="التسويق">التسويق</option>
+              <option value="دروس">دروس</option>
+              <option value="أخبار">أخبار</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>وقت القراءة (دقائق)</label>
+            <input type="number" id="blogReadTime" value="5" min="1" max="60">
+          </div>
+          <div class="form-group">
+            <label>الحالة</label>
+            <select id="blogStatus">
+              <option value="true">منشورة</option>
+              <option value="false">مسوّدة (غير منشورة)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Arabic Content -->
+      <div class="field-group">
+        <div class="field-group-title">🇸🇦 المحتوى العربي</div>
+
+        <div class="form-group">
+          <label>عنوان المقالة *</label>
+          <input type="text" id="blogTitleAr" placeholder="مثال: 10 أسرار براومبتات Midjourney المُحترفة">
+        </div>
+
+        <div class="form-group">
+          <label>الـ Slug (الرابط) *</label>
+          <input type="text" id="blogSlug" placeholder="مثال: midjourney-prompts-secrets">
+          <small style="color:var(--ink-mute);font-size:.8rem;margin-top:.3rem;display:block">سيكون رابط المقالة: chattlle.com/blog-post.html?slug=...</small>
+        </div>
+
+        <div class="form-group">
+          <label>الملخّص (يظهر في بطاقة المقالة) *</label>
+          <textarea id="blogExcerptAr" rows="3" placeholder="جملة-جملتين تلخّصان محتوى المقالة بشكل جذّاب"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>المحتوى الكامل (HTML مدعوم) *</label>
+          <textarea id="blogContentAr" rows="15" placeholder="اكتب محتوى المقالة هنا. يدعم HTML: <h2>عنوان فرعي</h2><p>فقرة</p><ul><li>نقطة</li></ul><img src='url' alt='وصف'><blockquote>اقتباس</blockquote>" style="font-family:'Courier New',monospace;font-size:.9rem"></textarea>
+          <small style="color:var(--ink-mute);font-size:.8rem;margin-top:.3rem;display:block">💡 نصيحة: اطلب من ChatGPT/Claude كتابة المحتوى بصيغة HTML جاهزة للنسخ</small>
+        </div>
+      </div>
+
+      <!-- English Content -->
+      <div class="field-group">
+        <div class="field-group-title">🇬🇧 English Content (Optional)</div>
+
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" id="blogTitleEn" placeholder="Example: 10 Pro Midjourney Prompts Secrets">
+        </div>
+
+        <div class="form-group">
+          <label>Excerpt</label>
+          <textarea id="blogExcerptEn" rows="3" placeholder="A compelling 1-2 sentence summary"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Full Content (HTML supported)</label>
+          <textarea id="blogContentEn" rows="15" placeholder="Write the full article content here in HTML" style="font-family:'Courier New',monospace;font-size:.9rem"></textarea>
+        </div>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeBlogModal()">إلغاء</button>
+      <button class="btn-primary" onclick="saveBlogPost()" id="saveBlogBtn">
+        <span>💾</span>
+        <span>حفظ المقالة</span>
+      </button>
     </div>
   </div>
 </div>
@@ -1483,11 +1636,297 @@ function switchSection(name){
   document.querySelectorAll('.admin-section').forEach(s => {
     s.classList.toggle('active', s.id === `section-${name}`);
   });
+  // Load blog posts on first view of blog section
+  if(name === 'blog' && !window._blogLoaded){
+    loadBlogPosts();
+    window._blogLoaded = true;
+  }
 }
 
 document.querySelectorAll('.admin-tab').forEach(tab => {
   tab.addEventListener('click', () => switchSection(tab.dataset.section));
 });
+
+/* ============================================================
+   BLOG MANAGEMENT
+   ============================================================ */
+let allBlogPosts = [];
+let editingBlogPostId = null;
+let blogImageUrl = null;
+
+async function loadBlogPosts(){
+  try {
+    const { data, error } = await supabaseClient
+      .from('blog_posts')
+      .select('*')
+      .order('created_at', { ascending: false });
+
+    if(error){
+      // Table doesn't exist yet
+      console.warn('Blog table not found:', error.message);
+      document.getElementById('blogPostsList').style.display = 'none';
+      document.getElementById('blogEmptyState').style.display = 'block';
+      document.getElementById('blogCount').textContent = '0';
+      // Show helpful message
+      const empty = document.getElementById('blogEmptyState');
+      empty.innerHTML = `
+        <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">⚠️</div>
+        <h3 style="color:var(--gold);margin-bottom:.8rem">إنشاء جدول المقالات أولاً</h3>
+        <p style="color:var(--ink-mute);margin-bottom:1.5rem;line-height:1.7">
+          قبل استخدام المدوّنة، يجب إنشاء جدول blog_posts في Supabase.<br>
+          اطلب من Claude إعطاءك SQL لإنشاء الجدول.
+        </p>
+        <div style="background:rgba(232,193,120,.08);border:1px solid rgba(232,193,120,.25);border-radius:14px;padding:1.5rem;text-align:start;max-width:600px;margin:0 auto;direction:ltr;font-family:'Courier New',monospace;font-size:.85rem;color:var(--cyan);overflow:auto">
+SQL متاح في الدليل المرفق مع الإصدار v12
+        </div>
+      `;
+      return;
+    }
+
+    allBlogPosts = data || [];
+    document.getElementById('blogCount').textContent = allBlogPosts.length;
+
+    if(allBlogPosts.length === 0){
+      document.getElementById('blogPostsList').style.display = 'none';
+      document.getElementById('blogEmptyState').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('blogPostsList').style.display = 'grid';
+    document.getElementById('blogEmptyState').style.display = 'none';
+    renderBlogPostsList();
+
+  } catch(err){
+    console.error('Error loading blog posts:', err);
+  }
+}
+
+function renderBlogPostsList(){
+  const list = document.getElementById('blogPostsList');
+  list.innerHTML = allBlogPosts.map(post => `
+    <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:16px;padding:1.5rem;display:grid;grid-template-columns:80px 1fr auto;gap:1rem;align-items:center">
+      <div style="width:80px;height:80px;border-radius:12px;background:linear-gradient(135deg,var(--violet),var(--gold));overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:2rem">
+        ${post.image_url ? `<img src="${post.image_url}" style="width:100%;height:100%;object-fit:cover">` : '📰'}
+      </div>
+      <div>
+        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.4rem;flex-wrap:wrap">
+          ${post.category ? `<span style="background:rgba(232,193,120,.15);color:var(--gold);padding:.2rem .6rem;border-radius:100px;font-size:.75rem;font-weight:600;border:1px solid rgba(232,193,120,.25)">${post.category}</span>` : ''}
+          ${post.is_published
+            ? '<span style="background:rgba(92,229,217,.12);color:var(--cyan);padding:.2rem .6rem;border-radius:100px;font-size:.72rem;font-weight:600">✓ منشورة</span>'
+            : '<span style="background:rgba(245,239,227,.08);color:var(--ink-mute);padding:.2rem .6rem;border-radius:100px;font-size:.72rem;font-weight:600">📝 مسوّدة</span>'}
+        </div>
+        <h4 style="font-size:1.05rem;margin-bottom:.3rem;color:var(--ink)">${post.title_ar || 'بدون عنوان'}</h4>
+        <p style="color:var(--ink-mute);font-size:.85rem;line-height:1.5;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden">${post.excerpt_ar || ''}</p>
+      </div>
+      <div style="display:flex;gap:.5rem;flex-direction:column">
+        <button onclick="editBlogPost('${post.id}')" style="padding:.55rem 1rem;background:rgba(232,193,120,.12);color:var(--gold);border:1px solid rgba(232,193,120,.25);border-radius:10px;cursor:pointer;font-size:.85rem;font-family:inherit;display:inline-flex;align-items:center;gap:.4rem">
+          ✏️ تعديل
+        </button>
+        <button onclick="deleteBlogPost('${post.id}')" style="padding:.55rem 1rem;background:rgba(255,99,99,.1);color:#ff6b6b;border:1px solid rgba(255,99,99,.25);border-radius:10px;cursor:pointer;font-size:.85rem;font-family:inherit;display:inline-flex;align-items:center;gap:.4rem">
+          🗑️ حذف
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openBlogModal(post = null){
+  editingBlogPostId = post ? post.id : null;
+  blogImageUrl = post ? post.image_url : null;
+
+  document.getElementById('blogModalTitle').textContent = post ? '✏️ تعديل المقالة' : '📰 مقالة جديدة';
+
+  // Fill or clear fields
+  document.getElementById('blogCategory').value = post?.category || 'الذكاء الاصطناعي';
+  document.getElementById('blogReadTime').value = post?.read_time || 5;
+  document.getElementById('blogStatus').value = post?.is_published !== false ? 'true' : 'false';
+  document.getElementById('blogTitleAr').value = post?.title_ar || '';
+  document.getElementById('blogSlug').value = post?.slug || '';
+  document.getElementById('blogExcerptAr').value = post?.excerpt_ar || '';
+  document.getElementById('blogContentAr').value = post?.content_ar || '';
+  document.getElementById('blogTitleEn').value = post?.title_en || '';
+  document.getElementById('blogExcerptEn').value = post?.excerpt_en || '';
+  document.getElementById('blogContentEn').value = post?.content_en || '';
+
+  // Image preview
+  const preview = document.getElementById('blogImagePreview');
+  if(blogImageUrl){
+    preview.innerHTML = `<img src="${blogImageUrl}" style="width:100%;height:100%;object-fit:cover">`;
+    document.getElementById('blogRemoveImageBtn').style.display = 'inline-flex';
+  } else {
+    preview.innerHTML = `
+      <div class="placeholder">
+        <span style="font-size:1.8rem">📰</span>
+        <span>لا توجد صورة</span>
+      </div>`;
+    document.getElementById('blogRemoveImageBtn').style.display = 'none';
+  }
+
+  // Auto-generate slug from Arabic title
+  const titleAr = document.getElementById('blogTitleAr');
+  const slugInput = document.getElementById('blogSlug');
+  if(!post){
+    titleAr.oninput = () => {
+      if(!slugInput.value || slugInput.value === slugInput.dataset.auto){
+        const auto = titleAr.value
+          .toLowerCase()
+          .replace(/[^a-z0-9\u0600-\u06FF\s-]/g, '')
+          .replace(/\s+/g, '-')
+          .replace(/-+/g, '-')
+          .substring(0, 80);
+        slugInput.value = auto;
+        slugInput.dataset.auto = auto;
+      }
+    };
+  }
+
+  document.getElementById('blogModal').classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeBlogModal(){
+  document.getElementById('blogModal').classList.remove('show');
+  document.body.style.overflow = '';
+  editingBlogPostId = null;
+  blogImageUrl = null;
+}
+
+function editBlogPost(id){
+  const post = allBlogPosts.find(p => p.id === id);
+  if(post) openBlogModal(post);
+}
+
+async function deleteBlogPost(id){
+  if(!confirm('هل أنت متأكّد من حذف هذه المقالة؟ لا يمكن التراجع.')) return;
+  try {
+    const { error } = await supabaseClient
+      .from('blog_posts')
+      .delete()
+      .eq('id', id);
+    if(error) throw error;
+    alert('✓ تم حذف المقالة بنجاح');
+    loadBlogPosts();
+  } catch(err){
+    alert('خطأ في الحذف: ' + err.message);
+  }
+}
+
+// Image upload for blog
+document.addEventListener('DOMContentLoaded', () => {
+  const blogImageFile = document.getElementById('blogImageFile');
+  if(blogImageFile){
+    blogImageFile.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+
+      const progress = document.getElementById('blogImageProgress');
+      const bar = progress.querySelector('.bar');
+      progress.classList.add('active');
+      bar.style.width = '30%';
+
+      try {
+        const fileName = `blog-${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
+        const { data, error } = await supabaseClient.storage
+          .from('product-images')
+          .upload(`blog/${fileName}`, file);
+
+        bar.style.width = '70%';
+        if(error) throw error;
+
+        const { data: urlData } = supabaseClient.storage
+          .from('product-images')
+          .getPublicUrl(`blog/${fileName}`);
+
+        blogImageUrl = urlData.publicUrl;
+        bar.style.width = '100%';
+
+        const preview = document.getElementById('blogImagePreview');
+        preview.innerHTML = `<img src="${blogImageUrl}" style="width:100%;height:100%;object-fit:cover">`;
+        document.getElementById('blogRemoveImageBtn').style.display = 'inline-flex';
+
+        setTimeout(() => progress.classList.remove('active'), 500);
+      } catch(err){
+        alert('خطأ في رفع الصورة: ' + err.message);
+        progress.classList.remove('active');
+      }
+    });
+  }
+
+  const blogRemoveImageBtn = document.getElementById('blogRemoveImageBtn');
+  if(blogRemoveImageBtn){
+    blogRemoveImageBtn.addEventListener('click', () => {
+      blogImageUrl = null;
+      const preview = document.getElementById('blogImagePreview');
+      preview.innerHTML = `
+        <div class="placeholder">
+          <span style="font-size:1.8rem">📰</span>
+          <span>لا توجد صورة</span>
+        </div>`;
+      blogRemoveImageBtn.style.display = 'none';
+      document.getElementById('blogImageFile').value = '';
+    });
+  }
+});
+
+async function saveBlogPost(){
+  // Validation
+  const titleAr = document.getElementById('blogTitleAr').value.trim();
+  const slug = document.getElementById('blogSlug').value.trim();
+  const excerptAr = document.getElementById('blogExcerptAr').value.trim();
+  const contentAr = document.getElementById('blogContentAr').value.trim();
+
+  if(!titleAr){ alert('⚠️ العنوان العربي مطلوب'); return; }
+  if(!slug){ alert('⚠️ الـ Slug مطلوب'); return; }
+  if(!excerptAr){ alert('⚠️ الملخّص العربي مطلوب'); return; }
+  if(!contentAr){ alert('⚠️ المحتوى العربي مطلوب'); return; }
+
+  const isPublished = document.getElementById('blogStatus').value === 'true';
+  const postData = {
+    title_ar: titleAr,
+    title_en: document.getElementById('blogTitleEn').value.trim() || null,
+    slug: slug,
+    excerpt_ar: excerptAr,
+    excerpt_en: document.getElementById('blogExcerptEn').value.trim() || null,
+    content_ar: contentAr,
+    content_en: document.getElementById('blogContentEn').value.trim() || null,
+    category: document.getElementById('blogCategory').value,
+    read_time: parseInt(document.getElementById('blogReadTime').value) || 5,
+    image_url: blogImageUrl,
+    is_published: isPublished,
+    published_at: isPublished ? new Date().toISOString() : null
+  };
+
+  const saveBtn = document.getElementById('saveBlogBtn');
+  saveBtn.disabled = true;
+  saveBtn.innerHTML = '<span>⏳</span><span>جاري الحفظ...</span>';
+
+  try {
+    let result;
+    if(editingBlogPostId){
+      // Update
+      result = await supabaseClient
+        .from('blog_posts')
+        .update(postData)
+        .eq('id', editingBlogPostId);
+    } else {
+      // Insert
+      result = await supabaseClient
+        .from('blog_posts')
+        .insert([postData]);
+    }
+
+    if(result.error) throw result.error;
+
+    alert(editingBlogPostId ? '✓ تم تحديث المقالة' : '✓ تم نشر المقالة');
+    closeBlogModal();
+    loadBlogPosts();
+  } catch(err){
+    alert('خطأ في الحفظ: ' + err.message);
+  } finally {
+    saveBtn.disabled = false;
+    saveBtn.innerHTML = '<span>💾</span><span>حفظ المقالة</span>';
+  }
+}
 
 /* ============================================================
    DASHBOARD
