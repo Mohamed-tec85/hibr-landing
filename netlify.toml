@@ -4,3 +4,11 @@
 
 [functions]
   node_bundler = "esbuild"
+
+# Image generation needs longer timeout (HD takes 30-60s)
+[functions.generate-image]
+  timeout = 60
+
+# Prompt generation is fast
+[functions.generate-prompt]
+  timeout = 26

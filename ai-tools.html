@@ -591,11 +591,14 @@
         </div>
         <div class="form-field">
           <label>💎 الجودة:</label>
-          <select id="imageQuality">
-            <option value="low" selected>سريعة (مجانية)</option>
-            <option value="medium">متوسطة</option>
-            <option value="high">عالية HD</option>
+          <select id="imageQuality" onchange="updateQualityWarning()">
+            <option value="low" selected>سريعة (~10 ثوانٍ - رخيصة)</option>
+            <option value="medium">متوسطة (~20 ثانية)</option>
+            <option value="high">عالية HD (~60 ثانية - مكلفة)</option>
           </select>
+          <small id="qualityWarning" style="display:none;color:#ffc107;font-size:.82rem;margin-top:.4rem">
+            ⚠️ <strong>جودة HD:</strong> تحتاج 30-60 ثانية وتكلّف ~$0.19 للصورة. الرجاء الانتظار.
+          </small>
         </div>
       </div>
 
@@ -768,6 +771,12 @@ async function generatePrompt(){
       body: JSON.stringify({ idea, style: currentStyle, lang: 'ar' })
     });
 
+    // Check if response is HTML (function not found)
+    const contentType = response.headers.get('content-type');
+    if(!contentType || !contentType.includes('application/json')){
+      throw new Error('الخدمة غير متوفرة حاليًا - قد تكون Netlify Functions لم تُنشر بعد. تأكّد من رفع مجلد netlify/functions على GitHub.');
+    }
+
     const data = await response.json();
 
     if(!response.ok){
@@ -780,19 +789,17 @@ async function generatePrompt(){
 
     incrementUsage('prompt');
 
-    // Scroll to result
     setTimeout(() => {
       document.getElementById('promptResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
     }, 200);
 
-    // Analytics
     if(typeof gtag !== 'undefined'){
       gtag('event', 'generate_prompt', { style: currentStyle });
     }
 
   } catch(err){
-    console.error(err);
-    showToast(err.message || 'حدث خطأ', 'error');
+    console.error('Prompt error:', err);
+    showToast(err.message || 'حدث خطأ - تحقّق من الـ Console (F12)', 'error');
   } finally {
     btn.disabled = false;
     btn.classList.remove('loading');
@@ -838,7 +845,13 @@ async function generateImage(){
   const btn = document.getElementById('generateImageBtn');
   btn.disabled = true;
   btn.classList.add('loading');
-  btn.innerHTML = '<div class="spinner"></div><span>جاري التوليد... (10-30 ثانية)</span>';
+
+  // Adjust loading message based on quality
+  let loadingTime = '10-15 ثانية';
+  if(quality === 'medium') loadingTime = '20-30 ثانية';
+  if(quality === 'high') loadingTime = '40-60 ثانية - الرجاء الصبر';
+
+  btn.innerHTML = `<div class="spinner"></div><span>جاري التوليد... (${loadingTime})</span>`;
 
   try {
     const response = await fetch('/.netlify/functions/generate-image', {
@@ -846,6 +859,14 @@ async function generateImage(){
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ prompt, size, quality })
     });
+
+    // Check if response is HTML (function not found)
+    const contentType = response.headers.get('content-type');
+    if(!contentType || !contentType.includes('application/json')){
+      const text = await response.text();
+      console.error('Non-JSON response:', text.substring(0, 200));
+      throw new Error('Netlify Functions غير منشورة بعد!\n\n1. تأكّد من رفع مجلد netlify/functions على GitHub\n2. أضف OPENAI_API_KEY في Netlify Environment Variables\n3. أعد النشر (Trigger deploy → Clear cache)');
+    }
 
     const data = await response.json();
 
@@ -868,13 +889,19 @@ async function generateImage(){
     }
 
   } catch(err){
-    console.error(err);
-    showToast(err.message || 'حدث خطأ', 'error');
+    console.error('Image error:', err);
+    showToast(err.message || 'حدث خطأ - تحقّق من Console (F12)', 'error');
   } finally {
     btn.disabled = false;
     btn.classList.remove('loading');
     btn.innerHTML = '<span>🎨</span><span>توليد الصورة</span>';
   }
+}
+
+function updateQualityWarning(){
+  const quality = document.getElementById('imageQuality').value;
+  const warning = document.getElementById('qualityWarning');
+  warning.style.display = quality === 'high' ? 'block' : 'none';
 }
 
 function downloadImage(){
