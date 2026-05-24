@@ -389,22 +389,46 @@ async function loadArticle(){
   const urlParams = new URLSearchParams(window.location.search);
   const slug = urlParams.get('slug');
 
+  console.log('Loading article with slug:', slug);
+
   if(!slug){
     showError();
     return;
   }
 
   try {
-    // Try to fetch by slug OR by id (in case slug is actually an ID)
+    // First, try to find by slug (most common case)
     let { data, error } = await sb
       .from('blog_posts')
       .select('*')
-      .or(`slug.eq.${slug},id.eq.${slug}`)
+      .eq('slug', slug)
       .eq('is_published', true)
-      .single();
+      .maybeSingle();
 
-    if(error || !data){
-      console.warn('Article not found:', error);
+    console.log('Query by slug result:', { data, error });
+
+    // If not found by slug, try by ID (UUID format)
+    if((!data || error) && /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slug)){
+      console.log('Trying to find by ID...');
+      const result = await sb
+        .from('blog_posts')
+        .select('*')
+        .eq('id', slug)
+        .eq('is_published', true)
+        .maybeSingle();
+      data = result.data;
+      error = result.error;
+      console.log('Query by ID result:', { data, error });
+    }
+
+    if(error){
+      console.error('Supabase error:', error);
+      showError();
+      return;
+    }
+
+    if(!data){
+      console.warn('Article not found for slug:', slug);
       showError();
       return;
     }
