@@ -814,6 +814,223 @@
     .modal{ margin: 1rem auto }
     .modal-header, .modal-body, .modal-footer{ padding:1rem 1.2rem }
   }
+
+  /* ============================================================
+     CONTENT TOOLBAR (Rich Editor)
+     ============================================================ */
+  .content-toolbar{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .3rem;
+    padding: .7rem .9rem;
+    background: linear-gradient(135deg, rgba(232,193,120,.08), rgba(123,63,255,.05));
+    border: 1px solid var(--line);
+    border-bottom: none;
+    border-radius: 12px 12px 0 0;
+  }
+  .toolbar-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    background: rgba(10,6,19,.4);
+    border: 1px solid var(--line);
+    color: var(--ink);
+    padding: .45rem .75rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .82rem;
+    transition: all .25s;
+    font-weight: 500;
+  }
+  .toolbar-btn:hover{
+    background: rgba(232,193,120,.15);
+    border-color: rgba(232,193,120,.4);
+    color: var(--gold);
+    transform: translateY(-1px);
+  }
+  .toolbar-btn.preview-btn{
+    background: linear-gradient(135deg, var(--violet), #5b2ddb);
+    color: #fff;
+    border-color: transparent;
+    margin-inline-start: auto;
+  }
+  .toolbar-btn.preview-btn:hover{
+    background: linear-gradient(135deg, #9b5eff, var(--violet));
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(123,63,255,.3);
+  }
+  .toolbar-divider{
+    width: 1px;
+    height: 24px;
+    background: var(--line);
+    margin: 0 .3rem;
+  }
+
+  /* Image Picker Modal */
+  .picker-modal-overlay{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    backdrop-filter: blur(8px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 100000;
+    padding: 1rem;
+  }
+  .picker-modal-overlay.show{ display: flex; }
+  .picker-modal{
+    background: linear-gradient(135deg, #15102a, #0a0613);
+    border: 1px solid rgba(232,193,120,.2);
+    border-radius: 24px;
+    max-width: 700px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 2rem;
+    box-shadow: 0 30px 80px rgba(0,0,0,.5);
+  }
+  .picker-modal h3{
+    font-size: 1.4rem;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .picker-modal .field-group-title{ font-size: .95rem; }
+  .picker-modal .form-group{ margin-bottom: 1rem; }
+  .picker-modal label{
+    display: block;
+    color: var(--ink);
+    font-size: .9rem;
+    margin-bottom: .5rem;
+    font-weight: 500;
+  }
+  .picker-modal input, .picker-modal textarea, .picker-modal select{
+    width: 100%;
+    background: rgba(10,6,19,.6);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: .75rem 1rem;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: .92rem;
+  }
+  .picker-modal input:focus, .picker-modal textarea:focus, .picker-modal select:focus{
+    outline: none;
+    border-color: rgba(232,193,120,.5);
+  }
+
+  .image-upload-zone{
+    border: 2px dashed var(--line);
+    border-radius: 16px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all .3s;
+    background: rgba(245,239,227,.02);
+    margin-bottom: 1.5rem;
+  }
+  .image-upload-zone:hover{
+    border-color: rgba(232,193,120,.4);
+    background: rgba(232,193,120,.05);
+  }
+  .image-upload-zone.has-image{ padding: 1rem; }
+  .image-upload-zone img{
+    max-width: 100%;
+    max-height: 250px;
+    border-radius: 12px;
+    margin: 0 auto;
+    display: block;
+  }
+  .image-upload-zone-icon{ font-size: 3rem; opacity: .5; margin-bottom: .5rem; }
+  .image-upload-zone-text{ color: var(--ink-mute); font-size: .9rem; }
+  .image-upload-zone-progress{
+    height: 4px;
+    background: rgba(232,193,120,.1);
+    border-radius: 2px;
+    overflow: hidden;
+    margin-top: 1rem;
+    display: none;
+  }
+  .image-upload-zone-progress.active{ display: block; }
+  .image-upload-zone-progress .bar{
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--violet-glow));
+    width: 0%;
+    transition: width .3s;
+  }
+
+  .picker-actions{
+    display: flex;
+    gap: .8rem;
+    margin-top: 1.5rem;
+    justify-content: flex-end;
+  }
+  .picker-actions button{
+    padding: .8rem 1.5rem;
+    border-radius: 10px;
+    font-family: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink);
+    transition: all .3s;
+  }
+  .picker-actions button:hover{ background: rgba(245,239,227,.05); }
+  .picker-actions button.primary{
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    border-color: transparent;
+  }
+  .picker-actions button.primary:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232,193,120,.3);
+  }
+
+  /* Preview Modal */
+  .preview-modal{
+    max-width: 900px;
+    padding: 0;
+  }
+  .preview-modal-header{
+    padding: 1.5rem 2rem;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .preview-modal-body{
+    padding: 2rem;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .preview-content{
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--ink);
+  }
+  .preview-content h2{ color: var(--gold); font-size: 1.6rem; margin: 2rem 0 1rem; }
+  .preview-content h3{ color: var(--ink); font-size: 1.25rem; margin: 1.5rem 0 .8rem; }
+  .preview-content p{ margin-bottom: 1.2rem; }
+  .preview-content ul, .preview-content ol{ padding-inline-start: 1.5rem; margin-bottom: 1.2rem; }
+  .preview-content li{ margin-bottom: .5rem; }
+  .preview-content img{ max-width: 100%; border-radius: 14px; margin: 1.2rem 0; }
+  .preview-content blockquote{
+    background: rgba(232,193,120,.05);
+    border-inline-start: 4px solid var(--gold);
+    padding: 1rem 1.3rem;
+    border-radius: 0 14px 14px 0;
+    margin: 1.5rem 0;
+    font-style: italic;
+  }
+  .preview-content a{ color: var(--gold); text-decoration: underline; }
+  .preview-content strong{ color: var(--gold); }
 </style>
 </head>
 <body>
@@ -1171,8 +1388,54 @@
 
         <div class="form-group">
           <label>المحتوى الكامل (HTML مدعوم) *</label>
-          <textarea id="blogContentAr" rows="15" placeholder="اكتب محتوى المقالة هنا. يدعم HTML: <h2>عنوان فرعي</h2><p>فقرة</p><ul><li>نقطة</li></ul><img src='url' alt='وصف'><blockquote>اقتباس</blockquote>" style="font-family:'Courier New',monospace;font-size:.9rem"></textarea>
-          <small style="color:var(--ink-mute);font-size:.8rem;margin-top:.3rem;display:block">💡 نصيحة: اطلب من ChatGPT/Claude كتابة المحتوى بصيغة HTML جاهزة للنسخ</small>
+
+          <!-- Rich Content Toolbar -->
+          <div class="content-toolbar">
+            <button type="button" class="toolbar-btn" onclick="insertImageToContent('blogContentAr')" title="إضافة صورة">
+              <span>📷</span>
+              <span>صورة</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="insertLinkToContent('blogContentAr')" title="إضافة رابط">
+              <span>🔗</span>
+              <span>رابط</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<h2>', '</h2>')" title="عنوان كبير H2">
+              <span style="font-weight:700">H2</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<h3>', '</h3>')" title="عنوان فرعي H3">
+              <span style="font-weight:700">H3</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<p>', '</p>')" title="فقرة">
+              <span>¶</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<strong>', '</strong>')" title="نص غامق">
+              <span style="font-weight:900">B</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<em>', '</em>')" title="نص مائل">
+              <span style="font-style:italic">I</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="insertList('blogContentAr', 'ul')" title="قائمة نقطية">
+              <span>•</span>
+              <span>قائمة</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="insertList('blogContentAr', 'ol')" title="قائمة مرقمة">
+              <span>1.</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentAr', '<blockquote>', '</blockquote>')" title="اقتباس">
+              <span>💬</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn preview-btn" onclick="previewContent('blogContentAr')" title="معاينة المقالة">
+              <span>👁️</span>
+              <span>معاينة</span>
+            </button>
+          </div>
+
+          <textarea id="blogContentAr" rows="15" placeholder="اكتب محتوى المقالة هنا. استخدم الأزرار أعلاه لإضافة صور وروابط وتنسيقات بسهولة، أو اكتب HTML مباشرة." style="font-family:'Courier New',monospace;font-size:.9rem;border-radius:0 0 12px 12px;border-top:none"></textarea>
+          <small style="color:var(--ink-mute);font-size:.8rem;margin-top:.5rem;display:block">💡 <strong>نصيحة:</strong> ضع المؤشر في المكان المطلوب ثم اضغط على زر "📷 صورة" لرفع صورة وإضافتها تلقائيًا!</small>
         </div>
       </div>
 
@@ -1192,7 +1455,52 @@
 
         <div class="form-group">
           <label>Full Content (HTML supported)</label>
-          <textarea id="blogContentEn" rows="15" placeholder="Write the full article content here in HTML" style="font-family:'Courier New',monospace;font-size:.9rem"></textarea>
+
+          <!-- Rich Content Toolbar (English) -->
+          <div class="content-toolbar">
+            <button type="button" class="toolbar-btn" onclick="insertImageToContent('blogContentEn')" title="Insert image">
+              <span>📷</span>
+              <span>Image</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="insertLinkToContent('blogContentEn')" title="Insert link">
+              <span>🔗</span>
+              <span>Link</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<h2>', '</h2>')" title="Heading H2">
+              <span style="font-weight:700">H2</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<h3>', '</h3>')" title="Heading H3">
+              <span style="font-weight:700">H3</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<p>', '</p>')" title="Paragraph">
+              <span>¶</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<strong>', '</strong>')" title="Bold">
+              <span style="font-weight:900">B</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<em>', '</em>')" title="Italic">
+              <span style="font-style:italic">I</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn" onclick="insertList('blogContentEn', 'ul')" title="Bullet list">
+              <span>•</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="insertList('blogContentEn', 'ol')" title="Numbered list">
+              <span>1.</span>
+            </button>
+            <button type="button" class="toolbar-btn" onclick="wrapText('blogContentEn', '<blockquote>', '</blockquote>')" title="Quote">
+              <span>💬</span>
+            </button>
+            <div class="toolbar-divider"></div>
+            <button type="button" class="toolbar-btn preview-btn" onclick="previewContent('blogContentEn')" title="Preview">
+              <span>👁️</span>
+              <span>Preview</span>
+            </button>
+          </div>
+
+          <textarea id="blogContentEn" rows="15" placeholder="Write the full article content here. Use the toolbar above to add images, links and formatting easily!" style="font-family:'Courier New',monospace;font-size:.9rem;border-radius:0 0 12px 12px;border-top:none"></textarea>
         </div>
       </div>
 
@@ -1203,6 +1511,103 @@
         <span>💾</span>
         <span>حفظ المقالة</span>
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- IMAGE PICKER MODAL -->
+<div class="picker-modal-overlay" id="imagePickerModal">
+  <div class="picker-modal">
+    <h3>📷 إضافة صورة للمقالة</h3>
+
+    <div class="form-group">
+      <label>رفع صورة من جهازك:</label>
+      <div class="image-upload-zone" id="contentImageUploadZone" onclick="document.getElementById('contentImageFile').click()">
+        <div class="image-upload-zone-icon">📷</div>
+        <div class="image-upload-zone-text">اضغط هنا لرفع صورة (JPG, PNG, WebP)</div>
+        <div class="image-upload-zone-text" style="font-size:.78rem;margin-top:.4rem">الحد الأقصى: 5 MB</div>
+        <div class="image-upload-zone-progress" id="contentImageProgress"><div class="bar"></div></div>
+      </div>
+      <input type="file" id="contentImageFile" accept="image/*" style="display:none">
+    </div>
+
+    <div style="text-align:center;color:var(--ink-mute);margin:1rem 0">— أو —</div>
+
+    <div class="form-group">
+      <label>الصق رابط صورة من الإنترنت:</label>
+      <input type="url" id="contentImageUrl" placeholder="https://example.com/image.jpg">
+    </div>
+
+    <div class="form-group">
+      <label>وصف الصورة (Alt - مهم للسيو):</label>
+      <input type="text" id="contentImageAlt" placeholder="مثال: واجهة برنامج Midjourney توضّح صناعة الصور">
+    </div>
+
+    <div class="form-group">
+      <label>تعليق تحت الصورة (اختياري):</label>
+      <input type="text" id="contentImageCaption" placeholder="مثال: شكل 1: لوحة تحكّم Midjourney">
+    </div>
+
+    <div class="form-group">
+      <label>رابط عند الضغط على الصورة (اختياري):</label>
+      <input type="url" id="contentImageLink" placeholder="https://chattlle.com/product.html?id=1">
+    </div>
+
+    <div class="form-group">
+      <label>محاذاة الصورة:</label>
+      <select id="contentImageAlign">
+        <option value="center" selected>وسط (الافتراضي)</option>
+        <option value="left">يسار (مع التفاف النص)</option>
+        <option value="right">يمين (مع التفاف النص)</option>
+      </select>
+    </div>
+
+    <div class="picker-actions">
+      <button onclick="closeImagePicker()">إلغاء</button>
+      <button class="primary" onclick="confirmInsertImage()" id="confirmImageBtn">📥 إضافة للمقالة</button>
+    </div>
+  </div>
+</div>
+
+<!-- LINK PICKER MODAL -->
+<div class="picker-modal-overlay" id="linkPickerModal">
+  <div class="picker-modal" style="max-width:550px">
+    <h3>🔗 إضافة رابط</h3>
+
+    <div class="form-group">
+      <label>النص الذي سيكون قابلًا للضغط:</label>
+      <input type="text" id="linkText" placeholder="مثال: شاهد المنتج هنا">
+    </div>
+
+    <div class="form-group">
+      <label>الرابط (URL):</label>
+      <input type="url" id="linkUrl" placeholder="https://chattlle.com/product.html?id=1">
+    </div>
+
+    <div class="form-group">
+      <label>نوع الرابط:</label>
+      <select id="linkTarget">
+        <option value="_self" selected>داخلي (نفس النافذة)</option>
+        <option value="_blank">خارجي (نافذة جديدة)</option>
+      </select>
+    </div>
+
+    <div class="picker-actions">
+      <button onclick="closeLinkPicker()">إلغاء</button>
+      <button class="primary" onclick="confirmInsertLink()">🔗 إضافة الرابط</button>
+    </div>
+  </div>
+</div>
+
+<!-- PREVIEW MODAL -->
+<div class="picker-modal-overlay" id="previewModal">
+  <div class="picker-modal preview-modal">
+    <div class="preview-modal-header">
+      <h3 style="margin:0">👁️ معاينة المقالة</h3>
+      <button onclick="closePreview()" style="background:transparent;border:none;color:var(--ink);font-size:1.8rem;cursor:pointer;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center">×</button>
+    </div>
+    <div class="preview-modal-body">
+      <div class="preview-content" id="previewContent"></div>
     </div>
   </div>
 </div>
@@ -2046,6 +2451,254 @@ document.addEventListener('DOMContentLoaded', () => {
       document.getElementById('blogImageFile').value = '';
     });
   }
+});
+
+/* ============================================================
+   RICH CONTENT TOOLBAR FUNCTIONS
+   ============================================================ */
+let activeTextareaId = null;
+let savedSelection = null;
+
+// Save selection state when toolbar is clicked
+function saveSelection(textareaId){
+  const textarea = document.getElementById(textareaId);
+  activeTextareaId = textareaId;
+  savedSelection = {
+    start: textarea.selectionStart,
+    end: textarea.selectionEnd
+  };
+}
+
+// Insert text at cursor position (or wrap selection)
+function wrapText(textareaId, openTag, closeTag){
+  const textarea = document.getElementById(textareaId);
+  const start = textarea.selectionStart;
+  const end = textarea.selectionEnd;
+  const selectedText = textarea.value.substring(start, end);
+  const placeholder = selectedText || 'النص هنا';
+
+  const newText = openTag + placeholder + closeTag + '\n';
+  textarea.value = textarea.value.substring(0, start) + newText + textarea.value.substring(end);
+
+  // Set cursor inside the tags if no selection
+  if(!selectedText){
+    const newCursorPos = start + openTag.length;
+    textarea.setSelectionRange(newCursorPos, newCursorPos + placeholder.length);
+  } else {
+    textarea.setSelectionRange(start + newText.length, start + newText.length);
+  }
+  textarea.focus();
+}
+
+// Insert list
+function insertList(textareaId, type){
+  const textarea = document.getElementById(textareaId);
+  const start = textarea.selectionStart;
+  const tag = type === 'ol' ? 'ol' : 'ul';
+
+  const listHtml = `<${tag}>\n  <li>عنصر 1</li>\n  <li>عنصر 2</li>\n  <li>عنصر 3</li>\n</${tag}>\n`;
+  textarea.value = textarea.value.substring(0, start) + listHtml + textarea.value.substring(start);
+
+  textarea.setSelectionRange(start + listHtml.length, start + listHtml.length);
+  textarea.focus();
+}
+
+// ===== IMAGE PICKER =====
+function insertImageToContent(textareaId){
+  saveSelection(textareaId);
+  // Reset all fields
+  document.getElementById('contentImageFile').value = '';
+  document.getElementById('contentImageUrl').value = '';
+  document.getElementById('contentImageAlt').value = '';
+  document.getElementById('contentImageCaption').value = '';
+  document.getElementById('contentImageLink').value = '';
+  document.getElementById('contentImageAlign').value = 'center';
+
+  // Reset upload zone
+  const zone = document.getElementById('contentImageUploadZone');
+  zone.classList.remove('has-image');
+  zone.innerHTML = `
+    <div class="image-upload-zone-icon">📷</div>
+    <div class="image-upload-zone-text">اضغط هنا لرفع صورة (JPG, PNG, WebP)</div>
+    <div class="image-upload-zone-text" style="font-size:.78rem;margin-top:.4rem">الحد الأقصى: 5 MB</div>
+    <div class="image-upload-zone-progress" id="contentImageProgress"><div class="bar"></div></div>
+  `;
+  zone.onclick = () => document.getElementById('contentImageFile').click();
+
+  window._contentImageUrl = null;
+  document.getElementById('imagePickerModal').classList.add('show');
+}
+
+function closeImagePicker(){
+  document.getElementById('imagePickerModal').classList.remove('show');
+}
+
+// Image upload handler
+document.addEventListener('DOMContentLoaded', () => {
+  const fileInput = document.getElementById('contentImageFile');
+  if(fileInput){
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files[0];
+      if(!file) return;
+
+      // Validate size (5MB)
+      if(file.size > 5 * 1024 * 1024){
+        alert('⚠️ الصورة كبيرة جدًا. الحد الأقصى 5 MB');
+        return;
+      }
+
+      const zone = document.getElementById('contentImageUploadZone');
+      const progress = document.getElementById('contentImageProgress');
+
+      zone.innerHTML = `
+        <div class="image-upload-zone-icon">⏳</div>
+        <div class="image-upload-zone-text">جاري الرفع...</div>
+        <div class="image-upload-zone-progress active"><div class="bar" style="width:30%"></div></div>
+      `;
+
+      try {
+        const timestamp = Date.now();
+        const cleanName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
+        const fileName = `blog-content-${timestamp}-${cleanName}`;
+
+        const { data, error } = await sb.storage
+          .from('product-images')
+          .upload(fileName, file, { cacheControl: '3600', upsert: false });
+
+        if(error) throw error;
+
+        const { data: urlData } = sb.storage
+          .from('product-images')
+          .getPublicUrl(fileName);
+
+        window._contentImageUrl = urlData.publicUrl;
+
+        zone.classList.add('has-image');
+        zone.innerHTML = `
+          <img src="${urlData.publicUrl}" alt="معاينة">
+          <div style="margin-top:.8rem;color:var(--cyan);font-size:.85rem">✓ تم رفع الصورة بنجاح</div>
+        `;
+        zone.onclick = () => document.getElementById('contentImageFile').click();
+
+      } catch(err){
+        console.error('Image upload error:', err);
+        alert('خطأ في رفع الصورة: ' + err.message);
+        zone.innerHTML = `
+          <div class="image-upload-zone-icon">📷</div>
+          <div class="image-upload-zone-text">اضغط هنا لرفع صورة</div>
+        `;
+      }
+    });
+  }
+});
+
+function confirmInsertImage(){
+  if(!activeTextareaId) return;
+
+  // Get image URL (either uploaded or from URL field)
+  const uploadedUrl = window._contentImageUrl;
+  const externalUrl = document.getElementById('contentImageUrl').value.trim();
+  const imageUrl = uploadedUrl || externalUrl;
+
+  if(!imageUrl){
+    alert('⚠️ ارفع صورة أو الصق رابط صورة!');
+    return;
+  }
+
+  const alt = document.getElementById('contentImageAlt').value.trim() || 'صورة';
+  const caption = document.getElementById('contentImageCaption').value.trim();
+  const link = document.getElementById('contentImageLink').value.trim();
+  const align = document.getElementById('contentImageAlign').value;
+
+  // Build HTML
+  let alignStyle = '';
+  if(align === 'left') alignStyle = ' style="float:left;margin:0 1.5rem 1rem 0;max-width:50%"';
+  else if(align === 'right') alignStyle = ' style="float:right;margin:0 0 1rem 1.5rem;max-width:50%"';
+
+  let imageHtml = `<img src="${imageUrl}" alt="${alt}"${alignStyle}>`;
+
+  // Wrap in link if provided
+  if(link){
+    imageHtml = `<a href="${link}" target="_blank">${imageHtml}</a>`;
+  }
+
+  // Add figure with caption if provided
+  if(caption){
+    imageHtml = `\n<figure style="margin:1.5rem 0;text-align:center">\n  ${imageHtml}\n  <figcaption style="color:var(--ink-mute);font-size:.9rem;margin-top:.6rem;font-style:italic">${caption}</figcaption>\n</figure>\n`;
+  } else {
+    imageHtml = `\n${imageHtml}\n`;
+  }
+
+  // Insert into textarea
+  const textarea = document.getElementById(activeTextareaId);
+  const pos = savedSelection ? savedSelection.start : textarea.value.length;
+  textarea.value = textarea.value.substring(0, pos) + imageHtml + textarea.value.substring(pos);
+  textarea.setSelectionRange(pos + imageHtml.length, pos + imageHtml.length);
+
+  closeImagePicker();
+  textarea.focus();
+}
+
+// ===== LINK PICKER =====
+function insertLinkToContent(textareaId){
+  saveSelection(textareaId);
+  const textarea = document.getElementById(textareaId);
+  const selectedText = textarea.value.substring(textarea.selectionStart, textarea.selectionEnd);
+
+  document.getElementById('linkText').value = selectedText || '';
+  document.getElementById('linkUrl').value = '';
+  document.getElementById('linkTarget').value = '_self';
+
+  document.getElementById('linkPickerModal').classList.add('show');
+  setTimeout(() => {
+    document.getElementById(selectedText ? 'linkUrl' : 'linkText').focus();
+  }, 100);
+}
+
+function closeLinkPicker(){
+  document.getElementById('linkPickerModal').classList.remove('show');
+}
+
+function confirmInsertLink(){
+  if(!activeTextareaId) return;
+
+  const text = document.getElementById('linkText').value.trim();
+  const url = document.getElementById('linkUrl').value.trim();
+  const target = document.getElementById('linkTarget').value;
+
+  if(!text){ alert('⚠️ النص مطلوب'); return; }
+  if(!url){ alert('⚠️ الرابط مطلوب'); return; }
+
+  const targetAttr = target === '_blank' ? ' target="_blank" rel="noopener"' : '';
+  const linkHtml = `<a href="${url}"${targetAttr}>${text}</a>`;
+
+  const textarea = document.getElementById(activeTextareaId);
+  const start = savedSelection ? savedSelection.start : textarea.value.length;
+  const end = savedSelection ? savedSelection.end : textarea.value.length;
+
+  textarea.value = textarea.value.substring(0, start) + linkHtml + textarea.value.substring(end);
+  textarea.setSelectionRange(start + linkHtml.length, start + linkHtml.length);
+
+  closeLinkPicker();
+  textarea.focus();
+}
+
+// ===== PREVIEW =====
+function previewContent(textareaId){
+  const content = document.getElementById(textareaId).value;
+  document.getElementById('previewContent').innerHTML = content || '<p style="color:var(--ink-mute);text-align:center">لا يوجد محتوى بعد. ابدأ بالكتابة!</p>';
+  document.getElementById('previewModal').classList.add('show');
+}
+
+function closePreview(){
+  document.getElementById('previewModal').classList.remove('show');
+}
+
+// Close pickers on overlay click
+document.addEventListener('click', (e) => {
+  if(e.target.id === 'imagePickerModal') closeImagePicker();
+  if(e.target.id === 'linkPickerModal') closeLinkPicker();
+  if(e.target.id === 'previewModal') closePreview();
 });
 
 async function saveBlogPost(){
