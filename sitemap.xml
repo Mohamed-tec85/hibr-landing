@@ -62,6 +62,16 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/blog.html?lang=en"/>
   </url>
 
+  <!-- AI Tools (Free) -->
+  <url>
+    <loc>https://chattlle.com/ai-tools.html</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/ai-tools.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/ai-tools.html?lang=en"/>
+  </url>
+
   <!-- Product pages (one entry per product) -->
   <url>
     <loc>https://chattlle.com/product.html?id=1</loc>

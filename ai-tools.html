@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Analytics (GA4) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7XFFRKVNL3"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-7XFFRKVNL3');
+</script>
+
+<title>أدوات AI المجانية | Chattlle — مولّد البراومبتات والصور بالذكاء الاصطناعي</title>
+<meta name="description" content="أدوات Chattlle الذكية المجانية: مولّد براومبتات احترافية بالعربي، توليد صور بـ GPT Image، بوسترات بنصوص عربية، مدعوم بأحدث نماذج OpenAI.">
+<meta name="keywords" content="أدوات AI مجانية, مولّد براومبتات, توليد صور AI, GPT Image, ChatGPT بالعربي, Midjourney prompts">
+<link rel="canonical" href="https://chattlle.com/ai-tools">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://chattlle.com/ai-tools">
+<meta property="og:title" content="أدوات AI المجانية | Chattlle">
+<meta property="og:description" content="مولّد براومبتات وصور احترافية مدعوم بأحدث نماذج OpenAI">
+<meta property="og:locale" content="ar_SA">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%23e8c178'/%3E%3Cstop offset='100%25' style='stop-color:%237b3fff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Ccircle cx='50' cy='50' r='45' fill='url(%23g)'/%3E%3Ctext x='50' y='65' font-family='Arial' font-size='40' fill='white' text-anchor='middle' font-weight='bold'%3EC%3C/text%3E%3C/svg%3E">
+
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Reem+Kufi:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&family=Fraunces:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css">
+
+<style>
+  .tools-hero{
+    padding: 9rem 8% 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .tools-hero::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(ellipse, rgba(123,63,255,.1), transparent 70%);
+    pointer-events: none;
+  }
+  .tools-hero-badge{
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: linear-gradient(135deg, rgba(232,193,120,.15), rgba(123,63,255,.1));
+    border: 1px solid rgba(232,193,120,.3);
+    color: var(--gold);
+    padding: .5rem 1.2rem;
+    border-radius: 100px;
+    font-size: .85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .tools-hero h1{
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+    margin-bottom: 1rem;
+    background: linear-gradient(120deg, var(--gold), var(--violet-glow), var(--cyan));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    z-index: 1;
+  }
+  html[lang="ar"] .tools-hero h1{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  .tools-hero p{
+    color: var(--ink-mute);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tools-tabs{
+    display: flex;
+    justify-content: center;
+    gap: .5rem;
+    margin: 2rem auto 0;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+  .tool-tab{
+    padding: .8rem 1.5rem;
+    background: rgba(245,239,227,.04);
+    border: 1px solid var(--line);
+    border-radius: 100px;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .95rem;
+    font-weight: 600;
+    transition: all .3s;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+  }
+  .tool-tab:hover{ background: rgba(232,193,120,.1); border-color: rgba(232,193,120,.3); }
+  .tool-tab.active{
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    border-color: transparent;
+    box-shadow: 0 8px 24px rgba(232,193,120,.3);
+  }
+
+  .tools-section{
+    padding: 1rem 8% 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .tool-panel{
+    display: none;
+    animation: fadeIn .4s ease;
+  }
+  .tool-panel.active{ display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  .tool-card{
+    background: linear-gradient(180deg, rgba(245,239,227,.04), rgba(245,239,227,.01));
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+  }
+  @media (max-width: 768px){ .tool-card{ padding: 1.5rem; } }
+
+  .tool-card h2{
+    font-size: 1.6rem;
+    color: var(--gold);
+    margin-bottom: .5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: .6rem;
+  }
+  html[lang="ar"] .tool-card h2{ font-family:'Reem Kufi', sans-serif; font-weight:700 }
+  .tool-card-subtitle{
+    color: var(--ink-mute);
+    font-size: 1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+  }
+
+  .form-field{ margin-bottom: 1.5rem; }
+  .form-field label{
+    display: block;
+    color: var(--ink);
+    font-weight: 600;
+    margin-bottom: .6rem;
+    font-size: .95rem;
+  }
+  .form-field input,
+  .form-field textarea,
+  .form-field select{
+    width: 100%;
+    background: rgba(10,6,19,.5);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 1rem 1.2rem;
+    color: var(--ink);
+    font-family: inherit;
+    font-size: 1rem;
+    transition: all .3s;
+  }
+  .form-field textarea{ resize: vertical; min-height: 100px; }
+  .form-field input:focus,
+  .form-field textarea:focus,
+  .form-field select:focus{
+    outline: none;
+    border-color: rgba(232,193,120,.5);
+    background: rgba(10,6,19,.7);
+    box-shadow: 0 0 0 4px rgba(232,193,120,.08);
+  }
+
+  .form-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  @media (max-width: 600px){ .form-row{ grid-template-columns: 1fr; } }
+
+  .style-chips{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: .6rem;
+  }
+  .style-chip{
+    padding: .75rem 1rem;
+    background: rgba(245,239,227,.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    color: var(--ink-mute);
+    cursor: pointer;
+    text-align: center;
+    transition: all .3s;
+    font-size: .85rem;
+    font-weight: 500;
+  }
+  .style-chip:hover{ border-color: rgba(232,193,120,.3); color: var(--ink); }
+  .style-chip.active{
+    background: linear-gradient(135deg, rgba(232,193,120,.2), rgba(123,63,255,.1));
+    border-color: rgba(232,193,120,.5);
+    color: var(--gold);
+    font-weight: 700;
+  }
+  .style-chip-icon{ font-size: 1.4rem; display: block; margin-bottom: .3rem; }
+
+  .btn-generate{
+    width: 100%;
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    border: none;
+    padding: 1.1rem 2rem;
+    border-radius: 14px;
+    font-family: inherit;
+    font-weight: 700;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: all .3s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    box-shadow: 0 10px 30px rgba(232,193,120,.25);
+    margin-top: 1rem;
+  }
+  .btn-generate:hover:not(:disabled){
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(232,193,120,.4);
+  }
+  .btn-generate:disabled{
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .btn-generate.loading{
+    background: rgba(232,193,120,.3);
+  }
+
+  .result-box{
+    margin-top: 2rem;
+    background: linear-gradient(135deg, rgba(123,63,255,.05), rgba(232,193,120,.03));
+    border: 1px solid rgba(232,193,120,.2);
+    border-radius: 18px;
+    padding: 1.5rem;
+    display: none;
+  }
+  .result-box.show{ display: block; animation: fadeIn .5s; }
+  .result-box-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .result-box-title{
+    color: var(--gold);
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+  }
+  .result-actions{
+    display: flex;
+    gap: .5rem;
+  }
+  .result-btn{
+    padding: .5rem 1rem;
+    background: rgba(10,6,19,.5);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    color: var(--ink);
+    cursor: pointer;
+    font-family: inherit;
+    font-size: .85rem;
+    transition: all .25s;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+  }
+  .result-btn:hover{
+    background: rgba(232,193,120,.1);
+    border-color: rgba(232,193,120,.3);
+    color: var(--gold);
+  }
+
+  .prompt-result{
+    background: rgba(10,6,19,.6);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 1.2rem;
+    color: var(--ink);
+    font-family: 'Courier New', monospace;
+    font-size: .95rem;
+    line-height: 1.7;
+    direction: ltr;
+    text-align: start;
+    user-select: all;
+  }
+
+  .image-result{
+    margin-top: 1rem;
+  }
+  .image-result img{
+    width: 100%;
+    border-radius: 14px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.4);
+  }
+
+  /* Loading spinner */
+  .spinner{
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(10,6,19,.2);
+    border-top-color: var(--bg-deep);
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Rate limit info */
+  .usage-info{
+    text-align: center;
+    padding: 1rem;
+    background: rgba(232,193,120,.05);
+    border: 1px solid rgba(232,193,120,.15);
+    border-radius: 12px;
+    color: var(--ink-mute);
+    font-size: .88rem;
+    margin-bottom: 1.5rem;
+  }
+  .usage-info strong{ color: var(--gold); }
+
+  /* Examples */
+  .examples-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: .8rem;
+    margin-top: 1rem;
+  }
+  .example-card{
+    padding: 1rem;
+    background: rgba(245,239,227,.03);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all .3s;
+    font-size: .9rem;
+    color: var(--ink-mute);
+    line-height: 1.5;
+  }
+  .example-card:hover{
+    border-color: rgba(232,193,120,.3);
+    background: rgba(232,193,120,.05);
+    color: var(--ink);
+  }
+
+  /* Toast */
+  .toast{
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(150px);
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    padding: 1rem 1.8rem;
+    border-radius: 100px;
+    font-weight: 700;
+    box-shadow: 0 10px 30px rgba(232,193,120,.4);
+    z-index: 10000;
+    transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+    pointer-events: none;
+  }
+  .toast.show{ transform: translateX(-50%) translateY(0); }
+  .toast.error{ background: linear-gradient(135deg, #ff6b6b, #ee5a52); color: #fff; }
+
+  /* Promo CTA */
+  .promo-cta{
+    margin-top: 3rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, rgba(123,63,255,.1), rgba(232,193,120,.05));
+    border: 1px solid rgba(123,63,255,.3);
+    border-radius: 20px;
+    text-align: center;
+  }
+  .promo-cta h3{
+    color: var(--gold);
+    font-size: 1.3rem;
+    margin-bottom: .8rem;
+  }
+  html[lang="ar"] .promo-cta h3{ font-family:'Reem Kufi', sans-serif; }
+  .promo-cta p{ color: var(--ink-mute); margin-bottom: 1.2rem; line-height: 1.7; }
+  .promo-cta-btn{
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: linear-gradient(135deg, var(--gold), #d4ab5f);
+    color: var(--bg-deep);
+    padding: .9rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    font-weight: 700;
+    transition: all .3s;
+  }
+  .promo-cta-btn:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 14px 32px rgba(232,193,120,.4);
+  }
+  html[dir="rtl"] .promo-cta-btn svg{ transform: rotate(180deg); }
+</style>
+</head>
+<body>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Navigation -->
+<nav>
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span>Chattlle</span>
+  </div>
+  <div class="nav-links">
+    <a href="index.html" data-i18n="nav.home">الرئيسية</a>
+    <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
+    <a href="ai-tools.html" class="active">🤖 أدوات AI</a>
+    <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
+    <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
+  </div>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ar">AR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="tools-hero">
+  <span class="tools-hero-badge">⚡ مدعوم بأحدث نماذج OpenAI</span>
+  <h1>أدوات AI الاحترافية — مجانًا!</h1>
+  <p>حوّل أفكارك إلى براومبتات احترافية وصور مذهلة بضغطة زر. مدعوم بـ GPT-4o-mini وGPT Image من OpenAI.</p>
+
+  <!-- Tabs -->
+  <div class="tools-tabs">
+    <button class="tool-tab active" data-tab="prompt" onclick="switchTab('prompt')">
+      ✍️ <span>مولّد البراومبتات</span>
+    </button>
+    <button class="tool-tab" data-tab="image" onclick="switchTab('image')">
+      🎨 <span>توليد الصور</span>
+    </button>
+  </div>
+</section>
+
+<!-- Tool Panels -->
+<section class="tools-section">
+
+  <!-- Usage Info -->
+  <div class="usage-info">
+    💎 <strong>الاستخدام اليومي:</strong> <span id="promptUsage">5</span>/5 برومبتات · <span id="imageUsage">3</span>/3 صور
+  </div>
+
+  <!-- ============ PROMPT GENERATOR ============ -->
+  <div class="tool-panel active" id="panel-prompt">
+    <div class="tool-card">
+      <h2>✍️ مولّد البراومبتات الذكي</h2>
+      <p class="tool-card-subtitle">اكتب فكرتك بأي لغة، وسأحوّلها إلى برومبت إنجليزي احترافي جاهز للاستخدام في Midjourney, DALL-E, أو أي مولّد صور.</p>
+
+      <div class="form-field">
+        <label>💡 وصف الفكرة:</label>
+        <textarea id="promptIdea" placeholder="مثال: قطة سعيدة تعزف البيانو في غرفة قديمة" maxlength="300"></textarea>
+      </div>
+
+      <div class="form-field">
+        <label>🎨 النمط المطلوب:</label>
+        <div class="style-chips" id="styleChips">
+          <div class="style-chip active" data-style="photorealistic">
+            <span class="style-chip-icon">📸</span>
+            <span>فوتو-واقعي</span>
+          </div>
+          <div class="style-chip" data-style="cinematic">
+            <span class="style-chip-icon">🎬</span>
+            <span>سينمائي</span>
+          </div>
+          <div class="style-chip" data-style="anime">
+            <span class="style-chip-icon">🌸</span>
+            <span>أنمي</span>
+          </div>
+          <div class="style-chip" data-style="3d">
+            <span class="style-chip-icon">🎮</span>
+            <span>3D رندر</span>
+          </div>
+          <div class="style-chip" data-style="oil_painting">
+            <span class="style-chip-icon">🎨</span>
+            <span>لوحة زيتية</span>
+          </div>
+          <div class="style-chip" data-style="product">
+            <span class="style-chip-icon">📦</span>
+            <span>تصوير منتج</span>
+          </div>
+          <div class="style-chip" data-style="arabic">
+            <span class="style-chip-icon">🕌</span>
+            <span>إسلامي/عربي</span>
+          </div>
+          <div class="style-chip" data-style="cartoon">
+            <span class="style-chip-icon">🎭</span>
+            <span>كرتون</span>
+          </div>
+          <div class="style-chip" data-style="cyberpunk">
+            <span class="style-chip-icon">🌃</span>
+            <span>سايبربانك</span>
+          </div>
+          <div class="style-chip" data-style="minimalist">
+            <span class="style-chip-icon">⚪</span>
+            <span>بسيط</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-generate" id="generatePromptBtn" onclick="generatePrompt()">
+        <span>✨</span>
+        <span>توليد البرومبت</span>
+      </button>
+
+      <div class="result-box" id="promptResult">
+        <div class="result-box-header">
+          <span class="result-box-title">📝 البرومبت الجاهز:</span>
+          <div class="result-actions">
+            <button class="result-btn" onclick="copyPrompt()">📋 نسخ</button>
+            <button class="result-btn" onclick="useInImageGen()">🎨 استخدم لتوليد صورة</button>
+            <button class="result-btn" onclick="generatePrompt()">🔄 آخر</button>
+          </div>
+        </div>
+        <div class="prompt-result" id="promptText"></div>
+      </div>
+
+      <!-- Examples -->
+      <div style="margin-top:1.5rem">
+        <div style="color:var(--ink-mute);font-size:.9rem;margin-bottom:.6rem;font-weight:600">💡 أفكار للتجربة:</div>
+        <div class="examples-grid">
+          <div class="example-card" onclick="setExample('شخصية أنمي بنت بشعر بنفسجي تحمل سيف ضوئي')">
+            شخصية أنمي بشعر بنفسجي
+          </div>
+          <div class="example-card" onclick="setExample('بوستر إعلاني فاخر لعطر بخلفية ذهبية')">
+            بوستر عطر فاخر
+          </div>
+          <div class="example-card" onclick="setExample('مسجد عثماني بطراز إسلامي مع زخارف ذهبية')">
+            مسجد بطراز إسلامي
+          </div>
+          <div class="example-card" onclick="setExample('شاي عربي بكوب زجاجي على طاولة خشبية')">
+            شاي عربي تقليدي
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ IMAGE GENERATOR ============ -->
+  <div class="tool-panel" id="panel-image">
+    <div class="tool-card">
+      <h2>🎨 توليد الصور بـ GPT Image</h2>
+      <p class="tool-card-subtitle">اكتب وصف الصورة بالإنجليزي (أو استخدم مولّد البراومبتات أعلاه)، وستحصل على صورة احترافية خلال ثوانٍ.</p>
+
+      <div class="form-field">
+        <label>🖼️ وصف الصورة (English recommended):</label>
+        <textarea id="imagePrompt" placeholder="A cute orange cat playing piano in a vintage room, golden hour lighting, photorealistic, 8K" maxlength="500"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-field">
+          <label>📐 الحجم:</label>
+          <select id="imageSize">
+            <option value="1024x1024" selected>مربّع 1024×1024 (Instagram)</option>
+            <option value="1024x1536">عمودي 1024×1536 (Stories)</option>
+            <option value="1536x1024">أفقي 1536×1024 (YouTube)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>💎 الجودة:</label>
+          <select id="imageQuality">
+            <option value="low" selected>سريعة (مجانية)</option>
+            <option value="medium">متوسطة</option>
+            <option value="high">عالية HD</option>
+          </select>
+        </div>
+      </div>
+
+      <button class="btn-generate" id="generateImageBtn" onclick="generateImage()">
+        <span>🎨</span>
+        <span>توليد الصورة</span>
+      </button>
+
+      <div class="result-box" id="imageResult">
+        <div class="result-box-header">
+          <span class="result-box-title">🖼️ الصورة جاهزة:</span>
+          <div class="result-actions">
+            <button class="result-btn" onclick="downloadImage()">📥 تحميل</button>
+            <button class="result-btn" onclick="generateImage()">🔄 آخر</button>
+          </div>
+        </div>
+        <div class="image-result">
+          <img id="generatedImage" alt="Generated image" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Promo CTA -->
+  <div class="promo-cta">
+    <h3>🎁 تريد المزيد؟ اكتشف منتجاتنا الاحترافية!</h3>
+    <p>إذا أعجبتك هذي الأدوات، فلدينا <strong>500+ برومبت احترافي جاهز</strong> في "المجموعة الذهبية"، و<strong>حزم LUTs سينمائية</strong> للمونتاج، وأكثر!</p>
+    <a href="index.html#products" class="promo-cta-btn">
+      <span>استكشف المنتجات</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+        <polyline points="12 5 19 12 12 19"></polyline>
+      </svg>
+    </a>
+  </div>
+
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <div class="logo" style="margin-bottom:1rem;">
+        <div class="logo-dot"></div>
+        <span>Chattlle</span>
+      </div>
+      <p style="color:var(--ink-mute); line-height:1.7;">منصّة الجيل الجديد لبيع الملفات الإلكترونية المُولّدة بالذكاء الاصطناعي.</p>
+    </div>
+    <div class="footer-col">
+      <h4>روابط سريعة</h4>
+      <a href="index.html">الرئيسية</a>
+      <a href="index.html#products">المنتجات</a>
+      <a href="ai-tools.html">🤖 أدوات AI</a>
+      <a href="blog.html">المدوّنة</a>
+    </div>
+    <div class="footer-col">
+      <h4>الدعم</h4>
+      <a href="faq.html">الأسئلة الشائعة</a>
+      <a href="contact.html">اتصل بنا</a>
+      <a href="terms.html">الشروط</a>
+    </div>
+    <div class="footer-col">
+      <h4>تواصل</h4>
+      <a href="mailto:hello@chattlle.com">hello@chattlle.com</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Chattlle. جميع الحقوق محفوظة.</p>
+  </div>
+</footer>
+
+<script src="assets/i18n.js"></script>
+<script src="assets/back-to-top.js"></script>
+
+<script>
+/* ============================================================
+   AI TOOLS - State Management
+   ============================================================ */
+let currentStyle = 'photorealistic';
+let currentImageUrl = null;
+let currentPrompt = '';
+
+// Daily usage tracking
+const STORAGE_KEY = 'chattlle_ai_usage';
+const MAX_PROMPTS_PER_DAY = 5;
+const MAX_IMAGES_PER_DAY = 3;
+
+function getUsage(){
+  const today = new Date().toDateString();
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if(stored){
+    const data = JSON.parse(stored);
+    if(data.date === today) return data;
+  }
+  return { date: today, prompts: 0, images: 0 };
+}
+
+function incrementUsage(type){
+  const usage = getUsage();
+  usage[type === 'prompt' ? 'prompts' : 'images']++;
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(usage));
+  updateUsageDisplay();
+}
+
+function updateUsageDisplay(){
+  const usage = getUsage();
+  document.getElementById('promptUsage').textContent = Math.max(0, MAX_PROMPTS_PER_DAY - usage.prompts);
+  document.getElementById('imageUsage').textContent = Math.max(0, MAX_IMAGES_PER_DAY - usage.images);
+}
+
+function canUse(type){
+  const usage = getUsage();
+  const limit = type === 'prompt' ? MAX_PROMPTS_PER_DAY : MAX_IMAGES_PER_DAY;
+  const current = type === 'prompt' ? usage.prompts : usage.images;
+  return current < limit;
+}
+
+/* ============================================================
+   TAB SWITCHING
+   ============================================================ */
+function switchTab(tab){
+  document.querySelectorAll('.tool-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.tool-panel').forEach(p => p.classList.toggle('active', p.id === `panel-${tab}`));
+}
+
+/* ============================================================
+   STYLE CHIPS
+   ============================================================ */
+document.querySelectorAll('.style-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.style-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    currentStyle = chip.dataset.style;
+  });
+});
+
+/* ============================================================
+   EXAMPLES
+   ============================================================ */
+function setExample(text){
+  document.getElementById('promptIdea').value = text;
+  document.getElementById('promptIdea').focus();
+}
+
+/* ============================================================
+   GENERATE PROMPT
+   ============================================================ */
+async function generatePrompt(){
+  const idea = document.getElementById('promptIdea').value.trim();
+
+  if(!idea || idea.length < 3){
+    showToast('⚠️ يرجى كتابة وصف الفكرة', 'error');
+    return;
+  }
+
+  if(!canUse('prompt')){
+    showToast('⚠️ استنفدت الحد اليومي - يعود غدًا!', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('generatePromptBtn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.innerHTML = '<div class="spinner"></div><span>جاري التوليد...</span>';
+
+  try {
+    const response = await fetch('/.netlify/functions/generate-prompt', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ idea, style: currentStyle, lang: 'ar' })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || 'فشل التوليد');
+    }
+
+    currentPrompt = data.prompt;
+    document.getElementById('promptText').textContent = data.prompt;
+    document.getElementById('promptResult').classList.add('show');
+
+    incrementUsage('prompt');
+
+    // Scroll to result
+    setTimeout(() => {
+      document.getElementById('promptResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+
+    // Analytics
+    if(typeof gtag !== 'undefined'){
+      gtag('event', 'generate_prompt', { style: currentStyle });
+    }
+
+  } catch(err){
+    console.error(err);
+    showToast(err.message || 'حدث خطأ', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span>✨</span><span>توليد البرومبت</span>';
+  }
+}
+
+function copyPrompt(){
+  navigator.clipboard.writeText(currentPrompt).then(() => {
+    showToast('✓ تم النسخ!');
+  }).catch(() => {
+    showToast('فشل النسخ', 'error');
+  });
+}
+
+function useInImageGen(){
+  document.getElementById('imagePrompt').value = currentPrompt;
+  switchTab('image');
+  setTimeout(() => {
+    document.getElementById('imagePrompt').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 200);
+  showToast('✓ تم النقل لمولّد الصور');
+}
+
+/* ============================================================
+   GENERATE IMAGE
+   ============================================================ */
+async function generateImage(){
+  const prompt = document.getElementById('imagePrompt').value.trim();
+  const size = document.getElementById('imageSize').value;
+  const quality = document.getElementById('imageQuality').value;
+
+  if(!prompt || prompt.length < 5){
+    showToast('⚠️ يرجى كتابة وصف الصورة', 'error');
+    return;
+  }
+
+  if(!canUse('image')){
+    showToast('⚠️ استنفدت الحد اليومي - يعود غدًا!', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('generateImageBtn');
+  btn.disabled = true;
+  btn.classList.add('loading');
+  btn.innerHTML = '<div class="spinner"></div><span>جاري التوليد... (10-30 ثانية)</span>';
+
+  try {
+    const response = await fetch('/.netlify/functions/generate-image', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, size, quality })
+    });
+
+    const data = await response.json();
+
+    if(!response.ok){
+      throw new Error(data.error || 'فشل التوليد');
+    }
+
+    currentImageUrl = data.imageUrl;
+    document.getElementById('generatedImage').src = data.imageUrl;
+    document.getElementById('imageResult').classList.add('show');
+
+    incrementUsage('image');
+
+    setTimeout(() => {
+      document.getElementById('imageResult').scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 200);
+
+    if(typeof gtag !== 'undefined'){
+      gtag('event', 'generate_image', { size, quality });
+    }
+
+  } catch(err){
+    console.error(err);
+    showToast(err.message || 'حدث خطأ', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.classList.remove('loading');
+    btn.innerHTML = '<span>🎨</span><span>توليد الصورة</span>';
+  }
+}
+
+function downloadImage(){
+  if(!currentImageUrl) return;
+
+  // For base64 images
+  if(currentImageUrl.startsWith('data:')){
+    const link = document.createElement('a');
+    link.href = currentImageUrl;
+    link.download = `chattlle-ai-${Date.now()}.png`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast('✓ تم التحميل!');
+  } else {
+    // For URL images
+    fetch(currentImageUrl)
+      .then(res => res.blob())
+      .then(blob => {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `chattlle-ai-${Date.now()}.png`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        showToast('✓ تم التحميل!');
+      })
+      .catch(() => showToast('فشل التحميل', 'error'));
+  }
+}
+
+/* ============================================================
+   TOAST
+   ============================================================ */
+function showToast(message, type = 'success'){
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.className = 'toast show' + (type === 'error' ? ' error' : '');
+  setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initLangSwitcher();
+  updateUsageDisplay();
+
+  // Nav scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    nav.style.background = window.scrollY > 50 ? 'rgba(10,6,19,.9)' : 'rgba(10,6,19,.7)';
+  });
+});
+</script>
+
+</body>
+</html>
