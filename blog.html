@@ -13,9 +13,9 @@
   gtag('config', 'G-7XFFRKVNL3');
 </script>
 
-<title>المدوّنة | Chattlle — مقالات الذكاء الاصطناعي وصناعة المحتوى</title>
-<meta name="description" content="مدوّنة Chattlle: أحدث المقالات عن الذكاء الاصطناعي، البراومبتات، LUTs السينمائية، وصناعة المحتوى الرقمي. دروس ونصائح للمبدعين العرب.">
-<meta name="keywords" content="مدوّنة ذكاء اصطناعي, مقالات Midjourney, براومبتات, LUTs, صناعة المحتوى, تصميم رقمي, Chattlle blog">
+<title>المدوّنة | Chattlle - أحدث أخبار وأدوات الذكاء الاصطناعي</title>
+<meta name="description" content="تابع أحدث المقالات عن الذكاء الاصطناعي: ChatGPT, Gemini, Midjourney, أدوات صناعة المحتوى، نصائح للمسوّقين وصنّاع المحتوى العرب.">
+<meta name="keywords" content="مدوّنة AI, أخبار ذكاء اصطناعي, ChatGPT, Midjourney, صناعة محتوى">
 <link rel="canonical" href="https://chattlle.com/blog">
 
 <!-- Open Graph -->
@@ -453,34 +453,30 @@
     .blog-search{ width: 100%; }
   }
 </style>
+  <script src="assets/seo.js" defer></script>
 </head>
 <body>
 
 <!-- Navigation -->
 <nav>
-  <div class="logo">
-    <div class="logo-dot"></div>
-    <span>Chattlle</span>
-  </div>
-  <div class="nav-links">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <div class="nav-links">
       <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
-      <a href="ai-tools.html">🤖 أدوات AI</a>
-      <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
-      <div class="has-dropdown" style="position:relative;display:inline-block">
-        <a href="#" onclick="event.preventDefault()" style="cursor:pointer">المزيد ▾</a>
-        <div class="dropdown">
-          <a href="index.html#categories" data-i18n="nav.categories">التصنيفات</a>
-          <a href="index.html#how" data-i18n="nav.how">كيف يعمل</a>
-          <a href="index.html#testimonials" data-i18n="nav.testimonials">آراء العملاء</a>
-          <a href="about.html" data-i18n="nav.about">من نحن</a>
-          <a href="faq.html">الأسئلة الشائعة</a>
-        </div>
-      </div>
+      <a href="ai-tools.html" data-i18n="nav.ai_tools">🤖 أدوات AI</a>
+      <a href="blog.html" class="active" data-i18n="nav.blog">المدوّنة</a>
       <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
     </div>
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ar">AR</button>
-    <button class="lang-btn" data-lang="en">EN</button>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+    <button class="burger" aria-label="menu">☰</button>
   </div>
 </nav>
 
@@ -608,6 +604,8 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase.js"></script>
 <script src="assets/back-to-top.js"></script>
+<script src="assets/back-button.js"></script>
+<script src="assets/newsletter.js"></script>
 
 <script>
 let allPosts = [];

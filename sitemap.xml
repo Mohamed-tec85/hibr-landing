@@ -1,111 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/0.9">
 
-  <!-- Home -->
+  <!-- الصفحة الرئيسية -->
   <url>
     <loc>https://chattlle.com/</loc>
-    <lastmod>2026-05-22</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chattlle.com/"/>
   </url>
 
-  <!-- About -->
-  <url>
-    <loc>https://chattlle.com/about.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Contact -->
-  <url>
-    <loc>https://chattlle.com/contact.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- FAQ -->
-  <url>
-    <loc>https://chattlle.com/faq.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-
-  <!-- Terms -->
-  <url>
-    <loc>https://chattlle.com/terms.html</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Privacy -->
-  <url>
-    <loc>https://chattlle.com/privacy.html</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.3</priority>
-  </url>
-
-  <!-- Blog -->
-  <url>
-    <loc>https://chattlle.com/blog.html</loc>
-    <lastmod>2026-05-23</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/blog.html"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/blog.html?lang=en"/>
-  </url>
-
-  <!-- AI Tools (Free) -->
+  <!-- AI Tools -->
   <url>
     <loc>https://chattlle.com/ai-tools.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/ai-tools.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/ai-tools.html?lang=en"/>
   </url>
 
-  <!-- Product pages (one entry per product) -->
+  <!-- المدوّنة -->
   <url>
-    <loc>https://chattlle.com/product.html?id=1</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://chattlle.com/blog.html</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/blog.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/blog.html?lang=en"/>
   </url>
+
+  <!-- مقالات المدوّنة -->
   <url>
-    <loc>https://chattlle.com/product.html?id=2</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://chattlle.com/blog-post.html?slug=google-gemini-spark-2026</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
+
   <url>
-    <loc>https://chattlle.com/product.html?id=3</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://chattlle.com/blog-post.html?slug=opusclip-viral-content-creator-tool-2026</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
+
   <url>
-    <loc>https://chattlle.com/product.html?id=4</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://chattlle.com/blog-post.html?slug=humain-saudi-arabia-ai-revolution-2026</loc>
+    <lastmod>2026-05-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
   </url>
+
+  <!-- صفحات الشركة -->
   <url>
-    <loc>https://chattlle.com/product.html?id=5</loc>
-    <lastmod>2026-05-22</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://chattlle.com/about.html</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://chattlle.com/about.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chattlle.com/about.html?lang=en"/>
   </url>
+
   <url>
-    <loc>https://chattlle.com/product.html?id=6</loc>
+    <loc>https://chattlle.com/contact.html</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- صفحات الدعم -->
+  <url>
+    <loc>https://chattlle.com/faq.html</loc>
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+
+  <!-- صفحات قانونية -->
+  <url>
+    <loc>https://chattlle.com/terms.html</loc>
     <lastmod>2026-05-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <url>
+    <loc>https://chattlle.com/privacy.html</loc>
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+
+  <!-- صفحات وظيفية -->
+  <url>
+    <loc>https://chattlle.com/product.html</loc>
+    <lastmod>2026-05-25</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>

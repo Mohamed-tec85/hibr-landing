@@ -1,13 +1,69 @@
-# Chattlle.com — robots.txt
-# Allow all search engines to index the public pages
+# ============================================================
+# Chattlle.com - robots.txt
+# ============================================================
 
+# جميع محركات البحث - مسموح بالكامل
 User-agent: *
 Allow: /
-Disallow: /admin.html
-Disallow: /checkout.html
-Disallow: /cart.html
-Disallow: /success.html
-Disallow: /.netlify/
 
-# Sitemap location
+# منع فهرسة صفحات Admin والخصوصية
+Disallow: /admin.html
+Disallow: /admin/
+Disallow: /.netlify/
+Disallow: /netlify/
+
+# منع فهرسة صفحات الدفع (للأمان)
+Disallow: /checkout.html
+Disallow: /success.html?*
+Disallow: /cart.html
+
+# السماح بالـ assets
+Allow: /assets/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.webp$
+Allow: /*.svg$
+
+# ============================================================
+# Crawler-specific rules
+# ============================================================
+
+# Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# AI Crawlers (تسمح بفهرسة المحتوى)
+User-agent: GPTBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+# Bad bots - منع
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+# ============================================================
+# Sitemap
+# ============================================================
 Sitemap: https://chattlle.com/sitemap.xml
+
+# Host preference
+Host: https://chattlle.com
