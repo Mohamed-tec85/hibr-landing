@@ -478,8 +478,18 @@
     </a>
     <ul class="nav-links">
       <li><a href="#products" data-i18n="nav.products">المنتجات</a></li>
-      <li><a href="ai-tools.html" data-i18n="nav.ai_tools">🤖 أدوات AI</a></li>
+      <li><a href="ai-tools.html">🤖 أدوات AI</a></li>
       <li><a href="blog.html" data-i18n="nav.blog">المدوّنة</a></li>
+      <li class="has-dropdown">
+        <a href="#" onclick="event.preventDefault()">المزيد ▾</a>
+        <ul class="dropdown">
+          <li><a href="#categories" data-i18n="nav.categories">التصنيفات</a></li>
+          <li><a href="#how" data-i18n="nav.how">كيف يعمل</a></li>
+          <li><a href="#testimonials" data-i18n="nav.testimonials">آراء العملاء</a></li>
+          <li><a href="about.html" data-i18n="nav.about">من نحن</a></li>
+          <li><a href="faq.html">الأسئلة الشائعة</a></li>
+        </ul>
+      </li>
       <li><a href="contact.html" data-i18n="nav.contact">اتصل بنا</a></li>
     </ul>
     <div class="nav-right">
@@ -758,30 +768,30 @@
         <p data-i18n="footer.desc"></p>
       </div>
       <div class="foot-col">
-        <h5 data-i18n="footer.shop">المنتجات</h5>
+        <h5 data-i18n="footer.shop"></h5>
         <ul>
-          <li><a href="index.html#products" data-i18n="footer.all">جميع المنتجات</a></li>
-          <li><a href="index.html#categories" data-i18n="footer.cats">التصنيفات</a></li>
-          <li><a href="index.html#how" data-i18n="nav.how">كيف يعمل</a></li>
-          <li><a href="index.html#testimonials" data-i18n="nav.testimonials">آراء العملاء</a></li>
+          <li><a href="#products" data-i18n="footer.all"></a></li>
+          <li><a href="#categories" data-i18n="footer.cats"></a></li>
+          <li><a href="#products" data-i18n="footer.deals"></a></li>
+          <li><a href="#products" data-i18n="footer.new"></a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5 data-i18n="footer.company">الشركة</h5>
+        <h5 data-i18n="footer.company"></h5>
         <ul>
-          <li><a href="about.html" data-i18n="nav.about">من نحن</a></li>
-          <li><a href="blog.html" data-i18n="nav.blog">المدوّنة</a></li>
-          <li><a href="ai-tools.html" data-i18n="nav.ai_tools">🤖 أدوات AI</a></li>
-          <li><a href="contact.html" data-i18n="nav.contact">اتصل بنا</a></li>
+          <li><a href="about.html" data-i18n="footer.about"></a></li>
+          <li><a href="blog.html" data-i18n="footer.blog"></a></li>
+          <li><a href="ai-tools.html">🤖 أدوات AI</a></li>
+          <li><a href="contact.html" data-i18n="footer.contact"></a></li>
         </ul>
       </div>
       <div class="foot-col">
-        <h5 data-i18n="footer.help">المساعدة</h5>
+        <h5 data-i18n="footer.help"></h5>
         <ul>
-          <li><a href="faq.html" data-i18n="nav.faq">الأسئلة الشائعة</a></li>
-          <li><a href="terms.html#refund" data-i18n="footer.refund">سياسة الاسترداد</a></li>
-          <li><a href="privacy.html" data-i18n="footer.privacy">سياسة الخصوصية</a></li>
-          <li><a href="terms.html" data-i18n="footer.terms">الشروط والأحكام</a></li>
+          <li><a href="faq.html" data-i18n="footer.faq"></a></li>
+          <li><a href="terms.html#refund" data-i18n="footer.refund"></a></li>
+          <li><a href="privacy.html" data-i18n="footer.privacy"></a></li>
+          <li><a href="terms.html" data-i18n="footer.terms"></a></li>
         </ul>
       </div>
     </div>
@@ -804,7 +814,6 @@
 <script src="assets/products.js"></script>
 <script src="assets/cart.js"></script>
 <script src="assets/back-to-top.js"></script>
-<script src="assets/newsletter.js"></script>
 <script>
 /* ============ FILTER STATE ============ */
 let filterState = {

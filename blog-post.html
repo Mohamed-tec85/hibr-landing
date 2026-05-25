@@ -525,24 +525,29 @@
 
 <!-- Navigation -->
 <nav>
-  <div class="container nav-inner">
-    <a href="index.html" class="logo">
-      <span class="logo-dot"></span>
-      <span class="latin">Chattlle</span>
-    </a>
-    <div class="nav-links">
+  <div class="logo">
+    <div class="logo-dot"></div>
+    <span>Chattlle</span>
+  </div>
+  <div class="nav-links">
       <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
-      <a href="ai-tools.html" data-i18n="nav.ai_tools">🤖 أدوات AI</a>
-      <a href="blog.html" class="active" data-i18n="nav.blog">المدوّنة</a>
+      <a href="ai-tools.html">🤖 أدوات AI</a>
+      <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
+      <div class="has-dropdown" style="position:relative;display:inline-block">
+        <a href="#" onclick="event.preventDefault()" style="cursor:pointer">المزيد ▾</a>
+        <div class="dropdown">
+          <a href="index.html#categories" data-i18n="nav.categories">التصنيفات</a>
+          <a href="index.html#how" data-i18n="nav.how">كيف يعمل</a>
+          <a href="index.html#testimonials" data-i18n="nav.testimonials">آراء العملاء</a>
+          <a href="about.html" data-i18n="nav.about">من نحن</a>
+          <a href="faq.html">الأسئلة الشائعة</a>
+        </div>
+      </div>
       <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
     </div>
-    <div class="nav-right">
-      <div class="lang-switch" role="group" aria-label="Language">
-        <button type="button" data-lang="ar" class="active">AR</button>
-        <button type="button" data-lang="en">EN</button>
-      </div>
-    </div>
-    <button class="burger" aria-label="menu">☰</button>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="ar">AR</button>
+    <button class="lang-btn" data-lang="en">EN</button>
   </div>
 </nav>
 
@@ -720,7 +725,7 @@
     </div>
     <div class="footer-col">
       <h4>الدعم</h4>
-      <a href="faq.html" data-i18n="nav.faq">الأسئلة الشائعة</a>
+      <a href="faq.html">الأسئلة الشائعة</a>
       <a href="contact.html">اتصل بنا</a>
       <a href="terms.html">الشروط</a>
     </div>
@@ -739,8 +744,6 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="assets/supabase.js"></script>
 <script src="assets/back-to-top.js"></script>
-<script src="assets/back-button.js"></script>
-<script src="assets/newsletter.js"></script>
 
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
