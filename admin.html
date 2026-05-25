@@ -1115,6 +1115,11 @@
           <span>التعليقات</span>
           <span class="count" id="commentsAdminCount">0</span>
         </button>
+        <button class="admin-tab" data-section="newsletter">
+          <span>📧</span>
+          <span>المشتركين</span>
+          <span class="count" id="newsletterCount">0</span>
+        </button>
       </div>
 
       <!-- Dashboard section -->
@@ -1293,6 +1298,49 @@
           <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">💭</div>
           <h3 style="color:var(--ink);margin-bottom:.8rem">لا توجد تعليقات بعد</h3>
           <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ الزوّار بالتعليق على مقالاتك، ستظهر هنا للإدارة.</p>
+        </div>
+      </section>
+
+      <!-- Newsletter Section -->
+      <section id="section-newsletter" class="admin-section">
+        <div class="sec-head">
+          <h2>📧 إدارة المشتركين في النشرة البريدية</h2>
+          <button class="btn-secondary" onclick="exportSubscribers()" style="padding:.6rem 1.2rem">
+            <span>📥</span>
+            <span>تصدير CSV</span>
+          </button>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" style="margin-bottom:2rem">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-label">إجمالي المشتركين</div>
+            <div class="stat-value" id="totalSubscribers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📈</div>
+            <div class="stat-label">هذا الأسبوع</div>
+            <div class="stat-value" id="weekSubscribers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🌍</div>
+            <div class="stat-label">من الموقع</div>
+            <div class="stat-value" id="websiteSubscribers">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📱</div>
+            <div class="stat-label">من Popup</div>
+            <div class="stat-value" id="popupSubscribers">0</div>
+          </div>
+        </div>
+
+        <div id="subscribersList" style="display:grid;gap:.8rem"></div>
+
+        <div id="subscribersEmptyState" style="display:none;text-align:center;padding:4rem 2rem;background:rgba(245,239,227,.04);border:1px dashed var(--line);border-radius:18px;margin-top:2rem">
+          <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">📭</div>
+          <h3 style="color:var(--ink);margin-bottom:.8rem">لا يوجد مشتركين بعد</h3>
+          <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ الزوّار بالاشتراك، ستظهر إيميلاتهم هنا.</p>
         </div>
       </section>
 
@@ -2075,6 +2123,144 @@ function switchSection(name){
   if(name === 'comments'){
     loadAdminComments('all');
   }
+  // Load newsletter subscribers
+  if(name === 'newsletter'){
+    loadSubscribers();
+  }
+}
+
+/* ============================================================
+   NEWSLETTER MANAGEMENT
+   ============================================================ */
+let allSubscribers = [];
+
+async function loadSubscribers(){
+  try {
+    const { data, error } = await sb
+      .from('newsletter_subscribers')
+      .select('*')
+      .order('subscribed_at', { ascending: false });
+
+    if(error){
+      console.warn('Subscribers table not available:', error.message);
+      document.getElementById('subscribersList').style.display = 'none';
+      document.getElementById('subscribersEmptyState').style.display = 'block';
+      const empty = document.getElementById('subscribersEmptyState');
+      empty.innerHTML = `
+        <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">⚠️</div>
+        <h3 style="color:var(--gold);margin-bottom:.8rem">إنشاء جدول النشرة البريدية أولاً</h3>
+        <p style="color:var(--ink-mute);margin-bottom:1.5rem;line-height:1.7">
+          يجب تشغيل SQL في Supabase لإنشاء جدول newsletter_subscribers.
+        </p>
+      `;
+      return;
+    }
+
+    allSubscribers = data || [];
+
+    // Update stats
+    document.getElementById('newsletterCount').textContent = allSubscribers.length;
+    document.getElementById('totalSubscribers').textContent = allSubscribers.length;
+
+    const weekAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const recent = allSubscribers.filter(s => new Date(s.subscribed_at) > weekAgo);
+    document.getElementById('weekSubscribers').textContent = recent.length;
+
+    const fromWebsite = allSubscribers.filter(s => s.source === 'website' || s.source === 'footer').length;
+    document.getElementById('websiteSubscribers').textContent = fromWebsite;
+
+    const fromPopup = allSubscribers.filter(s => s.source === 'popup').length;
+    document.getElementById('popupSubscribers').textContent = fromPopup;
+
+    if(allSubscribers.length === 0){
+      document.getElementById('subscribersList').style.display = 'none';
+      document.getElementById('subscribersEmptyState').style.display = 'block';
+      return;
+    }
+
+    document.getElementById('subscribersList').style.display = 'grid';
+    document.getElementById('subscribersEmptyState').style.display = 'none';
+
+    renderSubscribers();
+
+  } catch(err) {
+    console.error('Error loading subscribers:', err);
+  }
+}
+
+function renderSubscribers(){
+  const list = document.getElementById('subscribersList');
+  list.innerHTML = allSubscribers.map(s => {
+    const date = new Date(s.subscribed_at).toLocaleDateString('ar-SA', {
+      year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+    });
+    const sourceLabels = {
+      'popup': '🎯 Popup',
+      'footer': '📍 Footer',
+      'website': '🌍 الموقع',
+      'manual': '✍️ يدوي'
+    };
+    const sourceLabel = sourceLabels[s.source] || s.source;
+
+    return `
+      <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:14px;padding:1.2rem;display:grid;grid-template-columns:1fr auto;gap:1rem;align-items:center">
+        <div>
+          <div style="display:flex;align-items:center;gap:.8rem;margin-bottom:.4rem;flex-wrap:wrap">
+            <span style="color:var(--gold);font-weight:600;font-size:1rem">${s.email}</span>
+            ${s.name ? `<span style="color:var(--ink-mute);font-size:.85rem">· ${escapeHtml(s.name)}</span>` : ''}
+            <span style="background:rgba(232,193,120,.1);color:var(--gold);padding:.2rem .6rem;border-radius:100px;font-size:.75rem">${sourceLabel}</span>
+            <span style="background:rgba(92,229,217,.1);color:var(--cyan);padding:.2rem .6rem;border-radius:100px;font-size:.75rem">${s.language === 'en' ? 'EN' : 'AR'}</span>
+          </div>
+          <div style="color:var(--ink-mute);font-size:.82rem">📅 ${date}</div>
+        </div>
+        <button onclick="deleteSubscriber('${s.id}')" style="padding:.5rem .9rem;background:rgba(255,99,99,.1);color:#ff6b6b;border:1px solid rgba(255,99,99,.25);border-radius:10px;cursor:pointer;font-size:.82rem;font-family:inherit">
+          🗑️ حذف
+        </button>
+      </div>
+    `;
+  }).join('');
+}
+
+async function deleteSubscriber(id){
+  if(!confirm('هل أنت متأكّد من حذف هذا المشترك؟')) return;
+  try {
+    const { error } = await sb.from('newsletter_subscribers').delete().eq('id', id);
+    if(error) throw error;
+    loadSubscribers();
+  } catch(err){
+    alert('فشل: ' + err.message);
+  }
+}
+
+function exportSubscribers(){
+  if(allSubscribers.length === 0){
+    alert('لا يوجد مشتركين للتصدير');
+    return;
+  }
+
+  // Build CSV
+  const headers = ['Email', 'Name', 'Source', 'Language', 'Subscribed At'];
+  const rows = allSubscribers.map(s => [
+    s.email,
+    s.name || '',
+    s.source || '',
+    s.language || 'ar',
+    s.subscribed_at
+  ]);
+
+  let csv = headers.join(',') + '\n';
+  csv += rows.map(row => row.map(v => `"${String(v).replace(/"/g, '""')}"`).join(',')).join('\n');
+
+  // Add BOM for Excel UTF-8 support
+  const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `chattlle-subscribers-${new Date().toISOString().split('T')[0]}.csv`;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
 }
 
 /* ============================================================
