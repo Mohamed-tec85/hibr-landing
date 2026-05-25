@@ -22,6 +22,9 @@ const I18N = {
     "nav.contact": "اتصل بنا",
     "nav.cta": "ابدأ الآن",
     "nav.cart": "السلة",
+    "nav.ai_tools": "🤖 أدوات AI",
+    "nav.more": "المزيد ▾",
+    "nav.faq": "الأسئلة الشائعة",
 
     // footer columns
     "footer.col.shop": "تسوّق",
@@ -409,6 +412,9 @@ const I18N = {
     "nav.contact": "Contact",
     "nav.cta": "Get Started",
     "nav.cart": "Cart",
+    "nav.ai_tools": "🤖 AI Tools",
+    "nav.more": "More ▾",
+    "nav.faq": "FAQ",
 
     "footer.col.shop": "Shop",
     "footer.col.company": "Company",
