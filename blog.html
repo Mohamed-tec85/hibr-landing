@@ -458,19 +458,24 @@
 
 <!-- Navigation -->
 <nav>
-  <div class="logo">
-    <div class="logo-dot"></div>
-    <span>Chattlle</span>
-  </div>
-  <div class="nav-links">
+  <div class="container nav-inner">
+    <a href="index.html" class="logo">
+      <span class="logo-dot"></span>
+      <span class="latin">Chattlle</span>
+    </a>
+    <div class="nav-links">
       <a href="index.html#products" data-i18n="nav.products">المنتجات</a>
       <a href="ai-tools.html" data-i18n="nav.ai_tools">🤖 أدوات AI</a>
-      <a href="blog.html" data-i18n="nav.blog">المدوّنة</a>
-            <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
+      <a href="blog.html" class="active" data-i18n="nav.blog">المدوّنة</a>
+      <a href="contact.html" data-i18n="nav.contact">اتصل بنا</a>
     </div>
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="ar">AR</button>
-    <button class="lang-btn" data-lang="en">EN</button>
+    <div class="nav-right">
+      <div class="lang-switch" role="group" aria-label="Language">
+        <button type="button" data-lang="ar" class="active">AR</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+    </div>
+    <button class="burger" aria-label="menu">☰</button>
   </div>
 </nav>
 
