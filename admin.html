@@ -1120,6 +1120,10 @@
           <span>المشتركين</span>
           <span class="count" id="newsletterCount">0</span>
         </button>
+        <button class="admin-tab" data-section="indexnow">
+          <span>⚡</span>
+          <span>IndexNow</span>
+        </button>
       </div>
 
       <!-- Dashboard section -->
@@ -1341,6 +1345,74 @@
           <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">📭</div>
           <h3 style="color:var(--ink);margin-bottom:.8rem">لا يوجد مشتركين بعد</h3>
           <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ الزوّار بالاشتراك، ستظهر إيميلاتهم هنا.</p>
+        </div>
+      </section>
+
+      <!-- IndexNow Section -->
+      <section id="section-indexnow" class="admin-section">
+        <div class="sec-head">
+          <h2>⚡ IndexNow - الفهرسة الفورية</h2>
+          <button class="btn-secondary" onclick="indexNowSubmitAll()" style="padding:.6rem 1.2rem">
+            <span>🚀</span>
+            <span>إرسال كل الصفحات الآن</span>
+          </button>
+        </div>
+
+        <!-- Info Banner -->
+        <div style="background:linear-gradient(135deg,rgba(232,193,120,.1),rgba(123,63,255,.05));border:1px solid rgba(232,193,120,.2);border-radius:14px;padding:1.5rem;margin-bottom:2rem">
+          <h3 style="color:var(--gold);margin:0 0 .8rem">💡 ما هو IndexNow؟</h3>
+          <p style="color:var(--ink-mute);line-height:1.8;margin:0">
+            IndexNow بروتوكول حديث يُخبر <strong style="color:var(--ink)">Bing</strong> و<strong style="color:var(--ink)">Yandex</strong> فورًا عند نشر/تعديل أيّ مقالة، بدلاً من الانتظار أسابيع للفهرسة.
+            <br><br>
+            ✅ <strong>تلقائي عند نشر المقالات</strong> - لا تحتاج فعل شيء<br>
+            ✅ <strong>فهرسة في دقائق</strong> بدل أسابيع<br>
+            ✅ <strong>يصل لـ ChatGPT Search</strong> (يستخدم Bing)<br>
+            ✅ <strong>مجاني تمامًا</strong>
+          </p>
+        </div>
+
+        <!-- Stats -->
+        <div class="stats-grid" style="margin-bottom:2rem">
+          <div class="stat-card">
+            <div class="stat-icon">📤</div>
+            <div class="stat-label">إجمالي الإرسالات</div>
+            <div class="stat-value" id="inStatTotal">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏰</div>
+            <div class="stat-label">آخر 24 ساعة</div>
+            <div class="stat-value" id="inStat24h">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📅</div>
+            <div class="stat-label">آخر 7 أيام</div>
+            <div class="stat-value" id="inStat7d">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-label">نجح</div>
+            <div class="stat-value" id="inStatSuccess">0</div>
+          </div>
+        </div>
+
+        <!-- Manual Submit -->
+        <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:14px;padding:1.5rem;margin-bottom:2rem">
+          <h3 style="color:var(--ink);margin:0 0 1rem">✋ إرسال URL يدويًا</h3>
+          <textarea id="manualUrls" placeholder="https://chattlle.com/blog-post.html?slug=example
+https://chattlle.com/product.html?id=1
+(رابط واحد في كل سطر)" rows="4" style="width:100%;padding:.9rem;background:rgba(10,6,19,.5);border:1px solid var(--line);border-radius:10px;color:var(--ink);font-family:inherit;font-size:.9rem;resize:vertical;box-sizing:border-box"></textarea>
+          <button onclick="indexNowSubmitManual()" class="btn-primary" style="margin-top:1rem;padding:.7rem 1.4rem">
+            <span>📤</span>
+            <span>إرسال للفهرسة</span>
+          </button>
+        </div>
+
+        <!-- Log -->
+        <h3 style="color:var(--ink);margin:0 0 1rem">📋 سجلّ الإرسالات</h3>
+        <div id="indexnowLog" style="display:grid;gap:.6rem"></div>
+        <div id="indexnowEmpty" style="display:none;text-align:center;padding:3rem 1rem;background:rgba(245,239,227,.04);border:1px dashed var(--line);border-radius:14px">
+          <div style="font-size:3rem;margin-bottom:.8rem;opacity:.4">📡</div>
+          <p style="color:var(--ink-mute)">لم يتم إرسال أيّ URL بعد. ابدأ بنشر مقالة أو اضغط "إرسال كل الصفحات الآن"</p>
         </div>
       </section>
 
@@ -2127,6 +2199,134 @@ function switchSection(name){
   if(name === 'newsletter'){
     loadSubscribers();
   }
+  // Load IndexNow log
+  if(name === 'indexnow'){
+    loadIndexNow();
+  }
+}
+
+/* ============================================================
+   INDEXNOW MANAGEMENT
+   ============================================================ */
+function loadIndexNow(){
+  if (!window.indexNow) {
+    console.warn('IndexNow not loaded yet');
+    return;
+  }
+
+  const stats = window.indexNow.getStats();
+  const log = window.indexNow.getLog();
+
+  // Update stats
+  document.getElementById('inStatTotal').textContent = stats.totalUrls;
+  document.getElementById('inStat24h').textContent = stats.urls24h;
+  document.getElementById('inStat7d').textContent = stats.urls7d;
+  document.getElementById('inStatSuccess').textContent = stats.successCount;
+
+  // Render log
+  const logEl = document.getElementById('indexnowLog');
+  const emptyEl = document.getElementById('indexnowEmpty');
+
+  if (log.length === 0){
+    logEl.style.display = 'none';
+    emptyEl.style.display = 'block';
+    return;
+  }
+
+  logEl.style.display = 'grid';
+  emptyEl.style.display = 'none';
+
+  logEl.innerHTML = log.slice(0, 20).map(entry => {
+    const date = new Date(entry.timestamp).toLocaleString('ar-SA');
+    const success = entry.result?.success;
+    const submitted = entry.result?.submitted || 0;
+    const total = entry.result?.total || entry.urls?.length || 0;
+
+    return `
+      <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:12px;padding:1rem;display:grid;grid-template-columns:auto 1fr auto;gap:1rem;align-items:center">
+        <div style="font-size:1.8rem">${success ? '✅' : '❌'}</div>
+        <div>
+          <div style="color:var(--ink);font-weight:600;margin-bottom:.3rem">
+            ${submitted}/${total} URL مُرسل
+          </div>
+          <div style="color:var(--ink-mute);font-size:.85rem">
+            ${entry.urls.slice(0, 2).map(u => u.replace('https://chattlle.com', '')).join(' · ')}${entry.urls.length > 2 ? ` (+${entry.urls.length - 2} المزيد)` : ''}
+          </div>
+        </div>
+        <div style="color:var(--ink-mute);font-size:.8rem;text-align:end">${date}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+async function indexNowSubmitAll(){
+  if (!window.indexNow){
+    alert('IndexNow لم يُحمّل بعد. أعد تحميل الصفحة.');
+    return;
+  }
+
+  if (!confirm('سيتم إرسال كل صفحات الموقع لفهرستها في Bing. متابعة؟')) return;
+
+  // Get all main URLs + all blog posts
+  const mainUrls = [
+    'https://chattlle.com/',
+    'https://chattlle.com/ai-tools.html',
+    'https://chattlle.com/blog.html',
+    'https://chattlle.com/about.html',
+    'https://chattlle.com/contact.html',
+    'https://chattlle.com/faq.html',
+    'https://chattlle.com/product.html'
+  ];
+
+  // Add blog posts
+  try {
+    const { data: posts } = await sb
+      .from('blog_posts')
+      .select('slug')
+      .eq('published', true);
+
+    if (posts){
+      posts.forEach(p => {
+        mainUrls.push(`https://chattlle.com/blog-post.html?slug=${p.slug}`);
+      });
+    }
+  } catch(e){ console.warn('Could not load blog posts:', e); }
+
+  // Submit
+  const result = await window.indexNow.submit(mainUrls);
+
+  if (result.success){
+    alert(`✅ تم إرسال ${result.submitted} URL بنجاح لـ Bing!`);
+  } else {
+    alert(`⚠️ ${result.error || result.message || 'فشل الإرسال'}`);
+  }
+
+  loadIndexNow();
+}
+
+async function indexNowSubmitManual(){
+  const text = document.getElementById('manualUrls').value.trim();
+  if (!text){
+    alert('يرجى إدخال URL واحد على الأقل');
+    return;
+  }
+
+  const urls = text.split('\n').map(u => u.trim()).filter(u => u);
+  if (urls.length === 0){
+    alert('لم يتم العثور على URLs صالحة');
+    return;
+  }
+
+  const result = await window.indexNow.submit(urls);
+
+  if (result.success){
+    alert(`✅ تم إرسال ${result.submitted}/${result.total} URL بنجاح!`);
+    document.getElementById('manualUrls').value = '';
+  } else {
+    alert(`⚠️ ${result.error || result.message || 'فشل الإرسال'}`);
+  }
+
+  loadIndexNow();
 }
 
 /* ============================================================
@@ -2937,6 +3137,19 @@ async function saveBlogPost(){
     if(result.error) throw result.error;
 
     alert(editingBlogPostId ? '✓ تم تحديث المقالة' : '✓ تم نشر المقالة');
+
+    // 🔔 Notify IndexNow (Bing + Yandex) automatically
+    if (window.indexNow && postData.slug) {
+      try {
+        const postUrl = `https://chattlle.com/blog-post.html?slug=${postData.slug}`;
+        const blogListUrl = 'https://chattlle.com/blog.html';
+        const result = await window.indexNow.submit([postUrl, blogListUrl]);
+        console.log('IndexNow notified:', result);
+      } catch (e) {
+        console.log('IndexNow notification failed (non-critical):', e);
+      }
+    }
+
     closeBlogModal();
     loadBlogPosts();
   } catch(err){
@@ -3695,6 +3908,9 @@ document.addEventListener('langChanged', () => {
   }
 });
 </script>
+
+<!-- IndexNow Auto-Submit -->
+<script src="assets/indexnow.js"></script>
 
 </body>
 </html>
