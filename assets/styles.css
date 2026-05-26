@@ -869,33 +869,30 @@ html[lang="ar"] .back-link:hover .back-icon{ transform: scaleX(-1) translateX(-3
   }
 }
 /* ═══════════════════════════════════════════════════════════
-   🎨 CHATTLLE Brand Logo — v23.1 (FIX)
-   نسخة آمنة لا تكسر أي عنصر في الموقع
+   🎨 CHATTLLE Brand Logo — v23.2 (FINAL FIX)
+   تضيء فقط — لا تُعتم الخلفية البنفسجية
    ═══════════════════════════════════════════════════════════ */
 
-/* ---------- علامة مائية ذهبية خفيفة في الخلفية ---------- */
 body::before {
   content: "";
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   z-index: 0;
   pointer-events: none;
   background-image: url('/assets/chattlle-logo-full.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: min(65vw, 820px) auto;
-  opacity: 0.06;
+  opacity: 0.08;
+  mix-blend-mode: screen;
 }
 
-/* الاستجابة على الجوال والتابلت */
+/* الاستجابة */
 @media (max-width: 1024px) {
-  body::before { background-size: min(75vw, 640px) auto; opacity: 0.05; }
+  body::before { background-size: min(75vw, 640px) auto; opacity: 0.07; }
 }
 @media (max-width: 640px) {
-  body::before { background-size: 88vw auto; opacity: 0.04; }
+  body::before { background-size: 88vw auto; opacity: 0.06; }
 }
 
-/* ═══════════ نهاية v23.1 ═══════════ */
+/* ═══════════ نهاية v23.2 ═══════════ */
