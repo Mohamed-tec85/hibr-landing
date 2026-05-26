@@ -868,18 +868,19 @@ html[lang="ar"] .back-link:hover .back-icon{ transform: scaleX(-1) translateX(-3
     height: 46px;
   }
 }
-
-
 /* ═══════════════════════════════════════════════════════════
-   🎨 CHATTLLE Brand Logo — v23
-   انسخ هذا الكود كاملاً والصقه في نهاية ملف assets/styles.css
+   🎨 CHATTLLE Brand Logo — v23.1 (FIX)
+   نسخة آمنة لا تكسر أي عنصر في الموقع
    ═══════════════════════════════════════════════════════════ */
 
-/* ---------- 1. علامة مائية ذهبية في خلفية كل الصفحات ---------- */
+/* ---------- علامة مائية ذهبية خفيفة في الخلفية ---------- */
 body::before {
   content: "";
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 0;
   pointer-events: none;
   background-image: url('/assets/chattlle-logo-full.png');
@@ -887,91 +888,14 @@ body::before {
   background-position: center center;
   background-size: min(65vw, 820px) auto;
   opacity: 0.06;
-  filter: drop-shadow(0 0 60px rgba(232, 193, 120, 0.25));
-  mix-blend-mode: screen;
 }
 
-body > *:not(script):not(style) {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---------- 2. المونوغرام بجانب Chattlle في الهيدر ---------- */
-header a[href="/"],
-header a[href="./"],
-header a[href="index.html"],
-header a[href="/index.html"],
-header a[href="https://chattlle.com/"],
-header a[href="https://chattlle.com"],
-.brand-logo, .navbar-brand, .site-logo, .logo, a.logo, .brand {
-  display: inline-flex !important;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-}
-
-header a[href="/"]::before,
-header a[href="./"]::before,
-header a[href="index.html"]::before,
-header a[href="/index.html"]::before,
-header a[href="https://chattlle.com/"]::before,
-header a[href="https://chattlle.com"]::before,
-.brand-logo::before, .navbar-brand::before, .site-logo::before,
-.logo::before, a.logo::before, .brand::before {
-  content: "";
-  display: inline-block;
-  width: 32px;
-  height: 26px;
-  background-image: url('/assets/chattlle-monogram.png');
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
-  flex-shrink: 0;
-  filter: drop-shadow(0 1px 4px rgba(232, 193, 120, 0.5));
-  vertical-align: middle;
-}
-
-/* إخفاء النقطة الذهبية الحالية تلقائياً */
-.brand-logo > .dot,
-.brand-logo > .gold-dot,
-header .logo-dot,
-header .brand-dot { display: none !important; }
-
-/* ---------- 3. الاستجابة الكاملة (Mobile + Tablet + Desktop) ---------- */
+/* الاستجابة على الجوال والتابلت */
 @media (max-width: 1024px) {
   body::before { background-size: min(75vw, 640px) auto; opacity: 0.05; }
-  header a[href="/"]::before,
-  .brand-logo::before, .navbar-brand::before, .site-logo::before,
-  .logo::before, .brand::before { width: 28px; height: 23px; }
 }
-
 @media (max-width: 640px) {
   body::before { background-size: 88vw auto; opacity: 0.04; }
-  header a[href="/"]::before,
-  .brand-logo::before, .navbar-brand::before, .site-logo::before,
-  .logo::before, .brand::before { width: 24px; height: 20px; }
 }
 
-@media (max-width: 380px) {
-  header a[href="/"]::before,
-  .brand-logo::before, .navbar-brand::before, .site-logo::before,
-  .logo::before, .brand::before { width: 22px; height: 18px; }
-}
-
-/* دعم RTL — ترتيب المونوغرام يمين النص */
-html[lang="ar"] header a[href="/"],
-html[lang="ar"] .brand-logo,
-html[lang="ar"] .navbar-brand,
-html[lang="ar"] .site-logo,
-html[lang="ar"] .logo,
-html[lang="ar"] .brand,
-[dir="rtl"] header a[href="/"],
-[dir="rtl"] .brand-logo,
-[dir="rtl"] .navbar-brand,
-[dir="rtl"] .site-logo,
-[dir="rtl"] .logo,
-[dir="rtl"] .brand {
-  flex-direction: row-reverse;
-}
-
-/* ═══════════ نهاية v23: Brand Logo ═══════════ */
+/* ═══════════ نهاية v23.1 ═══════════ */
