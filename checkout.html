@@ -499,6 +499,10 @@ function renderCheckout(){
           <span>${getText('cart.vat', lang)}</span>
           <span class="amt">${formatPrice(vat.toFixed(2), lang)}</span>
         </div>
+        ${getCartDiscount() > 0 ? `<div class="summary-row" style="color:var(--gold)">
+          <span>${lang==='ar'?'الخصم':'Discount'}</span>
+          <span class="amt">− ${formatPrice(getCartDiscount().toFixed(2), lang)}</span>
+        </div>` : ''}
         <div class="summary-row total">
           <span>${getText('cart.total', lang)}</span>
           <span class="amt">${formatPrice(total.toFixed(2), lang)}</span>
