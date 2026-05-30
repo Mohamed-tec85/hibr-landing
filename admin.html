@@ -1120,6 +1120,10 @@
   <span>التقييمات</span>
   <span class="count" id="reviewsAdminCount">0</span>
 </button>
+        <button class="admin-tab" data-section="coupons">
+  <span>🏷️</span>
+  <span>الكوبونات</span>
+</button>
         <button class="admin-tab" data-section="newsletter">
           <span>📧</span>
           <span>المشتركين</span>
@@ -1323,6 +1327,43 @@
     <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">⭐</div>
     <h3 style="color:var(--ink);margin-bottom:.8rem">لا توجد تقييمات بعد</h3>
     <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ العملاء بتقييم منتجاتك، ستظهر هنا للإدارة.</p>
+  </div>
+</section>
+      <section id="section-coupons" class="admin-section">
+  <div class="sec-head"><h2>🏷️ كوبونات الخصم</h2></div>
+  <div style="background:rgba(245,239,227,.04);border:1px solid var(--line);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem">
+      <div>
+        <label style="display:block;color:var(--ink-mute);font-size:.85rem;margin-bottom:.4rem">الكود</label>
+        <input id="cpCode" placeholder="WELCOME50" style="width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:.7rem;color:var(--ink);font-family:inherit">
+      </div>
+      <div>
+        <label style="display:block;color:var(--ink-mute);font-size:.85rem;margin-bottom:.4rem">النوع</label>
+        <select id="cpType" style="width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:.7rem;color:var(--ink);font-family:inherit">
+          <option value="fixed">مبلغ ثابت (ر.س)</option>
+          <option value="percent">نسبة مئوية (%)</option>
+        </select>
+      </div>
+      <div>
+        <label style="display:block;color:var(--ink-mute);font-size:.85rem;margin-bottom:.4rem">القيمة</label>
+        <input id="cpValue" type="number" min="1" placeholder="50" style="width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:.7rem;color:var(--ink);font-family:inherit">
+      </div>
+      <div>
+        <label style="display:block;color:var(--ink-mute);font-size:.85rem;margin-bottom:.4rem">حد أدنى للطلب (اختياري)</label>
+        <input id="cpMin" type="number" min="0" value="0" style="width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:.7rem;color:var(--ink);font-family:inherit">
+      </div>
+      <div>
+        <label style="display:block;color:var(--ink-mute);font-size:.85rem;margin-bottom:.4rem">صالح كم يوم؟ (فارغ = دائم)</label>
+        <input id="cpDays" type="number" min="1" placeholder="30" style="width:100%;background:rgba(0,0,0,.25);border:1px solid var(--line);border-radius:10px;padding:.7rem;color:var(--ink);font-family:inherit">
+      </div>
+    </div>
+    <button class="btn-primary" id="cpCreateBtn" style="margin-top:1.2rem">➕ إنشاء كوبون</button>
+  </div>
+  <div id="couponsList" style="display:grid;gap:1rem"></div>
+  <div id="couponsEmpty" style="display:none;text-align:center;padding:4rem 2rem;background:rgba(245,239,227,.04);border:1px dashed var(--line);border-radius:18px">
+    <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">🏷️</div>
+    <h3 style="color:var(--ink);margin-bottom:.8rem">لا توجد كوبونات بعد</h3>
+    <p style="color:var(--ink-mute)">أنشئ أوّل كوبون من النموذج بالأعلى.</p>
   </div>
 </section>
       <!-- Newsletter Section -->
@@ -3932,5 +3973,6 @@ document.addEventListener('langChanged', () => {
 <!-- IndexNow Auto-Submit -->
 <script src="assets/indexnow.js"></script>
 <script src="assets/admin-reviews.js"></script>
+<script src="assets/admin-coupons.js"></script> 
 </body>
 </html>
