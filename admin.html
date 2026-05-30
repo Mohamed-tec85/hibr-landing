@@ -1115,6 +1115,11 @@
           <span>التعليقات</span>
           <span class="count" id="commentsAdminCount">0</span>
         </button>
+        <button class="admin-tab" data-section="reviews">
+  <span>⭐</span>
+  <span>التقييمات</span>
+  <span class="count" id="reviewsAdminCount">0</span>
+</button>
         <button class="admin-tab" data-section="newsletter">
           <span>📧</span>
           <span>المشتركين</span>
@@ -1304,7 +1309,22 @@
           <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ الزوّار بالتعليق على مقالاتك، ستظهر هنا للإدارة.</p>
         </div>
       </section>
-
+<section id="section-reviews" class="admin-section">
+  <div class="sec-head">
+    <h2>⭐ إدارة التقييمات</h2>
+    <div style="display:flex;gap:.5rem">
+      <button class="btn-secondary" onclick="loadAdminReviews('all')" style="padding:.5rem 1rem">الكل</button>
+      <button class="btn-secondary" onclick="loadAdminReviews('approved')" style="padding:.5rem 1rem">منشورة</button>
+      <button class="btn-secondary" onclick="loadAdminReviews('pending')" style="padding:.5rem 1rem">قيد المراجعة</button>
+    </div>
+  </div>
+  <div id="adminReviewsList" style="display:grid;gap:1rem"></div>
+  <div id="reviewsEmptyState" style="display:none;text-align:center;padding:4rem 2rem;background:rgba(245,239,227,.04);border:1px dashed var(--line);border-radius:18px;margin-top:2rem">
+    <div style="font-size:4rem;margin-bottom:1rem;opacity:.4">⭐</div>
+    <h3 style="color:var(--ink);margin-bottom:.8rem">لا توجد تقييمات بعد</h3>
+    <p style="color:var(--ink-mute);line-height:1.7">عندما يبدأ العملاء بتقييم منتجاتك، ستظهر هنا للإدارة.</p>
+  </div>
+</section>
       <!-- Newsletter Section -->
       <section id="section-newsletter" class="admin-section">
         <div class="sec-head">
@@ -3911,6 +3931,6 @@ document.addEventListener('langChanged', () => {
 
 <!-- IndexNow Auto-Submit -->
 <script src="assets/indexnow.js"></script>
-
+<script src="assets/admin-reviews.js"></script>
 </body>
 </html>
