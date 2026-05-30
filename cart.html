@@ -534,9 +534,7 @@ function renderCart(){
     clearCart();
     renderCart();
   });
-  const couponBtn = document.getElementById('applyCouponBtn');
-  if(couponBtn) couponBtn.addEventListener('click', () => {
-    showToast(lang === 'ar' ? 'كود الخصم غير صالح' : 'Invalid coupon code', '✕');
+  wireCoupon(lang);
   });
 }
 
