@@ -571,11 +571,7 @@ function renderProduct(){
             <div class="category-tag">${getText('cat.' + product.category, lang)}</div>
             <h1>${t.title}</h1>
 
-            <div class="rating-row">
-              <span class="stars">${renderStars(product.rating)}</span>
-              <span class="rating-num">${product.rating}</span>
-              <span>(${product.reviews} ${getText('product.reviews', lang)})</span>
-            </div>
+            <div class="rating-row" id="chRatingRow"></div>
 
             <div class="price-block">
               ${priceHtml}
