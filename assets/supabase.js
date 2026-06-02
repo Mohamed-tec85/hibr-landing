@@ -30,6 +30,7 @@ function mapProduct(row){
     rating: parseFloat(row.rating) || 5.0,
     reviews: row.reviews_count || 0,
     imageUrl: row.image_url || null,
+    previewImages: Array.isArray(row.preview_images) ? row.preview_images : [],
     fileUrl: row.file_url || null,
     isActive: row.is_active !== false,
     displayOrder: row.display_order || 0,
