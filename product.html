@@ -665,7 +665,19 @@ function renderProduct(){
             </div>
           </div>
         </div>
-
+${ (product.previewImages && product.previewImages.length) ? `
+        <div class="product-previews" style="margin-top:4rem">
+          <div class="section-head">
+            <h2 class="display">${lang === 'ar' ? 'نماذج من المحتوى' : 'Content Preview'}</h2>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem;margin-top:1.3rem">
+            ${product.previewImages.map(u => `
+              <a href="${u}" target="_blank" rel="noopener" style="display:block;border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#0f0a1c">
+                <img src="${u}" alt="${lang === 'ar' ? 'معاينة المحتوى' : 'Content preview'}" loading="lazy" style="width:100%;height:auto;display:block">
+              </a>
+            `).join('')}
+          </div>
+        </div>` : '' }
         <div style="margin-top:6rem">
           <div class="section-head">
             <h2 class="display">${getText('product.related', lang)}</h2>
