@@ -7,7 +7,7 @@
      always pass through to the network.
    Bump CACHE_VERSION whenever you want to force a refresh of caches.
    ============================================================ */
-const CACHE_VERSION = "chattlle-v1";
+const CACHE_VERSION = "chattlle-v2";
 const CORE = [
   "/",
   "/index.html",
