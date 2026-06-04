@@ -200,3 +200,34 @@
   if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initPromoBar);
   else initPromoBar();
 })();
+
+/* ============================================================
+   Chattlle — PWA bootstrap (added)
+   Injects manifest + theme-color + apple icon, registers SW.
+   Works site-wide because this file loads on every page.
+   ============================================================ */
+(function () {
+  try {
+    if (!document.querySelector('link[rel="manifest"]')) {
+      var l = document.createElement('link');
+      l.rel = 'manifest'; l.href = '/manifest.json';
+      document.head.appendChild(l);
+    }
+    if (!document.querySelector('meta[name="theme-color"]')) {
+      var m = document.createElement('meta');
+      m.name = 'theme-color'; m.content = '#0a0613';
+      document.head.appendChild(m);
+    }
+    if (!document.querySelector('link[rel="apple-touch-icon"]')) {
+      var a = document.createElement('link');
+      a.rel = 'apple-touch-icon'; a.href = '/apple-touch-icon.png';
+      document.head.appendChild(a);
+    }
+  } catch (e) {}
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+      navigator.serviceWorker.register('/sw.js').catch(function () {});
+    });
+  }
+})();
